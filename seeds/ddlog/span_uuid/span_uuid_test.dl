@@ -1,0 +1,43 @@
+
+
+typedef uuid_t = Ref<bit<128>>
+
+/* entity id */
+typedef entid_t = uuid_t
+
+/* transport node id */
+typedef tnid_t = uuid_t
+
+input relation FWRule(id: entid_t)
+input relation Container(id: entid_t)
+
+input relation Binding(entity: entid_t, tn: tnid_t)
+
+input relation Dependency(parent: entid_t, child: entid_t)
+input relation Source(parent: entid_t, child: entid_t)
+
+relation Span(entity: uuid_t, tn: tnid_t)
+
+Span(entity, tn) :- Binding(entity, tn).
+
+Span(parent, tn) :- Dependency(parent, child),
+                    Span(child, tn).
+
+output relation RuleSpan(entity: uuid_t, tn: tnid_t)
+
+RuleSpan(entity, tn) :-
+    Span(entity, tn),
+    FWRule(entity).
+
+relation SourceSpan(entity: uuid_t, tn: tnid_t)
+
+SourceSpan(parent, tn) :- RuleSpan(child, tn), Source(parent, child).
+SourceSpan(parent, tn) :- SourceSpan(child, tn/*, explanation*/), Source(parent, child).
+
+output relation ContainerSpan(entity: uuid_t, tn: tnid_t)
+
+ContainerSpan(entity, tn) :-
+    SourceSpan(entity, tn),
+    Container(entity).
+
+

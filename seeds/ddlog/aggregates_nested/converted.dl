@@ -1,0 +1,151 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation RInitialStock(_product:Tsymbol, _qty:Tnumber)
+relation RSales(_product:Tsymbol, _month:Tnumber, _qty:Tnumber)
+output relation RProductHalfGoneBy(_product:Tsymbol, _month:Tnumber)
+relation Rinject(_a:Tsymbol, _b:Tsymbol, _c:Tsymbol)
+Rinject(_a, _b, _c) :- RInitialStock(_a, _), RSales(_b, _, _), RProductHalfGoneBy(_c, _).
+RInitialStock(string_intern("iPhone X"), (500)).
+RInitialStock(string_intern("Samsung Galaxy S8"), (700)).
+RSales(string_intern("iPhone X"), (1), (50)).
+RSales(string_intern("Samsung Galaxy S8"), (1), (100)).
+RSales(string_intern("iPhone X"), (2), (50)).
+RSales(string_intern("Samsung Galaxy S8"), (2), (100)).
+RSales(string_intern("iPhone X"), (3), (50)).
+RSales(string_intern("Samsung Galaxy S8"), (3), (100)).
+RSales(string_intern("iPhone X"), (4), (50)).
+RSales(string_intern("Samsung Galaxy S8"), (4), (100)).
+RSales(string_intern("iPhone X"), (5), (50)).
+RSales(string_intern("Samsung Galaxy S8"), (5), (100)).
+RSales(string_intern("iPhone X"), (6), (50)).
+RSales(string_intern("Samsung Galaxy S8"), (6), (100)).
+RProductHalfGoneBy(_product, _month) :- RInitialStock(_product, _initialStock), Ragg(_initialStock, _month).
+relation Ragg_0(_candidateMonth:Tnumber, _totalSales:Tnumber)
+Ragg_0(_candidateMonth, _totalSales) :- tpl in RSales(_product, _m, _sales), (_m <= _candidateMonth), var _totalSales = ((tpl), _sales).group_by((_candidateMonth)).souffle_group_sum().
+relation Ragg(_initialStock:Tnumber, _month:Tnumber)
+Ragg(_initialStock, _month) :- tpl_0 in RSales(_, _candidateMonth, _), Ragg_0(_candidateMonth, _totalSales), (((2) * _totalSales) >= _initialStock), var _month = ((tpl_0), _candidateMonth).group_by((_initialStock)).souffle_group_min().
+
+relation RClass(_student:Tsymbol, _class:Tsymbol)
+relation RHeight(_student:Tsymbol, _height:Tfloat)
+output relation RShortestClass(_class:Tsymbol)
+output relation RAvgHeightPerClass(_class:Tsymbol, _avgHeight:Tfloat)
+relation Rinject2(_a:Tsymbol, _b:Tsymbol, _c:Tsymbol, _d:Tsymbol)
+Rinject2(_a, _b, _c, _d) :- RClass(_a, _), RHeight(_b, _), RShortestClass(_c), RAvgHeightPerClass(_d, _).
+RClass(string_intern("Jane"), string_intern("French")).
+RClass(string_intern("Jay"), string_intern("French")).
+RClass(string_intern("Rob"), string_intern("Spanish")).
+RClass(string_intern("Reece"), string_intern("Spanish")).
+RHeight(string_intern("Jane"), (156)).
+RHeight(string_intern("Jay"), (150)).
+RHeight(string_intern("Rob"), (180)).
+RHeight(string_intern("Reece"), (195)).
+RShortestClass(_class) :- RClass(_, _class), Ragg_1(_n), Ragg_3(_class, tmp), tmp == _n.
+relation Ragg_2(_c:Tsymbol, _avgHeight:Tfloat)
+Ragg_2(_c, _avgHeight) :- tpl_1 in RClass(_p, _c), tpl_2 in RHeight(_p, _height), var _avgHeight = ((tpl_1,tpl_2), _height).group_by((_c)).souffle_group_mean_d().
+relation Ragg_1(_n:Tfloat)
+Ragg_1(_n) :- tpl_3 in RClass(_, _c), Ragg_2(_c, _avgHeight), var _n = ((tpl_3), _avgHeight).group_by(()).souffle_group_min().
+relation Ragg_3(_class:Tsymbol, tmp:Tfloat)
+Ragg_3(_class, tmp) :- tpl_4 in RClass(_p, _class), tpl_5 in RHeight(_p, _h), var tmp = ((tpl_4,tpl_5), _h).group_by((_class)).souffle_group_mean_d().
+
+RAvgHeightPerClass(_class, _avgHeight) :- RClass(_, _class), Ragg_4(_class, _avgHeight).
+relation Ragg_4(_class:Tsymbol, _avgHeight:Tfloat)
+Ragg_4(_class, _avgHeight) :- tpl_6 in RHeight(_p, _height), tpl_7 in RClass(_p, _class), var _avgHeight = ((tpl_6,tpl_7), _height).group_by((_class)).souffle_group_mean_d().
+
+relation RPerson(_p:Tsymbol)
+relation RFriends(_p:Tsymbol, _o:Tsymbol)
+output relation RNumFriends(_person:Tsymbol, _numFriends:Tnumber)
+output relation RAverageNumberOfFriends(_x:Tnumber)
+output relation RMostPopular(_person:Tsymbol, _numFriends:Tnumber)
+relation Rinject3(_a:Tsymbol, _b:Tsymbol)
+Rinject3(_a, _b) :- RNumFriends(_a, _), RAverageNumberOfFriends(_w), RMostPopular(_b, _).
+RPerson(string_intern("Jane")).
+RPerson(string_intern("Joseph")).
+RPerson(string_intern("Tamara")).
+RPerson(string_intern("Alex")).
+RFriends(string_intern("Jane"), string_intern("Tamara")).
+RFriends(string_intern("Joseph"), string_intern("Alex")).
+RFriends(string_intern("Tamara"), string_intern("Alex")).
+RFriends(string_intern("Tamara"), string_intern("Joseph")).
+RFriends(_x, _y) :- RFriends(_y, _x).
+RAverageNumberOfFriends(_x) :- Ragg_5(_s), Ragg_7(_c), var _x = (_s / _c).
+relation Ragg_6(_person:Tsymbol, _numFriends:Tnumber)
+Ragg_6(_person, _numFriends) :- tpl_8 in RFriends(_, _person), var _numFriends = ((tpl_8)).group_by((_person)).souffle_group_count32().
+relation Ragg_5(_s:Tnumber)
+Ragg_5(_s) :- tpl_9 in RPerson(_person), Ragg_6(_person, _numFriends), var _s = ((tpl_9), _numFriends).group_by(()).souffle_group_sum().
+relation Ragg_7(_c:Tnumber)
+Ragg_7(_c) :- tpl_10 in RPerson(_), var _c = ((tpl_10)).group_by(()).souffle_group_count32().
+
+RNumFriends(_person, _numFriends) :- RPerson(_person), Ragg_8(_person, _numFriends).
+relation Ragg_8(_person:Tsymbol, _numFriends:Tnumber)
+Ragg_8(_person, _numFriends) :- tpl_11 in RFriends(_, _person), var _numFriends = ((tpl_11)).group_by((_person)).souffle_group_count32().
+
+RMostPopular(_person, _numFriends) :- Ragg_9(_numFriends), RPerson(_person), Ragg_11(_person, tmp_0), tmp_0 == _numFriends.
+relation Ragg_10(_p:Tsymbol, _n:Tnumber)
+Ragg_10(_p, _n) :- tpl_12 in RFriends(_, _p), var _n = ((tpl_12)).group_by((_p)).souffle_group_count32().
+relation Ragg_9(_numFriends:Tnumber)
+Ragg_9(_numFriends) :- tpl_13 in RPerson(_p), Ragg_10(_p, _n), var _numFriends = ((tpl_13), _n).group_by(()).souffle_group_max().
+relation Ragg_11(_person:Tsymbol, tmp_0:Tnumber)
+Ragg_11(_person, tmp_0) :- tpl_14 in RFriends(_, _person), var tmp_0 = ((tpl_14)).group_by((_person)).souffle_group_count32().
+
+relation RSalary(_employee:Tsymbol, _amount:Tfloat)
+relation RWorksForDepartment(_employee:Tsymbol, _department:Tsymbol)
+output relation RAverageSalaryPerDepartment(_dept:Tsymbol, _sal:Tfloat)
+output relation RAvgWorkersPerDepartment(_avg:Tnumber)
+relation RDepartment(_dept:Tsymbol)
+output relation RNumWorkersPerDepartment(_dept:Tsymbol, _n:Tnumber)
+relation Rinject4(_a:Tsymbol, _b:Tsymbol, _c:Tsymbol)
+Rinject4(_a, _b, _c) :- RSalary(_a, _), RAverageSalaryPerDepartment(_b, _), RNumWorkersPerDepartment(_c, _).
+RSalary(string_intern("Anna"), (100000)).
+RSalary(string_intern("Brad"), (80000)).
+RSalary(string_intern("Jane"), (110000)).
+RDepartment(string_intern("IT")).
+RDepartment(string_intern("HR")).
+RWorksForDepartment(string_intern("Anna"), string_intern("IT")).
+RWorksForDepartment(string_intern("Brad"), string_intern("HR")).
+RWorksForDepartment(string_intern("Jane"), string_intern("HR")).
+RAverageSalaryPerDepartment(_dept, _sal) :- RWorksForDepartment(_, _dept), Ragg_12(_dept, _sal).
+relation Ragg_12(_dept:Tsymbol, _sal:Tfloat)
+Ragg_12(_dept, _sal) :- tpl_15 in RSalary(_e, _s), tpl_16 in RWorksForDepartment(_e, _dept), var _sal = ((tpl_15,tpl_16), _s).group_by((_dept)).souffle_group_mean_d().
+
+RAvgWorkersPerDepartment(_avg) :- Ragg_13(_s), Ragg_15(_c), var _avg = (_s / _c).
+relation Ragg_14(_dept:Tsymbol, _numWorkers:Tnumber)
+Ragg_14(_dept, _numWorkers) :- tpl_17 in RWorksForDepartment(_, _dept), var _numWorkers = ((tpl_17)).group_by((_dept)).souffle_group_count32().
+relation Ragg_13(_s:Tnumber)
+Ragg_13(_s) :- tpl_18 in RDepartment(_dept), Ragg_14(_dept, _numWorkers), var _s = ((tpl_18), _numWorkers).group_by(()).souffle_group_sum().
+relation Ragg_15(_c:Tnumber)
+Ragg_15(_c) :- tpl_19 in RDepartment(_), var _c = ((tpl_19)).group_by(()).souffle_group_count32().
+
+RNumWorkersPerDepartment(_dept, _n) :- RDepartment(_dept), Ragg_16(_dept, _n).
+relation Ragg_16(_dept:Tsymbol, _n:Tnumber)
+Ragg_16(_dept, _n) :- tpl_20 in RWorksForDepartment(_, _dept), var _n = ((tpl_20)).group_by((_dept)).souffle_group_count32().
+
+relation RM(_x:Tnumber)
+relation RY(_x:Tnumber)
+relation RP(_p:Tsymbol)
+relation RH(_a:Tsymbol, _b:Tsymbol, _y:Tnumber, _m:Tnumber)
+output relation RW(_a:Tsymbol, _n:Tnumber)
+RY((2019)).
+RY((2020)).
+RM((1)).
+RM((_n + (1))) :- RM(_n), ((_n + (1)) <= (12)).
+RP(string_intern("Anna")).
+RP(string_intern("Rachel")).
+RP(string_intern("Shelby")).
+RH(string_intern("Anna"), string_intern("Gringo"), (2019), (1)).
+RH(string_intern("Anna"), string_intern("Celine"), (2019), (1)).
+RH(string_intern("Rachel"), string_intern("Howard"), (2019), (3)).
+RH(string_intern("Rachel"), string_intern("Sandra"), (2020), (5)).
+RH(string_intern("Rachel"), string_intern("Holland"), (2020), (6)).
+RH(string_intern("Shelby"), string_intern("George"), (2020), (2)).
+RH(string_intern("Shelby"), string_intern("Tim"), (2020), (2)).
+RH(string_intern("Shelby"), string_intern("Rafael"), (2020), (2)).
+RW(_a, _n) :- Ragg_17(_n).
+relation Ragg_19(_y:Tnumber, _m:Tnumber, _part:Tnumber)
+Ragg_19(_y, _m, _part) :- tpl_21 in RH(_a, _, _y, _m), var _part = ((tpl_21)).group_by((_y, _m)).souffle_group_count32().
+relation Ragg_18(_worstNPart:Tnumber)
+Ragg_18(_worstNPart) :- tpl_22 in RY(_y), tpl_23 in RM(_m), Ragg_19(_y, _m, _part), var _worstNPart = ((tpl_22,tpl_23), _part).group_by(()).souffle_group_max().
+relation Ragg_17(_n:Tnumber)
+Ragg_17(_n) :- tpl_24 in RP(_a), Ragg_18(_worstNPart), var _n = ((tpl_24), _worstNPart).group_by(()).souffle_group_min().
+

@@ -1,0 +1,13 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation Rattribute(_x:Tunsigned)
+Rattribute((1)).
+relation Rd(_id:Tunsigned, _valid:Tunsigned)
+Rd((2), (1)).
+relation Rsel(_m:Tunsigned)
+Rsel(_m) :- Ragg(_m).
+relation Ragg(_m:Tunsigned)
+Ragg(_m) :- tpl in Rd(_id, _v), (_v != (0)), tpl_0 in Rattribute(_v), var _m = ((tpl,tpl_0), _id).group_by(()).souffle_group_min().
+

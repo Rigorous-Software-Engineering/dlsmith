@@ -1,0 +1,9 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TA = double
+typedef TB = Tnumber
+relation RrelAB(_a:TA, _b:TB)
+RrelAB((1), (1)).
+RrelAB((64'f0.5: Tfloat), (4294967295)).

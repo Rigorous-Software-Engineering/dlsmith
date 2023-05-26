@@ -1,0 +1,39 @@
+.type symbolA <: symbol
+.type symbolB <: symbolA
+.type symbolC <: symbolB
+
+
+.decl SymbolChain(a: symbolA, b: symbolB, c: symbolC)
+SymbolChain("meowA", "meowB", "meowC").
+SymbolChain(c, c, c) :- SymbolChain(_, _, c).
+SymbolChain(b, b, c) :- SymbolChain(_, b, c).
+
+.output SymbolChain(IO=stdout)
+
+
+
+
+// Chain in "wrong" order
+.type numberA <: number
+.type numberC <: numberB
+.type numberB <: numberA
+
+.decl NumberWrongOrderChain(a: numberA, b:numberB, c: numberC)
+NumberWrongOrderChain(1, 2, 3).
+NumberWrongOrderChain(c, c, c) :- NumberWrongOrderChain(_, _, c).
+NumberWrongOrderChain(b, b, c) :- NumberWrongOrderChain(_, b, c).
+
+.output NumberWrongOrderChain(IO=stdout)
+
+
+// Union of different subtypes.
+
+.type floatA <: float
+.type floatB <: floatA
+.type floatUnion = floatB | floatA
+
+.decl UnionSubtypes(a: floatUnion, b: floatB)
+UnionSubtypes(0.5, 1).
+UnionSubtypes(x, x) :- UnionSubtypes(_, x).
+
+.output UnionSubtypes(IO=stdout)

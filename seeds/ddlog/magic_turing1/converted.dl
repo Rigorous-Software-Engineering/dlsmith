@@ -1,0 +1,32 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TAlphabet = IString
+typedef TState = IString
+typedef TDirection = IString
+output relation RTape(_position:Tnumber, _symbol:TAlphabet, _step:Tnumber)
+RTape(_position, _newSymbol, (_step + (1))) :- RTape(_position, _oldSymbol, _step), RConfiguration(_position, _currentState, _step), RTransition(_currentState, _, _oldSymbol, _newSymbol, _).
+RTape(_position, _symbol, (_step + (1))) :- RTape(_position, _symbol, _step), RConfiguration(_writePosition, _, _step), (_position != _writePosition).
+RTape(_position, string_intern("b"), (_step + (1))) :- RConfiguration(_position, _, (_step + (1))), RTapeLimits(_step, _left, _), (_position < _left).
+RTape(_position, string_intern("b"), (_step + (1))) :- RConfiguration(_position, _, (_step + (1))), RTapeLimits(_step, _, _right), (_position > _right).
+output relation RConfiguration(_position:Tnumber, _state:TState, _step:Tnumber)
+RConfiguration((_position - (1)), _nextState, (_step + (1))) :- RTape(_position, _oldSymbol, _step), RConfiguration(_position, _currentState, _step), RTransition(_currentState, _nextState, _oldSymbol, _, string_intern("L")).
+RConfiguration((_position + (1)), _nextState, (_step + (1))) :- RTape(_position, _oldSymbol, _step), RConfiguration(_position, _currentState, _step), RTransition(_currentState, _nextState, _oldSymbol, _, string_intern("R")).
+output relation RTapeLimits(_step:Tnumber, _left:Tnumber, _right:Tnumber)
+RTapeLimits((_step + (1)), _left, _right) :- RTapeLimits(_step, _left, _right), RConfiguration(_position, _, (_step + (1))), (_left <= _position), (_position <= _right).
+RTapeLimits((_step + (1)), _position, _right) :- RTapeLimits(_step, _left, _right), RConfiguration(_position, _, (_step + (1))), (_position < _left).
+RTapeLimits((_step + (1)), _left, _position) :- RTapeLimits(_step, _left, _right), RConfiguration(_position, _, (_step + (1))), (_right < _position).
+relation RTransition(_src:TState, _dest:TState, _read:TAlphabet, _write:TAlphabet, _d:TDirection)
+RTransition(string_intern("S0"), string_intern("S0"), string_intern("x"), string_intern("y"), string_intern("R")).
+RTransition(string_intern("S0"), string_intern("S1"), string_intern("y"), string_intern("x"), string_intern("L")).
+RTransition(string_intern("S1"), string_intern("S1"), string_intern("y"), string_intern("x"), string_intern("L")).
+RTape((0), string_intern("x"), (0)).
+RTape((1), string_intern("x"), (0)).
+RTape((2), string_intern("y"), (0)).
+RTapeLimits((0), (0), (2)).
+RConfiguration((0), string_intern("S0"), (0)).
+relation Rinject(_a:Tnumber)
+Rinject(_a) :- RTransition(_b, _, _, _, _), RConfiguration(_a, _b, _).
+relation Rinject2(_b:Tnumber)
+Rinject2(_a) :- RConfiguration(_a, _, _).

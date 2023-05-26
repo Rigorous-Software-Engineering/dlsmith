@@ -1,0 +1,24 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TVar = IString
+typedef TNeg = IString
+typedef TVal = IString
+typedef TCard = Tnumber
+typedef TAns = IString
+relation RClause(_m:TNeg, _u:TVar, _n:TNeg, _v:TVar)
+input relation RClause_shadow(_m:TNeg, _u:TVar, _n:TNeg, _v:TVar)
+RClause(_m, _u, _n, _v) :- RClause_shadow(_m, _u, _n, _v).
+relation RNot(_m:TNeg, _n:TNeg)
+RNot(string_intern("Pos"), string_intern("Neg")).
+RNot(string_intern("Neg"), string_intern("Pos")).
+relation RImpl(_m:TNeg, _u:TVar, _n:TNeg, _v:TVar)
+RImpl(_m, _u, _n, _v) :- RNot(_m, _p), RClause(_p, _u, _n, _v).
+RImpl(_m, _u, _n, _v) :- RNot(_m, _p), RClause(_n, _v, _p, _u).
+RImpl(_m, _u, _n, _v) :- RImpl(_m, _u, _p, _w), RImpl(_p, _w, _n, _v).
+relation RIncon(_u:TVar)
+RIncon(_u) :- RImpl(string_intern("Pos"), _u, string_intern("Neg"), _u), RImpl(string_intern("Neg"), _u, string_intern("Pos"), _u).
+relation RSatisfiable(_s:TAns)
+RSatisfiable(string_intern("Yes")) :- not RIncon(_).
+RSatisfiable(string_intern("No")) :- RIncon(_).

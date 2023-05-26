@@ -1,0 +1,11 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation Rnum(_x:Tnumber)
+Rnum((0)).
+Rnum((_x + (1))) :- Rnum(_x), (_x < (20)).
+relation Rmod4(_x:Tnumber, _y:Tnumber)
+Rmod4(_x, _y) :- Rnum(_x), var _y = (_x % (4)).
+output relation Requiv_mod_4(_x:Tnumber, _y:Tnumber)
+Requiv_mod_4(_x, _y) :- Rmod4(_x, _z), Rmod4(_y, _z), (_x < _y), ((_y - _x) < (5)).

@@ -1,0 +1,13 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef Tn = IString
+output relation RN(_x:Tn)
+output relation RA(_x:Tn, _y:Tn)
+RN(string_intern("0")).
+RN(string_intern("1")).
+RN(string_intern("2")).
+RN(string_intern("3")).
+RA(string_intern("0"), _x) :- RN(_x).
+RA(string_intern("3"), _x) :- RN(_x).

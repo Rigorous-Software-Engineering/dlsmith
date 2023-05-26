@@ -1,0 +1,106 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation Redge(_x:Tnumber, _y:Tnumber)
+input relation Redge_shadow(_x:Tnumber, _y:Tnumber)
+Redge(_x, _y) :- Redge_shadow(_x, _y).
+relation Rgen(_x:Tnumber, _i:Tsymbol)
+input relation Rgen_shadow(_x:Tnumber, _i:Tsymbol)
+Rgen(_x, _i) :- Rgen_shadow(_x, _i).
+relation Ruse(_x:Tnumber, _i:Tsymbol)
+input relation Ruse_shadow(_x:Tnumber, _i:Tsymbol)
+Ruse(_x, _i) :- Ruse_shadow(_x, _i).
+relation Rkill(_x:Tnumber, _i:Tsymbol)
+input relation Rkill_shadow(_x:Tnumber, _i:Tsymbol)
+Rkill(_x, _i) :- Rkill_shadow(_x, _i).
+relation Runiverse(_inf:Tsymbol)
+Runiverse(_inf) :- Rgen(_, _inf).
+Runiverse(_inf) :- Rkill(_, _inf).
+relation RAvailable_Expressions_gen(_node:Tnumber, _inf:Tsymbol)
+relation RAvailable_Expressions_kill(_node:Tnumber, _inf:Tsymbol)
+relation RAvailable_Expressions_startvalue(_inf:Tsymbol)
+relation RAvailable_Expressions_out(_node:Tnumber, _inf:Tsymbol)
+relation RAvailable_Expressions_edge(_src:Tnumber, _des:Tnumber)
+relation RAvailable_Expressions_start(_node:Tnumber)
+relation RAvailable_Expressions_node(_node:Tnumber)
+RAvailable_Expressions_node(_node) :- RAvailable_Expressions_edge(_node, _).
+RAvailable_Expressions_node(_node) :- RAvailable_Expressions_edge(_, _node).
+relation RAvailable_Expressions_gen_kill_union_gen(_node:Tnumber, _inf:Tsymbol)
+relation RAvailable_Expressions_gen_kill_union_kill(_node:Tnumber, _inf:Tsymbol)
+relation RAvailable_Expressions_gen_kill_union_startvalue(_inf:Tsymbol)
+relation RAvailable_Expressions_gen_kill_union_out(_node:Tnumber, _inf:Tsymbol)
+relation RAvailable_Expressions_gen_kill_union_edge(_src:Tnumber, _des:Tnumber)
+relation RAvailable_Expressions_gen_kill_union_start(_node:Tnumber)
+relation RAvailable_Expressions_gen_kill_union_node(_node:Tnumber)
+RAvailable_Expressions_gen_kill_union_node(_node) :- RAvailable_Expressions_gen_kill_union_edge(_node, _).
+RAvailable_Expressions_gen_kill_union_node(_node) :- RAvailable_Expressions_gen_kill_union_edge(_, _node).
+RAvailable_Expressions_gen_kill_union_out(_node, _inf) :- RAvailable_Expressions_gen_kill_union_gen(_node, _inf).
+RAvailable_Expressions_gen_kill_union_out(_node, _inf) :- RAvailable_Expressions_gen_kill_union_start(_node), RAvailable_Expressions_gen_kill_union_startvalue(_inf).
+RAvailable_Expressions_gen_kill_union_out(_node, _inf) :- RAvailable_Expressions_gen_kill_union_out(_pred, _inf), RAvailable_Expressions_gen_kill_union_edge(_pred, _node), not RAvailable_Expressions_gen_kill_union_kill(_node, _inf).
+RAvailable_Expressions_gen_kill_union_start(_n) :- RAvailable_Expressions_start(_n).
+RAvailable_Expressions_gen_kill_union_edge(_x, _y) :- RAvailable_Expressions_edge(_x, _y).
+RAvailable_Expressions_gen_kill_union_gen(_node, _inf) :- RAvailable_Expressions_kill(_node, _inf), not RAvailable_Expressions_gen(_node, _inf).
+RAvailable_Expressions_gen_kill_union_kill(_node, _inf) :- RAvailable_Expressions_gen(_node, _inf).
+RAvailable_Expressions_gen_kill_union_startvalue(_inf) :- RAvailable_Expressions_startvalue(_inf).
+RAvailable_Expressions_out(_node, _inf) :- RAvailable_Expressions_node(_node), Runiverse(_inf), not RAvailable_Expressions_gen_kill_union_out(_node, _inf).
+RAvailable_Expressions_edge(_x, _y) :- Redge(_x, _y).
+RAvailable_Expressions_gen(_x, _i) :- Rgen(_x, _i).
+RAvailable_Expressions_kill(_x, _i) :- Rkill(_x, _i).
+RAvailable_Expressions_startvalue(_inf) :- Runiverse(_inf), not Rkill((1), _inf).
+RAvailable_Expressions_start((1)).
+relation RReaching_Definitions_gen(_node:Tnumber, _inf:Tsymbol)
+relation RReaching_Definitions_kill(_node:Tnumber, _inf:Tsymbol)
+relation RReaching_Definitions_startvalue(_inf:Tsymbol)
+relation RReaching_Definitions_out(_node:Tnumber, _inf:Tsymbol)
+relation RReaching_Definitions_edge(_src:Tnumber, _des:Tnumber)
+relation RReaching_Definitions_start(_node:Tnumber)
+relation RReaching_Definitions_node(_node:Tnumber)
+RReaching_Definitions_node(_node) :- RReaching_Definitions_edge(_node, _).
+RReaching_Definitions_node(_node) :- RReaching_Definitions_edge(_, _node).
+RReaching_Definitions_out(_node, _inf) :- RReaching_Definitions_gen(_node, _inf).
+RReaching_Definitions_out(_node, _inf) :- RReaching_Definitions_start(_node), RReaching_Definitions_startvalue(_inf).
+RReaching_Definitions_out(_node, _inf) :- RReaching_Definitions_out(_pred, _inf), RReaching_Definitions_edge(_pred, _node), not RReaching_Definitions_kill(_node, _inf).
+RReaching_Definitions_edge(_x, _y) :- Redge(_x, _y).
+RReaching_Definitions_gen(_x, _i) :- Rgen(_x, _i).
+RReaching_Definitions_kill(_x, _i) :- Rkill(_x, _i).
+RReaching_Definitions_startvalue(_i) :- Rgen((1), _i), not Rkill((1), _i).
+RReaching_Definitions_start((1)).
+relation RLive_Variables_gen(_node:Tnumber, _inf:Tsymbol)
+relation RLive_Variables_kill(_node:Tnumber, _inf:Tsymbol)
+relation RLive_Variables_startvalue(_inf:Tsymbol)
+relation RLive_Variables_out(_node:Tnumber, _inf:Tsymbol)
+relation RLive_Variables_edge(_src:Tnumber, _des:Tnumber)
+relation RLive_Variables_start(_node:Tnumber)
+relation RLive_Variables_node(_node:Tnumber)
+RLive_Variables_node(_node) :- RLive_Variables_edge(_node, _).
+RLive_Variables_node(_node) :- RLive_Variables_edge(_, _node).
+relation RLive_Variables_gen_kill_union_gen(_node:Tnumber, _inf:Tsymbol)
+relation RLive_Variables_gen_kill_union_kill(_node:Tnumber, _inf:Tsymbol)
+relation RLive_Variables_gen_kill_union_startvalue(_inf:Tsymbol)
+relation RLive_Variables_gen_kill_union_out(_node:Tnumber, _inf:Tsymbol)
+relation RLive_Variables_gen_kill_union_edge(_src:Tnumber, _des:Tnumber)
+relation RLive_Variables_gen_kill_union_start(_node:Tnumber)
+relation RLive_Variables_gen_kill_union_node(_node:Tnumber)
+RLive_Variables_gen_kill_union_node(_node) :- RLive_Variables_gen_kill_union_edge(_node, _).
+RLive_Variables_gen_kill_union_node(_node) :- RLive_Variables_gen_kill_union_edge(_, _node).
+RLive_Variables_gen_kill_union_out(_node, _inf) :- RLive_Variables_gen_kill_union_gen(_node, _inf).
+RLive_Variables_gen_kill_union_out(_node, _inf) :- RLive_Variables_gen_kill_union_start(_node), RLive_Variables_gen_kill_union_startvalue(_inf).
+RLive_Variables_gen_kill_union_out(_node, _inf) :- RLive_Variables_gen_kill_union_out(_pred, _inf), RLive_Variables_gen_kill_union_edge(_pred, _node), not RLive_Variables_gen_kill_union_kill(_node, _inf).
+RLive_Variables_gen_kill_union_start(_node) :- RLive_Variables_start(_node).
+RLive_Variables_gen_kill_union_edge(_src, _des) :- RLive_Variables_edge(_des, _src).
+RLive_Variables_gen_kill_union_gen(_node, _inf) :- RLive_Variables_gen(_node, _inf).
+RLive_Variables_gen_kill_union_kill(_node, _inf) :- RLive_Variables_kill(_node, _inf).
+RLive_Variables_gen_kill_union_startvalue(_inf) :- RLive_Variables_startvalue(_inf).
+RLive_Variables_out(_node, _inf) :- RLive_Variables_gen_kill_union_out(_node, _inf).
+RLive_Variables_edge(_x, _y) :- Redge(_x, _y).
+RLive_Variables_gen(_x, _i) :- Ruse(_x, _i).
+RLive_Variables_kill(_x, _i) :- Rkill(_x, _i).
+RLive_Variables_startvalue(_i) :- Ruse((8), _i), not Rkill((8), _i).
+RLive_Variables_start((8)).
+output relation Ravailable_expressions(_n:Tnumber, _i:Tsymbol)
+Ravailable_expressions(_x, _i) :- RAvailable_Expressions_out(_x, _i).
+output relation Rreaching_definitions(_n:Tnumber, _i:Tsymbol)
+Rreaching_definitions(_x, _i) :- RReaching_Definitions_out(_x, _i).
+output relation Rlive_variables(_n:Tnumber, _i:Tsymbol)
+Rlive_variables(_x, _i) :- RLive_Variables_out(_x, _i).

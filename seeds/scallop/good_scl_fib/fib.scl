@@ -1,0 +1,4 @@
+type fib(i32, i32)
+
+rel fib :- {(0, 1), (1, 1)}
+rel fib(x, a + b) :- fib(x - 1, a), fib(x - 2, b), x <= 10

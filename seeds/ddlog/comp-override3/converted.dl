@@ -1,0 +1,20 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation Re_Rel(_x:Tnumber)
+Re_Rel((1)).
+Re_Rel((3)).
+relation Re_d_Rel(_x:Tnumber)
+Re_d_Rel((2)).
+Re_d_Rel((4)).
+Re_Rel((5)).
+relation Rf_Rel(_x:Tnumber)
+relation Rf_d_Rel(_x:Tnumber)
+Rf_d_Rel((2)).
+Rf_d_Rel((4)).
+Rf_Rel((6)).
+output relation Rtest(_a:Tnumber)
+relation Rtest2(_a:Tnumber)
+Rtest(_a) :- Re_Rel(_a).
+Rtest2(_a) :- Rf_Rel(_a).

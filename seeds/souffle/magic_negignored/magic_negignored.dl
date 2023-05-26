@@ -1,0 +1,25 @@
+
+
+.decl K(X:number) 
+.decl R(X:number) 
+.decl A(X:number) 
+.decl B(X:number) 
+.decl D(X:number) 
+.decl Q(X:number) 
+.decl E(X:number) 
+.decl C(X:number) 
+
+.input E,C
+
+B(X) :- E(X), X != 0.
+K(X) :- B(1), E(X), X != 0.
+
+R($) :- K($).
+
+A(X) :- C(X), !R(X).
+
+// A depends on R, so B should not be transformed
+D(X) :- A(X), B(X).
+
+Q(X) :- D(X).
+.output Q()

@@ -1,0 +1,19 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef Tpair = Option<(Tnumber, Tnumber)>
+relation Rs(_p:Tpair)
+Rs(Some{((1), (2))}).
+Rs(Some{((2), (3))}).
+Rs(Some{((3), (1))}).
+output relation Rres(_s:Tsymbol)
+Rres(string_intern("11")) :- Rs(Some{((1), (1))}).
+Rres(string_intern("12")) :- Rs(Some{((1), (2))}).
+Rres(string_intern("13")) :- Rs(Some{((1), (3))}).
+Rres(string_intern("21")) :- Rs(Some{((2), (1))}).
+Rres(string_intern("22")) :- Rs(Some{((2), (2))}).
+Rres(string_intern("23")) :- Rs(Some{((2), (3))}).
+Rres(string_intern("31")) :- Rs(Some{((3), (1))}).
+Rres(string_intern("32")) :- Rs(Some{((3), (2))}).
+Rres(string_intern("33")) :- Rs(Some{((3), (3))}).

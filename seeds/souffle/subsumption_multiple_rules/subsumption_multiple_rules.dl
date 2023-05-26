@@ -1,0 +1,65 @@
+.decl A(from:number, to:number, z:number) btree_delete
+.output A
+
+.decl graph(from:number, to:number)
+
+graph(1, 2).
+graph(1, 3).
+graph(3, 4).
+graph(2, 5).
+graph(4, 6).
+graph(5, 6).
+graph(6, 7).
+
+A(1, 2, 1).
+A(1, 3, 1).
+
+A(from, to, c+1) :-
+    A(_, from, c),
+    graph(from, to).
+
+A(from, to, c1) <= A(_, to, c2) :-
+    c1 > c2.
+
+A(from1, to, c) <= A(from2, to, c) :-
+    from1 > from2.
+
+
+.decl eql(a: number, b: number)
+.decl rel(a: number, b: number) btree_delete
+
+eql(x,x) :- eql(x,_); eql(_,x).
+eql(x,y) :- eql(y,x).
+eql(x,z) :- eql(x,y), eql(y,z).
+
+rel(1, 2).
+rel(1, 3).
+
+eql(x, x) :- rel(x, _).
+eql(2, 3).
+
+rel(a, b) <= rel(c, d) :- eql(a, c), eql(b, d), a <= c, b <= d.
+
+.output rel
+
+// check query plan
+.decl C(x:number) btree_delete
+.decl D(x:number, y:number)
+C(1).
+D(1, 1).
+C(x1) <= C(x2) :-
+    D(x1, x2),
+    x1 <= x2.
+    .plan 0:(1,3,2)
+.output C
+
+// check unnamed variables in dominated head
+
+.decl E(x:number, y:number) btree_delete
+
+E(1,1).
+E(1,2).
+
+E(_, x1) <= E(_, x2) :-
+   x1 <= x2.
+

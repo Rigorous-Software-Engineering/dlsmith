@@ -1,0 +1,11 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation RA(_n:Tnumber, _d:Tnumber)
+input relation RA_shadow(_n:Tnumber, _d:Tnumber)
+RA(_n, _d) :- RA_shadow(_n, _d).
+relation RB(_n:Tnumber, _s:Tnumber)
+input relation RB_shadow(_n:Tnumber, _s:Tnumber)
+RB(_n, _s) :- RB_shadow(_n, _s).
+relation RCOO(_n:Tnumber, _id:Tnumber)

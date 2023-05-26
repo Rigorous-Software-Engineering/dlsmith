@@ -1,0 +1,17 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation Ra(_x:Tnumber)
+Ra((0)).
+relation Rb(_x:Tnumber)
+output relation Rquery(_x:Tsymbol)
+Rquery(string_intern("t1")) :- Ra(_x).
+Rquery(string_intern("t2")) :- Ra(__x).
+Rquery(string_intern("t3")) :- Ra(_).
+Rquery(string_intern("t4")) :- Rb(_x).
+Rquery(string_intern("t5")) :- Rb(__x).
+Rquery(string_intern("t6")) :- Rb(_).
+Rquery(string_intern("t7")) :- Ra(_x), Rb(_y).
+Rquery(string_intern("t8")) :- Ra(_x), Ra(_y).
+Rquery(string_intern("t9")) :- Rb(_x), Rb(_y).

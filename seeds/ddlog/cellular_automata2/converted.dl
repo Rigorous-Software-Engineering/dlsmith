@@ -1,0 +1,44 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation Rdefault(_null:Tnumber)
+input relation Rdefault_shadow(_null:Tnumber)
+Rdefault(_null) :- Rdefault_shadow(_null).
+relation Rparameters(_length:Tnumber)
+input relation Rparameters_shadow(_length:Tnumber)
+Rparameters(_length) :- Rparameters_shadow(_length).
+relation Rvalues(_index:Tnumber, _value:Tnumber)
+input relation Rvalues_shadow(_index:Tnumber, _value:Tnumber)
+Rvalues(_index, _value) :- Rvalues_shadow(_index, _value).
+output relation Rindices(_index:Tnumber)
+Rindices((0)).
+Rindices((_i + (1))) :- Rindices(_i), Rparameters(_l), (_i >= (0)), ((_i + (1)) < _l).
+output relation Relement(_index:Tnumber, _value:Tnumber)
+Relement(_i, _NULL) :- Rindices(_i), not Rvalues(_i, _), Rdefault(_NULL).
+Relement(_i, _x) :- Rindices(_i), Rvalues(_i, _x).
+relation Rleft(_index:Tnumber, _value:Tnumber)
+Rleft(_i, _NULL) :- not Relement((_i - (1)), _), Relement(_i, _), Rdefault(_NULL).
+Rleft(_i, _x) :- Relement((_i - (1)), _x), Relement(_i, _).
+relation Rright(_index:Tnumber, _value:Tnumber)
+Rright(_i, _NULL) :- not Relement((_i + (1)), _), Relement(_i, _), Rdefault(_NULL).
+Rright(_i, _x) :- Relement((_i + (1)), _x), Relement(_i, _).
+output relation Rneighbourhood(_index:Tnumber, _left:Tnumber, _current:Tnumber, _right:Tnumber)
+Rneighbourhood(_i, _l, _c, _r) :- Rleft(_i, _l), Relement(_i, _c), Rright(_i, _r).
+relation Rter(_time:Tnumber)
+input relation Rter_shadow(_time:Tnumber)
+Rter(_time) :- Rter_shadow(_time).
+relation Rtransition(_prev:Tnumber, _center:Tnumber, _next:Tnumber, _value:Tnumber)
+input relation Rtransition_shadow(_prev:Tnumber, _center:Tnumber, _next:Tnumber, _value:Tnumber)
+Rtransition(_prev, _center, _next, _value) :- Rtransition_shadow(_prev, _center, _next, _value).
+relation Rprev(_time:Tnumber, _index:Tnumber, _value:Tnumber)
+Rprev(_t, _i, _NULL) :- not Relement((_i - (1)), _), Rcell(_t, _i, _), Rdefault(_NULL).
+Rprev(_t, _i, _x) :- Rcell(_t, (_i - (1)), _x), Relement(_i, _).
+relation Rnext(_time:Tnumber, _index:Tnumber, _value:Tnumber)
+Rnext(_t, _i, _NULL) :- not Relement((_i + (1)), _), Rcell(_t, _i, _), Rdefault(_NULL).
+Rnext(_t, _i, _x) :- Rcell(_t, (_i + (1)), _x), Relement(_i, _).
+output relation Rcell(_time:Tnumber, _index:Tnumber, _value:Tnumber)
+Rcell((0), _i, _x) :- Relement(_i, _x).
+Rcell((_t + (1)), _i, _x) :- not Rter(_t), Renvironment(_t, _i, _l, _c, _r), Rtransition(_l, _c, _r, _x).
+output relation Renvironment(_time:Tnumber, _index:Tnumber, _prev:Tnumber, _center:Tnumber, _next:Tnumber)
+Renvironment(_t, _i, _l, _c, _r) :- Rprev(_t, _i, _l), Rcell(_t, _i, _c), Rnext(_t, _i, _r).

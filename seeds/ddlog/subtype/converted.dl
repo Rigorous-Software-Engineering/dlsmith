@@ -1,0 +1,14 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TDOO = IString
+typedef TCOO = TDOO
+typedef TBOO = TCOO
+typedef TAOO = TBOO
+relation RR1(_x:TAOO, _y:TBOO)
+relation RR2(_x:TCOO, _y:TDOO)
+output relation RR4(_x:TAOO)
+RR4(_x) :- RR2(_x, _x), RR1(_x, _x).
+RR1(string_intern("0"), string_intern("0")).
+RR2(string_intern("0"), string_intern("0")).

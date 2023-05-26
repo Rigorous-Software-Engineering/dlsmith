@@ -1,0 +1,35 @@
+
+.type ROO = [ x : number ]
+
+.decl NumbersA(x : number) 
+.decl NumbersB(x : number) 
+.decl SymbolsA(x : symbol) 
+.decl SymbolsB(x : symbol)
+.decl RecordsA(x : ROO)
+.decl RecordsB(x : ROO)
+.decl CountNumbers(x : number) 
+.decl CountSymbols(x : number) 
+.decl CountRecords(x : number) 
+
+NumbersA(1).
+NumbersB(2).
+SymbolsA("a").
+SymbolsA("b").
+SymbolsB("b").
+SymbolsB("c").
+RecordsA([1]).
+RecordsA([2]).
+RecordsA([3]).
+RecordsB([2]).
+RecordsB([3]).
+RecordsB([4]).
+RecordsB([5]).
+RecordsB(nil).
+
+CountNumbers(x) :- x = count : { NumbersA(y), NumbersB(y) } .
+CountSymbols(x) :- x = count : { SymbolsA(y), SymbolsB(y) } .
+CountRecords(x) :- x = count : { RecordsA(y), RecordsB(y) } .
+
+.output CountNumbers
+.output CountSymbols
+.output CountRecords

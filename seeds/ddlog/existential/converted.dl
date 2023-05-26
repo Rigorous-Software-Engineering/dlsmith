@@ -1,0 +1,35 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation Ra()
+Ra() :- Rf(_, (2)).
+relation Rb()
+Rb() :- not Rg(_).
+Rb() :- Rb(), Rc((0), (1), (2)), Rd((3)), Re((4)), Rf((5), _), Rh((7)).
+relation Rc(_x:Tnumber, _y:Tnumber, _z:Tnumber)
+Rc(_x, _y, _z) :- Ra(), Re(_x), Rf(_y, _z).
+relation Rd(_x:Tnumber)
+Rd(_x) :- Re(_x), Rb().
+Rd((_x + (1))) :- Rd(_x), Rf(_x, _x), Rh(_x), (_x < (100)).
+relation Re(_x:Tnumber)
+Re((0)).
+Re((_x + (1))) :- Re(_x), (_x < (100)).
+relation Rf(_x:Tnumber, _y:Tnumber)
+Rf((0), (1)).
+Rf((1), (2)).
+Rf((2), (4)).
+Rf((3), (8)).
+Rf(_x, _x) :- Rf((0), _x), Rl(_x).
+relation Rg(_x:Tnumber)
+relation Rh(_x:Tnumber)
+Rh(_x) :- Rf(_x, _).
+relation Ri(_x:Tnumber)
+Ri((0)).
+relation Rk(_x:Tnumber)
+Rk((1)).
+relation Rl(_x:Tnumber)
+Rl(_x) :- Rf(_, _x).
+Rl(_x) :- Rl((0)), Rk(_x).
+output relation Rquery(_x:Tnumber)
+Rquery(_x) :- Ra(), Rb(), Rc(_, _, _), Rd(_), Re(_), Rf(_, _), not Rg(_), Rh(_), Ri(_x), Rk(_), Rl(_).

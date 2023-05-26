@@ -1,0 +1,16 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TBoxedNumber = Option<(Tnumber)>
+typedef TBoxedBoxedNumber = Option<(TBoxedNumber)>
+typedef TPair = Option<(Tnumber, Tnumber)>
+output relation RA(_x:Tnumber)
+RA(_X) :- RB(_X, Some{(_Y)}, Some{(Some{(((_X * _X) * _X))})}), (_Y == ((- _X) * (1))).
+RA((_X + (1))) :- RB(_, Some{((_X + (1)))}, _), RA(_X).
+RA((_X + (1))) :- RA(_X), RB((_X + (1)), _, _), RC(Some{((_X + (1)), (_X + (2)))}).
+relation RB(_x:Tnumber, _y:TBoxedNumber, _z:TBoxedBoxedNumber)
+input relation RB_shadow(_x:Tnumber, _y:TBoxedNumber, _z:TBoxedBoxedNumber)
+RB(_x, _y, _z) :- RB_shadow(_x, _y, _z).
+relation RC(_x:TPair)
+RC(Some{(_X, _Y)}) :- RB(_, Some{(_X)}, Some{(Some{(_Y)})}).

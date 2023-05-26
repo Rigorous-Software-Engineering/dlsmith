@@ -1,0 +1,12 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TNOO = IString
+output relation RA(_x:Tnumber, _y:Tnumber)
+output relation RR(_x:Tnumber, _y:Tnumber)
+RA((1), (2)).
+RA((3), (4)).
+RA((5), (6)).
+RR(_x, _y) :- RA(_x, _y).
+RR(_x, _b) :- RA(_x, _y), RR((_y + (1)), _b).

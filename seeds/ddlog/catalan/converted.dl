@@ -1,0 +1,16 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation Rlim(_n:Tnumber)
+input relation Rlim_shadow(_n:Tnumber)
+Rlim(_n) :- Rlim_shadow(_n).
+relation Rnaturals(_n:Tnumber)
+Rnaturals((0)).
+Rnaturals((_n + (1))) :- Rnaturals(_n), (_n < _s), Rlim(_s).
+relation Rchoose(_n:Tnumber, _k:Tnumber, _v:Tnumber)
+Rchoose(_n, _n, (1)) :- Rnaturals(_n).
+Rchoose(_n, ((_n - _k)), _v) :- Rchoose(_n, _k, _v).
+Rchoose((_n + (1)), (_k + (1)), (_v1 + _v2)) :- Rchoose(_n, _k, _v1), Rchoose(_n, (_k + (1)), _v2).
+output relation Rcatalan(_n:Tnumber, _v:Tnumber)
+Rcatalan(_n, _v) :- Rchoose(((2) * _n), _n, _c), Rnaturals(_v), (_v == (_c / ((_n + (1))))).

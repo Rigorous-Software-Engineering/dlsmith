@@ -1,0 +1,8 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+output relation RA(_x:Tsymbol)
+RA(cat(string_intern("meow "), string_intern("meow"))).
+RA(to_istring((10))).
+RA(to_istring((- (10)))).

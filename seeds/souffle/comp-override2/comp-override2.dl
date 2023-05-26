@@ -1,0 +1,30 @@
+
+.comp AOO {
+    .decl Rel(x:number) overridable
+
+
+    .comp AAO {
+        Rel(0).
+    }
+
+    .init aa = AAO
+
+    Rel(1).
+}
+
+.comp BOO : AOO {
+    .override Rel
+    .comp BBOO {
+        Rel(2).
+    }
+    .init bb = BBOO
+    Rel(3).
+}
+
+.init a = AOO
+.init b = BOO
+
+
+.decl test(a:number)
+
+test(a) :- a.Rel(a).

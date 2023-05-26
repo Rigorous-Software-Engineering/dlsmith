@@ -1,0 +1,35 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TVariable = IString
+typedef TStackIndex = IString
+typedef TVariableOrStackIndex = TVariable
+relation RAa(_a:TVariableOrStackIndex)
+relation RBb(_a:TVariable)
+relation RCc(_a:TVariableOrStackIndex)
+RCc(_a) :- not RBb(_a), RAa(_a).
+typedef TA = IString
+typedef TB = IString
+typedef TU = TA
+relation Rb(_x:TB)
+relation Ru(_x:TU)
+relation Rr(_x:TU, _y:TU)
+relation Rs(_x:TB, _y:Tnumber)
+Rb(string_intern("a")).
+Rr(string_intern("a1"), string_intern("b2")).
+Rs(string_intern("b2"), (1)).
+Ru(_x) :- Rb(_x).
+Ru(_x) :- Rs(_x, _).
+Ru(_x) :- Rr(_x, _y), Rs(_y, _).
+Ru(_x) :- Rr(_x, _y), not Rs(_y, _).
+typedef Teven = Tnumber
+typedef Todd = Tnumber
+relation Re(_n:Tnumber)
+Re((0)).
+Re((_x + (2))) :- Re(_x), (_x < (100)).
+relation Ro(_n:Tnumber)
+Ro((1)).
+Ro((_x + (2))) :- Ro(_x), (_x < (100)).
+relation Rmy_even(_n:Tnumber)
+Rmy_even(_x) :- Re(_x), not Ro(_x), (_x <= (10)).

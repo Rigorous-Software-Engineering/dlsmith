@@ -1,0 +1,17 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation RPrime(_x:Tnumber)
+relation RD(_x:Tnumber)
+RPrime((2)).
+RPrime((3)).
+RPrime((5)).
+RPrime((7)).
+RPrime((11)).
+RD(_s) :- Ragg(_s).
+relation Ragg_0(_n:Tnumber, _y:Tnumber)
+Ragg_0(_n, _y) :- tpl in RPrime(_z), (_z < _n), var _y = ((tpl), _z).group_by((_n)).souffle_group_sum().
+relation Ragg(_s:Tnumber)
+Ragg(_s) :- tpl_0 in RPrime(_n), Ragg_0(_n, _y), (_y < (10)), var _s = ((tpl_0), _y).group_by(()).souffle_group_sum().
+

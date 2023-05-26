@@ -1,0 +1,16 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation Rnumbers(_x:Tnumber)
+output relation Rresult(_x:Tnumber)
+Rnumbers((- (1))).
+Rnumbers((1)).
+Rnumbers((2)).
+Rnumbers((3)).
+Rnumbers((4)).
+Rnumbers((5)).
+Rresult(_x) :- Ragg(_x).
+relation Ragg(_x:Tnumber)
+Ragg(_x) :- tpl in Rnumbers(_a), (_a > (0)), var _x = ((tpl), _a).group_by(()).souffle_group_sum().
+

@@ -1,0 +1,9 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation RReallyLongNameForARelationToCheckIfThereIsAnyProblemWithSuchLongNames(_n1:Tnumber, _n2:Tnumber)
+RReallyLongNameForARelationToCheckIfThereIsAnyProblemWithSuchLongNames((0), (1)).
+RReallyLongNameForARelationToCheckIfThereIsAnyProblemWithSuchLongNames((0), (2)).
+RReallyLongNameForARelationToCheckIfThereIsAnyProblemWithSuchLongNames((1), (2)).
+RReallyLongNameForARelationToCheckIfThereIsAnyProblemWithSuchLongNames(_n, _m) :- RReallyLongNameForARelationToCheckIfThereIsAnyProblemWithSuchLongNames(_n, _), RReallyLongNameForARelationToCheckIfThereIsAnyProblemWithSuchLongNames(_m, _), (_n < _m).

@@ -1,0 +1,31 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TLabel = Tnumber
+typedef TNT = IString
+typedef TLetter = IString
+typedef TSymbol = TNT
+typedef TPos = Tnumber
+relation RProd(_x:TLabel, _p:TPos, _s:TSymbol)
+input relation RProd_shadow(_x:TLabel, _p:TPos, _s:TSymbol)
+RProd(_x, _p, _s) :- RProd_shadow(_x, _p, _s).
+relation RString(_c:TPos, _a:TLetter)
+input relation RString_shadow(_c:TPos, _a:TLetter)
+RString(_c, _a) :- RString_shadow(_c, _a).
+relation REndProd(_x:TLabel, _p:TPos)
+relation REndString(_c:TPos)
+relation RNotEndProd(_x:TLabel, _p:TPos)
+relation RNotEndString(_c:TPos)
+RNotEndProd(_x, _p) :- RProd(_x, _p, _), RProd(_x, _q, _), (_p < _q).
+REndProd(_x, (_p + (1))) :- RProd(_x, _p, _), not RNotEndProd(_x, _p).
+RNotEndString(_c) :- RString(_c, _), RString(_d, _), (_c < _d).
+REndString((_c + (1))) :- RString(_c, _), not RNotEndString(_c).
+relation RState(_c:TPos, _x:TLabel, _p:TPos, _j:TPos)
+RState((1), (1), (1), (1)).
+RState(_c, _x, (1), _c) :- RState(_c, _y, _p, _), RProd(_x, (0), _n), RProd(_y, _p, _n).
+RState((_c + (1)), _x, (_p + (1)), _j) :- RString(_c, _a), RState(_c, _x, _p, _j), RProd(_x, _p, _a).
+RState(_c, _x, (_p + (1)), _j) :- RState(_c, _y, _q, _k), REndProd(_y, _q), RProd(_y, (0), _n), RState(_k, _x, _p, _j), RProd(_x, _p, _n).
+typedef TAnswer = IString
+output relation RAccept(_s:TAnswer)
+RAccept(string_intern("Yes")) :- RState(_c, (1), _q, (1)), REndString(_c), REndProd((1), _q).

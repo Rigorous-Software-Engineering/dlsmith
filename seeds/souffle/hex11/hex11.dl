@@ -1,0 +1,6 @@
+.decl Hexadecimal (n:unsigned)
+.output Hexadecimal
+
+Hexadecimal(0x0).
+Hexadecimal(0x1).
+Hexadecimal(0xFFFFFFFF).

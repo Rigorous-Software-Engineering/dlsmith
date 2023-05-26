@@ -1,0 +1,14 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef Tthe_type = IString
+relation Rthe_input(_x:Tthe_type)
+input relation Rthe_input_shadow(_x:Tthe_type)
+Rthe_input(_x) :- Rthe_input_shadow(_x).
+output relation Rthe_output(_x:Tthe_type)
+relation Rhello_world(_x:Tthe_type)
+relation Ris_hello_world(_x:Tthe_type)
+Rhello_world(string_intern("helloworld")).
+Ris_hello_world(_X) :- Rthe_input(_X), Rhello_world(_X).
+Rthe_output(_X) :- Ris_hello_world(_X).

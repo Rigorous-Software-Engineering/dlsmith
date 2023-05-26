@@ -1,0 +1,53 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+output relation RBinaryNegation(_x:Tunsigned)
+RBinaryNegation((1: Tunsigned)) :- ((~ ((1: Tunsigned))) > (0: Tunsigned)).
+output relation RLogicalNegation(_x:Tunsigned)
+RLogicalNegation((0: Tunsigned)) :- ((1: Tunsigned) == lnot(((0: Tunsigned)))).
+RLogicalNegation((1: Tunsigned)) :- (lnot(((0: Tunsigned))) != (0: Tunsigned)).
+output relation RAdd(_x:Tunsigned)
+RAdd((_x + _y)) :- var _x = (5: Tunsigned), var _y = (5: Tunsigned).
+RAdd((_x + _y)) :- var _x = (0: Tunsigned), var _y = (0: Tunsigned).
+RAdd((_x + _y)) :- var _x = (3: Tunsigned), var _y = (1: Tunsigned).
+RAdd((_x + _y)) :- var _x = (1000: Tunsigned), var _y = (2147483647: Tunsigned).
+output relation RSub(_x:Tunsigned)
+RSub((_x - _y)) :- var _x = (5: Tunsigned), var _y = (5: Tunsigned).
+RSub((_x - _y)) :- var _x = (5: Tunsigned), var _y = (0: Tunsigned).
+RSub((_x - _y)) :- var _x = (3: Tunsigned), var _y = (1: Tunsigned).
+RSub((42: Tunsigned)) :- (((0: Tunsigned) - (1: Tunsigned)) > (0: Tunsigned)).
+output relation RMul(_x:Tunsigned)
+RMul((_x * _y)) :- var _x = (5: Tunsigned), var _y = (5: Tunsigned).
+RMul((_x * _y)) :- var _x = (5: Tunsigned), var _y = (0: Tunsigned).
+RMul((_x * _y)) :- var _x = (3: Tunsigned), var _y = (1: Tunsigned).
+RMul((_x * _y)) :- var _x = itou(pow32((2), ((16) as bit<32>))), var _y = itou(pow32((2), ((15) as bit<32>))).
+output relation RExp(_x:Tunsigned)
+RExp(pow32(_x, (_y as bit<32>))) :- var _x = (5: Tunsigned), var _y = (2: Tunsigned).
+RExp(pow32(_x, (_y as bit<32>))) :- var _x = (5: Tunsigned), var _y = (3: Tunsigned).
+RExp(pow32(_x, (_y as bit<32>))) :- var _x = (5: Tunsigned), var _y = (1: Tunsigned).
+RExp(pow32(_x, (_y as bit<32>))) :- var _x = (2: Tunsigned), var _y = (4: Tunsigned).
+output relation RMod(_x:Tunsigned)
+RMod((_x % _y)) :- var _x = (5: Tunsigned), var _y = (2: Tunsigned).
+RMod((_x % _y)) :- var _x = (25: Tunsigned), var _y = (5: Tunsigned).
+output relation RBitwiseAnd(_x:Tunsigned)
+RBitwiseAnd((_x & _y)) :- var _x = (1: Tunsigned), var _y = (4: Tunsigned).
+RBitwiseAnd((_x & _y)) :- var _x = (1: Tunsigned), var _y = (1: Tunsigned).
+output relation RBitwiseOr(_x:Tunsigned)
+RBitwiseOr((_x | _y)) :- var _x = (1: Tunsigned), var _y = (8: Tunsigned).
+RBitwiseOr((_x | _y)) :- var _x = (5: Tunsigned), var _y = (5: Tunsigned).
+RBitwiseOr((_x | _y)) :- var _x = (0: Tunsigned), var _y = (42: Tunsigned).
+output relation RBitwiseXor(_x:Tunsigned)
+RBitwiseXor((_x ^ _y)) :- var _x = (1: Tunsigned), var _y = (4: Tunsigned).
+RBitwiseXor((_x ^ _y)) :- var _x = (5: Tunsigned), var _y = (5: Tunsigned).
+RBitwiseXor((_x ^ _y)) :- var _x = (0: Tunsigned), var _y = (42: Tunsigned).
+output relation RLogicalAnd(_x:Tunsigned)
+RLogicalAnd(land(_x, _y)) :- var _x = (1: Tunsigned), var _y = (4: Tunsigned).
+RLogicalAnd(land(_x, _y)) :- var _x = (1: Tunsigned), var _y = (0: Tunsigned).
+output relation RLogicalOr(_x:Tunsigned)
+RLogicalOr(lor(_x, _y)) :- var _x = (1: Tunsigned), var _y = (4: Tunsigned).
+RLogicalOr(lor(_x, _y)) :- var _x = (0: Tunsigned), var _y = (0: Tunsigned).
+output relation RMax(_x:Tunsigned)
+RMax(_x) :- var _x = max(max(max((2: Tunsigned), (3: Tunsigned)), (23: Tunsigned)), (42: Tunsigned)).
+output relation RMin(_x:Tunsigned)
+RMin(_x) :- var _x = min(min(min((2: Tunsigned), (3: Tunsigned)), (23: Tunsigned)), (42: Tunsigned)).

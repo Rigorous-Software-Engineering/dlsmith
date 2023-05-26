@@ -1,0 +1,13 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef Tset = IString
+output relation RX(_node1:Tset, _node2:Tset)
+output relation RY(_node1:Tset, _node2:Tset)
+output relation RZ(_node1:Tset, _node2:Tset)
+RY(_a, _b) :- RX(_a, _b).
+RY(_a, _c) :- RX(_a, _b), RY(_b, _c).
+RZ(_a, _b) :- not RX(_a, _b), RY(_a, _b).
+RX(string_intern("a"), string_intern("b")).
+RX(string_intern("b"), string_intern("d")).

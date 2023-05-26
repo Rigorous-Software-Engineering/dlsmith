@@ -1,0 +1,20 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+output relation RInstance1(_d:Tnumber)
+output relation RInstance2(_d:Tnumber)
+output relation RInstance3(_d:Tnumber)
+output relation RInstance4(_d:Tnumber)
+relation RIn(_s1:Tnumber, _s2:Tnumber, _s3:Tnumber, _d1:Tnumber, _d2:Tnumber, _d3:Tnumber, _d:Tnumber)
+input relation RIn_shadow(_s1:Tnumber, _s2:Tnumber, _s3:Tnumber, _d1:Tnumber, _d2:Tnumber, _d3:Tnumber, _d:Tnumber)
+RIn(_s1, _s2, _s3, _d1, _d2, _d3, _d) :- RIn_shadow(_s1, _s2, _s3, _d1, _d2, _d3, _d).
+relation RTbl(_s1:Tnumber, _s2:Tnumber, _s3:Tnumber, _in:Tnumber)
+input relation RTbl_shadow(_s1:Tnumber, _s2:Tnumber, _s3:Tnumber, _in:Tnumber)
+RTbl(_s1, _s2, _s3, _in) :- RTbl_shadow(_s1, _s2, _s3, _in).
+RInstance1(_d) :- RIn(_s1, _, _s3, _d1, _d2, _, _d), RTbl(_s1, _, _s3, (1)), RTbl(_d1, _d2, _, (0)), (_s1 == (5)), (_s3 == (2)), (_d1 == (1)), (_d2 == (3)).
+RInstance2(_d) :- RIn(_s1, _, _, _d1, _, _, _d), RTbl(_s1, _, _, (1)), RTbl(_d1, _d2, _d3, (0)), (_s1 == (4)), (_d1 == (2)), (_d2 == (4)), (_d3 == (4)).
+RInstance3(_d) :- RIn(_, _s2, _s3, _d1, _d2, _d3, _d), RTbl(_, _s2, _s3, (1)), RTbl(_d1, _d2, _d3, (0)), (_s2 == (4)), (_s3 == (2)), (_d1 == (3)), (_d2 == (5)), (_d3 == (3)).
+RInstance3(_d) :- RIn(_, _s2, _, _d1, _, _d3, _d), RTbl(_, _s2, _, (1)), RTbl(_d1, _, _d3, (0)), (_s2 == (4)), (_d1 == (4)), (_d3 == (3)).
+RInstance4(_d) :- RIn(_s1, _, _, _d1, _, _, _d), RTbl(_s1, _, _, (1)), RTbl(_d1, _d2, _, (0)), (_s1 == (0)), (_d1 == (4)), (_d2 == (4)).
+RIn(_s1, _s2, _s3, (4), _d2, _d3, _d) :- RIn(_s1, _s2, _s3, _d1, _d2, _d3, _d), RTbl(_s1, _s2, _s3, (1)), RTbl(_d1, _, _, (0)), (_d1 == (0)).

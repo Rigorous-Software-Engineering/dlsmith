@@ -1,0 +1,36 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation Rmark(_student:Tsymbol, _mark:Tnumber, _grade:Tnumber, _sex:Tsymbol)
+input relation Rmark_shadow(_student:Tsymbol, _mark:Tnumber, _grade:Tnumber, _sex:Tsymbol)
+Rmark(_student, _mark, _grade, _sex) :- Rmark_shadow(_student, _mark, _grade, _sex).
+relation Rhighest_mark(_student:Tsymbol, _mark:Tnumber, _grade:Tnumber, _sex:Tsymbol)
+relation Rsolution(_student:Tsymbol, _mark:Tnumber, _grade:Tnumber, _sex:Tsymbol)
+relation Rincorrect()
+Rhighest_mark(_st, _hm, _g, _sex) :- Ragg(_hm), Rmark(_st, _hm, _g, _sex).
+relation Ragg(_hm:Tnumber)
+Ragg(_hm) :- tpl in Rmark(_, _n, _g, _sex), var _hm = ((tpl), _n).group_by(()).souffle_group_max().
+
+Rsolution(string_intern("Allen"), (79), (1), string_intern("m")).
+Rsolution(string_intern("Judith"), (91), (1), string_intern("f")).
+Rsolution(string_intern("Chad"), (93), (2), string_intern("m")).
+Rsolution(string_intern("Dolores"), (93), (2), string_intern("f")).
+Rsolution(string_intern("Timothy"), (86), (3), string_intern("m")).
+Rsolution(string_intern("Dolores"), (100), (3), string_intern("f")).
+Rsolution(string_intern("John"), (97), (4), string_intern("m")).
+Rsolution(string_intern("Michele"), (94), (4), string_intern("f")).
+Rsolution(string_intern("Enrique"), (97), (5), string_intern("m")).
+Rsolution(string_intern("Hope"), (100), (5), string_intern("f")).
+Rsolution(string_intern("Robert"), (97), (6), string_intern("m")).
+Rsolution(string_intern("Patricia"), (94), (6), string_intern("f")).
+Rsolution(string_intern("Earl"), (100), (7), string_intern("m")).
+Rsolution(string_intern("Tawanda"), (91), (7), string_intern("f")).
+Rsolution(string_intern("Wayne"), (83), (8), string_intern("m")).
+Rsolution(string_intern("Katrina"), (92), (8), string_intern("f")).
+Rsolution(string_intern("Wes"), (96), (9), string_intern("m")).
+Rsolution(string_intern("Mary"), (98), (9), string_intern("f")).
+Rsolution(string_intern("Santos"), (93), (10), string_intern("m")).
+Rsolution(string_intern("Norma"), (97), (10), string_intern("f")).
+Rincorrect() :- Rsolution(_a, _b, _c, _d), not Rhighest_mark(_a, _b, _c, _d).
+Rincorrect() :- Rhighest_mark(_a, _b, _c, _d), not Rsolution(_a, _b, _c, _d).

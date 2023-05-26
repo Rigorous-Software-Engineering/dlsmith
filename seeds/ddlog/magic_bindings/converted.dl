@@ -1,0 +1,16 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation RBaseOne(_X:Tnumber)
+input relation RBaseOne_shadow(_X:Tnumber)
+RBaseOne(_X) :- RBaseOne_shadow(_X).
+relation RBaseTwo(_X:Tnumber)
+input relation RBaseTwo_shadow(_X:Tnumber)
+RBaseTwo(_X) :- RBaseTwo_shadow(_X).
+relation RValid(_X:Tnumber)
+RValid(_X) :- RBaseOne(_X), (_X >= (0)).
+relation RReduced(_X:Tnumber)
+RReduced(_X) :- RBaseTwo(_X), RValid(_Y), RValid(_Z), (_Y == (_X + (1))), (_Z == (_W + (2))), (_W == (_X + (3))), ((_X - (1)) == (((- (1)) + _X) + (0))).
+output relation RQuery()
+RQuery() :- RReduced((0)).

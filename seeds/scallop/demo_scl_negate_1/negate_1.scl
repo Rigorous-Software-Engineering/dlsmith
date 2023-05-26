@@ -1,0 +1,8 @@
+type A(i32, i32)
+type B(i32, i32, String)
+type Q()
+
+
+rel A = {(0, 1)}
+rel B = {(0, 1, "O")}
+rel Q() = A(a, b), ~B(a, b, "O")

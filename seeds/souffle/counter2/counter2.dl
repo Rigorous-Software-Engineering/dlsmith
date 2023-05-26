@@ -1,0 +1,9 @@
+.decl A(a:number)
+.decl B(a:number)
+.output A
+
+B(1).
+
+A(autoinc()) :- B(1).
+A(autoinc()) :- B(1).
+A(autoinc()) :- B(1).

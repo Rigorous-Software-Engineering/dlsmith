@@ -1,0 +1,9 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TNode = IString
+output relation Rp(_node1:TNode)
+Rp(string_intern("0")).
+Rp(string_intern("1")).
+Rp(_X) :- Rp(_X).

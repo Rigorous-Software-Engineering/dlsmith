@@ -1,0 +1,28 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TNode = IString
+relation Rlinks(_A:TNode, _B:TNode)
+input relation Rlinks_shadow(_A:TNode, _B:TNode)
+Rlinks(_A, _B) :- Rlinks_shadow(_A, _B).
+relation Rnodes(_A:TNode)
+Rnodes(_A) :- Rlinks(_A, _).
+Rnodes(_A) :- Rlinks(_, _A).
+relation Rreaches(_A:TNode, _B:TNode)
+Rreaches(_A, _B) :- Rlinks(_A, _B).
+Rreaches(_A, _B) :- Rlinks(_A, _C), Rreaches(_C, _B).
+relation Rmutually_reaching(_A:TNode, _B:TNode)
+Rmutually_reaching(_A, _B) :- Rreaches(_A, _B), Rreaches(_B, _A).
+Rmutually_reaching(_A, _A) :- Rnodes(_A).
+relation Rchain(_A:TNode, _B:TNode)
+Rchain(_A, _B) :- Rmutually_reaching(_A, _B), (ord(_A) < ord(_B)).
+relation Rleader(_A:TNode)
+Rleader(_A) :- Rnodes(_A), not Rchain(_, _A).
+output relation Rscc(_A:TNode, _n:Tnumber)
+Rscc(_A, _S) :- Rleader(_A), Ragg(_A, _S).
+relation Ragg(_A:TNode, _S:Tnumber)
+Ragg(_A, _S) :- tpl in Rmutually_reaching(_A, _), var _S = ((tpl)).group_by((_A)).souffle_group_count32().
+
+relation Rinject(_a:TNode, _b:TNode)
+Rinject(_a, _b) :- Rscc(_a, _), Rchain(_, _b).

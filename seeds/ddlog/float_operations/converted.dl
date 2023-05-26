@@ -1,0 +1,30 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+output relation RAdd(_x:Tnumber)
+RAdd(to_number(_x)) :- var _x = ((- (64'f1.5: Tfloat)) + (64'f1.5: Tfloat)).
+RAdd(to_number(_x)) :- var _x = ((64'f0.125: Tfloat) + (64'f325.0: Tfloat)).
+RAdd(to_number(_x)) :- var _x = ((64'f0.333: Tfloat) + (64'f0.777: Tfloat)).
+RAdd(to_number(_x)) :- var _x = ((- (64'f1.232: Tfloat)) + ((- (64'f123.7: Tfloat)))).
+output relation RMinus(_x:Tnumber)
+RMinus(to_number((_x - (64'f0.4: Tfloat)))) :- var _x = (64'f0.0: Tfloat).
+RMinus(to_number((_x - (64'f0.4: Tfloat)))) :- var _x = (64'f325.0: Tfloat).
+RMinus(to_number((_x - (64'f0.4: Tfloat)))) :- var _x = (64'f1.0: Tfloat).
+RMinus(to_number((_x - (64'f0.4: Tfloat)))) :- var _x = (- (64'f124.0: Tfloat)).
+RMinus(to_number((_x - ((- (64'f2.0: Tfloat)))))) :- var _x = (64'f0.0: Tfloat).
+RMinus(to_number((_x - ((- (64'f2.0: Tfloat)))))) :- var _x = (64'f325.0: Tfloat).
+RMinus(to_number((_x - ((- (64'f2.0: Tfloat)))))) :- var _x = (64'f1.0: Tfloat).
+RMinus(to_number((_x - ((- (64'f2.0: Tfloat)))))) :- var _x = (- (64'f124.0: Tfloat)).
+output relation RMultiply(_x:Tnumber)
+RMultiply(to_number(_x)) :- var _x = ((64'f3.0: Tfloat) * (64'f0.5: Tfloat)).
+RMultiply(to_number(_x)) :- var _x = ((64'f100.0: Tfloat) * (- ((64'f0.409: Tfloat)))).
+RMultiply(to_number(_x)) :- var _x = ((- (64'f0.3: Tfloat)) * ((- (64'f8.0: Tfloat)))).
+output relation RDivide(_x:Tnumber)
+RDivide(to_number(_x)) :- var _x = (((64'f100.0: Tfloat) / (64'f0.5: Tfloat)) + (64'f0.5: Tfloat)).
+output relation RExp(_x:Tnumber)
+RExp(to_number(_x)) :- var _x = ((powf_d((64'f2.0: Tfloat), (64'f4.0: Tfloat))) + (64'f0.5: Tfloat)).
+output relation RMax(_x:Tnumber)
+RMax(to_number(_x)) :- var _x = max(max(max((64'f1.0: Tfloat), (64'f2.3: Tfloat)), (- (64'f1.5: Tfloat))), (64'f120.35: Tfloat)).
+output relation RMin(_x:Tnumber)
+RMin(to_number(_x)) :- var _x = min(min(min((64'f1.0: Tfloat), (64'f2.3: Tfloat)), (- (64'f1.5: Tfloat))), (64'f120.35: Tfloat)).

@@ -1,0 +1,34 @@
+
+
+.type node = number
+
+.comp Closure { .decl edge(a:node,b:node) .decl link(a:node,b:node) link(X,Y) :- edge(X,Y). }
+.comp LeftRecursive : Closure { link(X,Z) :- link(X,Y), edge(Y,Z). }
+.comp RightRecursive : Closure { link(X,Z) :- edge(X,Y), link(Y,Z). }
+.comp QuadraticRecursive : Closure { link(X,Z) :- link(X,Y), link(Y,Z).}
+
+.init Aoo = LeftRecursive
+.init Boo = RightRecursive
+.init Coo = QuadraticRecursive
+
+
+
+.decl less(a:node,b:node)
+.decl test(a:node)
+.decl test2(a:node)
+.decl test3(a:node)
+
+less(1,2).
+less(2,3).
+less(3,4).
+less(4,5).
+less(5,6).
+
+Aoo.edge(X,Y) :- less(X,Y).
+Boo.edge(X,Y) :- less(X,Y).
+Coo.edge(X,Y) :- less(X,Y).
+
+
+test(a) :- Aoo.edge(a,b).
+test2(a) :- Boo.edge(a,b).
+test3(a) :- Coo.edge(a,b).

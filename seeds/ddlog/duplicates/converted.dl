@@ -1,0 +1,112 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+output relation RSymbolA(_x:Tsymbol, _y:Tsymbol)
+relation RSymbolB(_x:Tsymbol, _y:Tsymbol)
+relation RSymbolC(_x:Tsymbol, _y:Tsymbol)
+relation RSymbolD(_x:Tsymbol, _y:Tsymbol)
+input relation RSymbolD_shadow(_x:Tsymbol, _y:Tsymbol)
+RSymbolD(_x, _y) :- RSymbolD_shadow(_x, _y).
+RSymbolB(string_intern("0"), string_intern("1")).
+RSymbolB(string_intern("1"), string_intern("0")).
+RSymbolB(string_intern("0"), string_intern("0")).
+RSymbolB(string_intern("1"), string_intern("1")).
+RSymbolC(string_intern("0"), string_intern("1")).
+RSymbolC(string_intern("1"), string_intern("0")).
+RSymbolC(string_intern("0"), string_intern("0")).
+RSymbolC(string_intern("1"), string_intern("1")).
+RSymbolC(string_intern("1"), string_intern("2")).
+RSymbolC(string_intern("2"), string_intern("1")).
+RSymbolC(string_intern("1"), string_intern("1")).
+RSymbolC(string_intern("2"), string_intern("2")).
+RSymbolA(_x, _x) :- RSymbolB(_x, _x).
+RSymbolA(_x, _x) :- RSymbolC(_x, _x).
+RSymbolA(_x, _x) :- RSymbolD(_x, _x).
+RSymbolA(_x, _y) :- RSymbolB(_x, _y).
+RSymbolA(_x, _y) :- RSymbolC(_x, _y).
+RSymbolA(_x, _y) :- RSymbolD(_x, _y).
+RSymbolA(_x, _y) :- RSymbolB(_x, _y), RSymbolC(_x, _y).
+RSymbolA(_x, _y) :- RSymbolC(_x, _y), RSymbolD(_x, _y).
+RSymbolA(_x, _y) :- RSymbolD(_x, _y), RSymbolB(_x, _y).
+RSymbolA(_x, _y) :- RSymbolC(_x, _y), RSymbolB(_x, _y).
+RSymbolA(_x, _y) :- RSymbolD(_x, _y), RSymbolC(_x, _y).
+RSymbolA(_x, _y) :- RSymbolB(_x, _y), RSymbolD(_x, _y).
+RSymbolA(_x, _z) :- RSymbolB(_x, _y), RSymbolC(_y, _z).
+RSymbolA(_x, _z) :- RSymbolC(_x, _y), RSymbolD(_y, _z).
+RSymbolA(_x, _z) :- RSymbolD(_x, _y), RSymbolB(_y, _z).
+RSymbolA(_x, _z) :- RSymbolC(_x, _y), RSymbolB(_y, _z).
+RSymbolA(_x, _z) :- RSymbolD(_x, _y), RSymbolC(_y, _z).
+RSymbolA(_x, _z) :- RSymbolB(_x, _y), RSymbolD(_y, _z).
+RSymbolA(_a, _a) :- RSymbolB(_a, _a).
+RSymbolA(_a, _a) :- RSymbolC(_a, _a).
+RSymbolA(_a, _a) :- RSymbolD(_a, _a).
+RSymbolA(_a, _b) :- RSymbolB(_a, _b).
+RSymbolA(_a, _b) :- RSymbolC(_a, _b).
+RSymbolA(_a, _b) :- RSymbolD(_a, _b).
+RSymbolA(_a, _b) :- RSymbolB(_a, _b), RSymbolC(_a, _b).
+RSymbolA(_a, _b) :- RSymbolC(_a, _b), RSymbolD(_a, _b).
+RSymbolA(_a, _b) :- RSymbolD(_a, _b), RSymbolB(_a, _b).
+RSymbolA(_a, _b) :- RSymbolC(_a, _b), RSymbolB(_a, _b).
+RSymbolA(_a, _b) :- RSymbolD(_a, _b), RSymbolC(_a, _b).
+RSymbolA(_a, _b) :- RSymbolB(_a, _b), RSymbolD(_a, _b).
+RSymbolA(_a, _c) :- RSymbolB(_a, _b), RSymbolC(_b, _c).
+RSymbolA(_a, _c) :- RSymbolC(_a, _b), RSymbolD(_b, _c).
+RSymbolA(_a, _c) :- RSymbolD(_a, _b), RSymbolB(_b, _c).
+RSymbolA(_a, _c) :- RSymbolC(_a, _b), RSymbolB(_b, _c).
+RSymbolA(_a, _c) :- RSymbolD(_a, _b), RSymbolC(_b, _c).
+RSymbolA(_a, _c) :- RSymbolB(_a, _b), RSymbolD(_b, _c).
+output relation RNumberA(_x:Tnumber, _y:Tnumber)
+relation RNumberB(_x:Tnumber, _y:Tnumber)
+relation RNumberC(_x:Tnumber, _y:Tnumber)
+relation RNumberD(_x:Tnumber, _y:Tnumber)
+input relation RNumberD_shadow(_x:Tnumber, _y:Tnumber)
+RNumberD(_x, _y) :- RNumberD_shadow(_x, _y).
+RNumberB((0), (1)).
+RNumberB((1), (0)).
+RNumberB((0), (0)).
+RNumberB((1), (1)).
+RNumberC((0), (1)).
+RNumberC((1), (0)).
+RNumberC((0), (0)).
+RNumberC((1), (1)).
+RNumberC((1), (2)).
+RNumberC((2), (1)).
+RNumberC((1), (1)).
+RNumberC((2), (2)).
+RNumberA(_x, _x) :- RNumberB(_x, _x).
+RNumberA(_x, _x) :- RNumberC(_x, _x).
+RNumberA(_x, _x) :- RNumberD(_x, _x).
+RNumberA(_x, _y) :- RNumberB(_x, _y).
+RNumberA(_x, _y) :- RNumberC(_x, _y).
+RNumberA(_x, _y) :- RNumberD(_x, _y).
+RNumberA(_x, _y) :- RNumberB(_x, _y), RNumberC(_x, _y).
+RNumberA(_x, _y) :- RNumberC(_x, _y), RNumberD(_x, _y).
+RNumberA(_x, _y) :- RNumberD(_x, _y), RNumberB(_x, _y).
+RNumberA(_x, _y) :- RNumberC(_x, _y), RNumberB(_x, _y).
+RNumberA(_x, _y) :- RNumberD(_x, _y), RNumberC(_x, _y).
+RNumberA(_x, _y) :- RNumberB(_x, _y), RNumberD(_x, _y).
+RNumberA(_x, _z) :- RNumberB(_x, _y), RNumberC(_y, _z).
+RNumberA(_x, _z) :- RNumberC(_x, _y), RNumberD(_y, _z).
+RNumberA(_x, _z) :- RNumberD(_x, _y), RNumberB(_y, _z).
+RNumberA(_x, _z) :- RNumberC(_x, _y), RNumberB(_y, _z).
+RNumberA(_x, _z) :- RNumberD(_x, _y), RNumberC(_y, _z).
+RNumberA(_x, _z) :- RNumberB(_x, _y), RNumberD(_y, _z).
+RNumberA(_a, _a) :- RNumberB(_a, _a).
+RNumberA(_a, _a) :- RNumberC(_a, _a).
+RNumberA(_a, _a) :- RNumberD(_a, _a).
+RNumberA(_a, _b) :- RNumberB(_a, _b).
+RNumberA(_a, _b) :- RNumberC(_a, _b).
+RNumberA(_a, _b) :- RNumberD(_a, _b).
+RNumberA(_a, _b) :- RNumberB(_a, _b), RNumberC(_a, _b).
+RNumberA(_a, _b) :- RNumberC(_a, _b), RNumberD(_a, _b).
+RNumberA(_a, _b) :- RNumberD(_a, _b), RNumberB(_a, _b).
+RNumberA(_a, _b) :- RNumberC(_a, _b), RNumberB(_a, _b).
+RNumberA(_a, _b) :- RNumberD(_a, _b), RNumberC(_a, _b).
+RNumberA(_a, _b) :- RNumberB(_a, _b), RNumberD(_a, _b).
+RNumberA(_a, _c) :- RNumberB(_a, _b), RNumberC(_b, _c).
+RNumberA(_a, _c) :- RNumberC(_a, _b), RNumberD(_b, _c).
+RNumberA(_a, _c) :- RNumberD(_a, _b), RNumberB(_b, _c).
+RNumberA(_a, _c) :- RNumberC(_a, _b), RNumberB(_b, _c).
+RNumberA(_a, _c) :- RNumberD(_a, _b), RNumberC(_b, _c).
+RNumberA(_a, _c) :- RNumberB(_a, _b), RNumberD(_b, _c).

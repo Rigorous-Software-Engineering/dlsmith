@@ -1,0 +1,6 @@
+.decl WsuW(A:float, B:float)
+.decl FGAf(A:float, B:float)
+.decl qlca(A:float)
+.decl XcMa(A:float)
+
+qlca(FPY) :- FGAf(D,D), WsuW(FPY,BOb),  D =  min a + 7.585 : { XcMa(a)}.

@@ -1,0 +1,5 @@
+
+   
+output ok.
+ok :-
+	is_valid(`forall #x[bool], #x[bool] . #x[bool] #= #x[bool]`).

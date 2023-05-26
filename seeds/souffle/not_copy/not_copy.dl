@@ -1,0 +1,16 @@
+.type X = [x:symbol]
+
+.decl A(a:X)
+
+A(["a"]).
+
+.decl B(b:X)
+
+
+B(x) :- x = ["foo"], A(x).
+
+
+.decl C(c:symbol)
+.output C()
+
+C(x) :- B([x]).

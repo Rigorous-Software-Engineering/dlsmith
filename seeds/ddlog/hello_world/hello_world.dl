@@ -1,0 +1,10 @@
+/* First DDlog example */
+
+typedef Category = CategoryStarWars | CategoryOther
+
+input relation Word1(word: string, cat: Category)
+input relation Word2(word: string, cat: Category)
+
+output relation Phrases(phrase: string)
+
+Phrases(w1 ++ " " ++ w2) :- Word1(w1, cat), Word2(w2, cat).

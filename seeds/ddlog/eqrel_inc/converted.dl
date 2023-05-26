@@ -1,0 +1,7 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation Re(_x:Tnumber, _y:Tnumber)
+Re((0), (0)).
+Re(_x, (_x + (1))) :- (_x < (100)), Re(_x, _x).

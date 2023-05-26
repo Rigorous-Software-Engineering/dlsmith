@@ -1,0 +1,16 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TN = Tnumber
+relation Rn(_x:TN)
+Rn((1)).
+Rn((2)).
+Rn((3)).
+Rn((4)).
+Rn((5)).
+typedef Tpair = Option<(TN, TN)>
+relation Rp(_p:Tpair)
+Rp(Some{(_x, _x)}) :- Rn(_x).
+output relation Rr(_x:TN, _y:TN)
+Rr(_x, _y) :- Rp(Some{(_x, _y)}).

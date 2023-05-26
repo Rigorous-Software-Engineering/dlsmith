@@ -1,0 +1,13 @@
+
+.decl fact(i:number, n:number)  
+.output fact()
+
+
+.decl lim(n:number) 
+.input lim()
+
+fact(I+1, N*(I+1)) :- fact(I, N), !lim(I).
+
+
+fact(0, 1).
+

@@ -1,0 +1,15 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation Rsamegen(_x:Tnumber, _y:Tnumber)
+relation Rnode(_x:Tnumber)
+input relation Rnode_shadow(_x:Tnumber)
+Rnode(_x) :- Rnode_shadow(_x).
+relation Rparent(_x:Tnumber, _y:Tnumber)
+input relation Rparent_shadow(_x:Tnumber, _y:Tnumber)
+Rparent(_x, _y) :- Rparent_shadow(_x, _y).
+output relation Rquery()
+Rsamegen(_x, _x) :- Rnode(_x).
+Rsamegen(_x, _y) :- Rparent(_x, _a), Rsamegen(_a, _b), Rparent(_y, _b).
+Rquery() :- Rsamegen((16384), (32767)).

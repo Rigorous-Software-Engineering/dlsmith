@@ -1,0 +1,14 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation Rdomain(_x:Tsymbol)
+input relation Rdomain_shadow(_x:Tsymbol)
+Rdomain(_x) :- Rdomain_shadow(_x).
+relation Rlist(_prev:Tsymbol, _data:Tsymbol)
+relation RnotTotalOrder()
+Rlist(string_intern("nil"), string_intern("head")).
+Rlist(_x, _y) :- Rdomain(_y), Rlist(_, _x).
+RnotTotalOrder() :- Rlist(_p, _x), Rlist(_p, _y), (_x != _y).
+RnotTotalOrder() :- Rlist(_pa, _x), Rlist(_pb, _x), (_pa != _pb).
+RnotTotalOrder() :- Rdomain(_x), not Rlist(_x, _), not Rlist(_, _x).

@@ -1,0 +1,33 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TNode = IString
+typedef TCard = Tnumber
+relation REdge(_m:TNode, _n:TNode)
+input relation REdge_shadow(_m:TNode, _n:TNode)
+REdge(_m, _n) :- REdge_shadow(_m, _n).
+REdge(_m, _n) :- REdge(_n, _m).
+relation RLeaf(_n:TNode)
+relation RNotLeaf(_n:TNode)
+RNotLeaf(_n) :- REdge(_a, _n), REdge(_b, _n), (_a != _b).
+RLeaf(_n) :- REdge(_, _n), not RNotLeaf(_n).
+relation RInSubtree(_m:TNode, _n:TNode, _a:TNode)
+RInSubtree(_m, _n, _n) :- REdge(_m, _n).
+RInSubtree(_m, _n, _a) :- REdge(_m, _n), REdge(_n, _p), RInSubtree(_n, _p, _a), (_m != _p).
+relation RTreeCard(_c:TCard)
+relation RSubtreeCard(_m:TNode, _n:TNode, _c:TCard)
+RTreeCard((_a + _b)) :- Ragg(_a), Ragg_0(_b).
+relation Ragg(_a:Tnumber)
+Ragg(_a) :- tpl in RLeaf(_), var _a = ((tpl), (1)).group_by(()).souffle_group_sum().
+relation Ragg_0(_b:Tnumber)
+Ragg_0(_b) :- tpl_0 in RNotLeaf(_), var _b = ((tpl_0), (1)).group_by(()).souffle_group_sum().
+
+RSubtreeCard(_m, _n, _c) :- REdge(_m, _n), Ragg_1(_m, _n, _c).
+relation Ragg_1(_m:TNode, _n:TNode, _c:Tnumber)
+Ragg_1(_m, _n, _c) :- tpl_1 in RInSubtree(_m, _n, _), var _c = ((tpl_1), (1)).group_by((_m, _n)).souffle_group_sum().
+
+output relation RCentroid(_n:TNode)
+relation RNotCentroid(_n:TNode)
+RNotCentroid(_n) :- RTreeCard(_c), RSubtreeCard(_n, _, _d), (_d > (_c / (2))).
+RCentroid(_n) :- REdge(_n, _), not RNotCentroid(_n).

@@ -1,0 +1,90 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TAOO = TBOO
+typedef TBOO = TCOO
+typedef TCOO = TDOO
+typedef TDOO = TEOO
+typedef TEOO = IString
+typedef TBA = TCA
+typedef TBBOO = TCB
+typedef TCA = IString
+typedef TCB = IString
+output relation RR_A(_a:TAOO)
+RR_A(string_intern("A")).
+relation RR_B(_b:TBOO)
+RR_A(_x) :- RR_B(_x).
+relation RR_C(_c:TCOO)
+RR_B(_x) :- RR_C(_x).
+relation RR_D(_d:TDOO)
+RR_C(_x) :- RR_D(_x).
+relation RR_E(_e:TEOO)
+RR_D(_x) :- RR_E(_x).
+RR_B(string_intern("B")).
+RR_C(string_intern("C")).
+RR_D(string_intern("D")).
+RR_E(string_intern("E")).
+RR_A(_x) :- RR_A(_x), RR_A(_x).
+RR_A(_x) :- RR_A(_x), RR_B(_x).
+RR_A(_x) :- RR_A(_x), RR_C(_x).
+RR_A(_x) :- RR_A(_x), RR_D(_x).
+RR_A(_x) :- RR_A(_x), RR_E(_x).
+RR_A(_x) :- RR_B(_x), RR_B(_x).
+RR_A(_x) :- RR_B(_x), RR_C(_x).
+RR_A(_x) :- RR_B(_x), RR_D(_x).
+RR_A(_x) :- RR_B(_x), RR_E(_x).
+RR_A(_x) :- RR_C(_x), RR_C(_x).
+RR_A(_x) :- RR_C(_x), RR_D(_x).
+RR_A(_x) :- RR_C(_x), RR_E(_x).
+RR_A(_x) :- RR_D(_x), RR_D(_x).
+RR_A(_x) :- RR_D(_x), RR_E(_x).
+RR_A(_x) :- RR_E(_x), RR_E(_x).
+RR_B(_x) :- RR_A(_x), RR_B(_x).
+RR_B(_x) :- RR_A(_x), RR_C(_x).
+RR_B(_x) :- RR_A(_x), RR_D(_x).
+RR_B(_x) :- RR_A(_x), RR_E(_x).
+RR_B(_x) :- RR_B(_x), RR_B(_x).
+RR_B(_x) :- RR_B(_x), RR_C(_x).
+RR_B(_x) :- RR_B(_x), RR_D(_x).
+RR_B(_x) :- RR_B(_x), RR_E(_x).
+RR_B(_x) :- RR_C(_x), RR_C(_x).
+RR_B(_x) :- RR_C(_x), RR_D(_x).
+RR_B(_x) :- RR_C(_x), RR_E(_x).
+RR_B(_x) :- RR_D(_x), RR_D(_x).
+RR_B(_x) :- RR_D(_x), RR_E(_x).
+RR_B(_x) :- RR_E(_x), RR_E(_x).
+RR_C(_x) :- RR_A(_x), RR_C(_x).
+RR_C(_x) :- RR_A(_x), RR_D(_x).
+RR_C(_x) :- RR_A(_x), RR_E(_x).
+RR_C(_x) :- RR_B(_x), RR_C(_x).
+RR_C(_x) :- RR_B(_x), RR_D(_x).
+RR_C(_x) :- RR_B(_x), RR_E(_x).
+RR_C(_x) :- RR_C(_x), RR_C(_x).
+RR_C(_x) :- RR_C(_x), RR_D(_x).
+RR_C(_x) :- RR_C(_x), RR_E(_x).
+RR_C(_x) :- RR_D(_x), RR_D(_x).
+RR_C(_x) :- RR_D(_x), RR_E(_x).
+RR_C(_x) :- RR_E(_x), RR_E(_x).
+relation RR_BA(_b:TBA)
+RR_BA(string_intern("BA")).
+RR_A(_x) :- RR_BA(_x).
+relation RR_BB(_b:TBBOO)
+RR_BB(string_intern("BB")).
+RR_A(_x) :- RR_BB(_x).
+relation RR_CA(_b:TCA)
+RR_CA(string_intern("CA")).
+RR_BA(_x) :- RR_CA(_x).
+relation RR_CB(_b:TCB)
+RR_CB(string_intern("CB")).
+RR_BB(_x) :- RR_CB(_x).
+relation RR_A_A(_x:TAOO, _y:TAOO)
+RR_A_A(_x, _y) :- RR_BA(_x), RR_BB(_y).
+relation RR_B_B(_x:TBOO, _y:TBOO)
+RR_B_B(_x, _x) :- RR_B(_x).
+RR_B_B(_x, _x) :- RR_C(_x).
+RR_B_B(_x, _x) :- RR_D(_x).
+relation RR_BA_BB(_a:TBA, _b:TBBOO)
+RR_BA_BB(_x, _y) :- RR_BA(_x), RR_BB(_y).
+RR_BA_BB(_x, _y) :- RR_BA(_x), RR_BB(_y).
+RR_BA_BB(_x, _y) :- RR_CA(_x), RR_CB(_y).

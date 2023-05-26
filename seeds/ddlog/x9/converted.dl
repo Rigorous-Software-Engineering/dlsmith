@@ -1,0 +1,13 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TNode = IString
+output relation RX(_node1:TNode, _node2:TNode)
+output relation RY(_node1:TNode, _node2:TNode)
+RY(_a, _b) :- RX(_a, _b).
+RY(_a, _c) :- RY(_a, _b), RY(_b, _c).
+RX(string_intern("a"), string_intern("b")).
+RX(string_intern("b"), string_intern("d")).
+RX(string_intern("a"), string_intern("c")).
+RX(string_intern("c"), string_intern("e")).

@@ -1,0 +1,7 @@
+.type A <: float
+.type B <: unsigned
+
+
+.decl relAB(a: A, b: B)
+relAB(1, 1).
+relAB(0.5, 0xffffffff).

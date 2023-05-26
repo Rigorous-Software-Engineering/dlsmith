@@ -1,0 +1,21 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+output relation Rrel_1(_x:Tunsigned)
+Rrel_1((0)).
+Rrel_1((_x + (1))) :- Rrel_1(_x), (_x >= (0)), (_x < (5)).
+output relation Rrel_2(_x:Tunsigned)
+Rrel_2((pow32((2), ((32) as bit<32>)) - (5))).
+Rrel_2((_x + (1))) :- Rrel_2(_x), (_x >= (pow32((2), ((32) as bit<32>)) - (5))), (_x < (pow32((2), ((32) as bit<32>)) - (1))).
+output relation Rrel_3(_x:Tfloat)
+Rrel_3((64'f64.0: Tfloat)).
+Rrel_3((_x / (2))) :- Rrel_3(_x), (_x >= (64'f0.001: Tfloat)).
+output relation Rrel_4(_x:Tfloat)
+Rrel_4(_x) :- Rrel_3(_x), (_x >= (64'f0.04: Tfloat)), (_x <= (64'f0.2: Tfloat)).
+output relation Rrel_5(_x:Tnumber, _y:Tsymbol, _z:Tfloat, _a:Tnumber)
+Rrel_5((0), string_intern("apple"), (64'f3.0: Tfloat), (0)).
+Rrel_5((_x - (1)), string_intern("strawberry"), (_z + (64'f0.125: Tfloat)), (_a - (2))) :- Rrel_5(_x, _, _z, _a), (_x >= (- (5))), (_z <= (64'f5.0: Tfloat)), (_a > (- (12))).
+Rrel_5(_x, string_intern("mango"), _z, _a) :- Rrel_5(_x, _, _z, _a), (_x >= (- (3))), (_z <= (64'f4.0: Tfloat)), (_a > (- (10))).
+relation Rinject(_a:Tfloat)
+Rinject(_a) :- Rrel_5(_, _, _a, _), Rrel_4(_), Rrel_3(_), Rrel_2(_b).

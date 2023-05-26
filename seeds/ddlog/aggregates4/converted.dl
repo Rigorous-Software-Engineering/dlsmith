@@ -1,0 +1,26 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation RA(_x:Tunsigned)
+output relation RC(_x:Tunsigned)
+RA((1)).
+RA((2)).
+RA((3)).
+RA((4294967295)).
+RC(_y) :- Ragg(_y).
+relation Ragg(_y:Tunsigned)
+Ragg(_y) :- tpl in RA(_a), var _y = ((tpl), _a).group_by(()).souffle_group_max().
+
+RC(_y) :- Ragg_0(_y).
+relation Ragg_0(_y:Tunsigned)
+Ragg_0(_y) :- tpl_0 in RA(_a), var _y = ((tpl_0), _a).group_by(()).souffle_group_min().
+
+RC(_y) :- Ragg_1(_y).
+relation Ragg_1(_y:Tunsigned)
+Ragg_1(_y) :- tpl_1 in RA(_a), (_a < (4)), var _y = ((tpl_1), _a).group_by(()).souffle_group_sum_u().
+
+RC(itou(_y)) :- Ragg_2(_y).
+relation Ragg_2(_y:Tnumber)
+Ragg_2(_y) :- tpl_2 in RA(_), var _y = ((tpl_2)).group_by(()).souffle_group_count32().
+

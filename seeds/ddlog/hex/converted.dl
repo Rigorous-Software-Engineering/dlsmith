@@ -1,0 +1,20 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation RA(_n:Tnumber)
+relation RB(_n:Tnumber)
+output relation RS1(_n:Tnumber)
+output relation RS2(_n:Tnumber)
+output relation RS3(_n:Tnumber)
+output relation RS4(_n:Tnumber)
+RA((241)).
+RA((226)).
+RA((51)).
+RB((68)).
+RB((241)).
+RB((171)).
+RS1((_x & _y)) :- RA(_x), RB(_y).
+RS2((_x | _y)) :- RA(_x), RB(_y).
+RS3(_x) :- RA(_x), RB(_y), ((((~ _x)) & ((~ _y))) == (~ ((_x | _y)))).
+RS4(_x) :- RA(_x), ((~ (~ _x)) != (~ _x)).

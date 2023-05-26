@@ -1,0 +1,26 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TState = Tnumber
+typedef TLetter = IString
+relation RQ(_q:TState)
+relation RInit(_q:TState)
+relation RFinal(_q:TState)
+input relation RFinal_shadow(_q:TState)
+RFinal(_q) :- RFinal_shadow(_q).
+relation RTr(_q:TState, _a:TLetter, _r:TState)
+input relation RTr_shadow(_q:TState, _a:TLetter, _r:TState)
+RTr(_q, _a, _r) :- RTr_shadow(_q, _a, _r).
+RInit((0)).
+RQ(_q) :- RTr(_q, _, _).
+relation RDis(_q:TState, _r:TState)
+RDis(_q, _r) :- RQ(_q), RQ(_r), RFinal(_q), not RFinal(_r).
+RDis(_q, _r) :- RTr(_q, _a, _s), RTr(_r, _a, _t), RDis(_s, _t).
+RDis(_q, _r) :- RDis(_r, _q).
+relation REquiv(_q:TState, _r:TState)
+REquiv(_q, _r) :- RQ(_q), RQ(_r), not RDis(_q, _r).
+relation RNotMinEquiv(_q:TState, _r:TState)
+output relation RMinEquiv(_q:TState, _r:TState)
+RNotMinEquiv(_q, _r) :- REquiv(_q, _r), REquiv(_q, _s), (_s < _r).
+RMinEquiv(_q, _r) :- REquiv(_q, _r), not RNotMinEquiv(_q, _r).

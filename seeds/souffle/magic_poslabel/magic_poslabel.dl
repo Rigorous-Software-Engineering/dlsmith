@@ -1,0 +1,30 @@
+
+
+// Stratum 0 - Base Relations
+.decl BaseOne(X:number) 
+.decl BaseTwo(X:number) 
+.input BaseOne, BaseTwo
+
+// Stratum 1 [depends on: 0]
+.decl A(X:number) 
+.decl B(X:number) 
+A(X) :- BaseOne(X).
+A(X) :- BaseOne(X), B(X).
+B(X) :- BaseTwo(X), A(X).
+
+// Stratum 2 [depends on: 0,1]
+.decl C(X:number) 
+C(X) :- BaseTwo(X), A(X), B(X), X != 1.
+
+// Stratum 3 [depends on: 0,1]
+.decl R(X:number) 
+R(X) :- BaseTwo(X), A(X), B(X), X != 0.
+
+// Stratum 4 [depends on: 0,1,2,3]
+.decl D(X:number) 
+D(X) :- BaseOne(X), A(X), !C(X), !R(X).
+
+// Stratum 4 - Query [depends on: 0,1,4]
+.decl Query(X:number) 
+.output Query
+Query(X) :- BaseOne(X), D(X), A(X).

@@ -1,0 +1,12 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+output relation Rout1(_X:Tnumber)
+Rout1(_X) :- var _X = FlatMap(range_vec((1), (10), 1)).
+output relation Rout2(_X:Tnumber)
+Rout2(_X) :- var _X = FlatMap(range_vec((9), (0), (- (1)))).
+output relation Rout3(_X:Tnumber, _Y:Tnumber)
+Rout3(_X, _Y) :- var _X = FlatMap(range_vec((1), (3), 1)), var _Y = FlatMap(range_vec((1), (3), 1)).
+output relation Rout4(_X:Tnumber, _Y:Tnumber)
+Rout4(_X, _Y) :- var _X = FlatMap(range_vec((0), (3), 1)), var _Y = FlatMap(range_vec((0), (3), 1)), (_X < _Y), ((_X + _Y) == (3)).

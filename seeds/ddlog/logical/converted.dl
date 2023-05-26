@@ -1,0 +1,13 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation RA(_x:Tnumber)
+RA((0)).
+RA((1)).
+output relation Rr_land(_x:Tnumber, _y:Tnumber, _z:Tnumber)
+Rr_land(land(_x, _y), _x, _y) :- RA(_x), RA(_y).
+output relation Rr_lor(_x:Tnumber, _y:Tnumber, _z:Tnumber)
+Rr_lor(lor(_x, _y), _x, _y) :- RA(_x), RA(_y).
+output relation Rr_lnot(_x:Tnumber, _y:Tnumber)
+Rr_lnot(lnot(_x), _x) :- RA(_x).

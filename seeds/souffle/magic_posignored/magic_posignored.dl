@@ -1,0 +1,23 @@
+
+.decl Pairs(A:float, B:float) 
+Pairs(0,0).
+
+.decl First(A:float) 
+First(x) :- Pairs(x,_).
+
+// Ignored - x < 100 is a float comparison.
+.decl DupFirst(A:float, B:float) 
+DupFirst(x,x) :- First(x), x < 100.
+
+// Used negated later on, so should be neglabelled.
+// BUT: DupFirst is ignored, so it shouldn't be. Ignore this too.
+.decl FirstAgain(A:float) 
+FirstAgain(x) :- DupFirst(x,_).
+
+// If stratification messes up, this will be true
+.decl Fail()
+Fail() :- FirstAgain(x), !FirstAgain(x).
+
+.decl Out(A:float) 
+.output Out
+Out(x) :- Fail(), First(x).

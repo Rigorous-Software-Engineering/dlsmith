@@ -1,0 +1,19 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation Rnum(_x:Tnumber)
+Rnum((1)).
+Rnum((_x + (1))) :- Rnum(_x), (_x < _l), Rlim(_l).
+relation Rlim(_n:Tnumber)
+input relation Rlim_shadow(_n:Tnumber)
+Rlim(_n) :- Rlim_shadow(_n).
+relation Rfactorr(_x:Tnumber, _f:Tnumber)
+Rfactorr(_x, _f) :- Rnum(_x), Rnum(_f), (_f <= (_x / (2))), ((_x % _f) == (0)).
+relation Rfactor(_x:Tnumber, _fs:Tnumber)
+Rfactor(_x, _f) :- Rnum(_x), Ragg(_x, _f).
+relation Ragg(_x:Tnumber, _f:Tnumber)
+Ragg(_x, _f) :- tpl in Rfactorr(_x, _i), var _f = ((tpl), _i).group_by((_x)).souffle_group_sum().
+
+output relation Ramicable(_a:Tnumber, _b:Tnumber)
+Ramicable(_a, _b) :- Rfactor(_a, _b), Rfactorr(_b, _a), (_a < _b).

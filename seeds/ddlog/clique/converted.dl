@@ -1,0 +1,23 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TNode = IString
+output relation Rreachable(_node1:TNode, _node2:TNode)
+output relation Rsame_clique(_node1:TNode, _node2:TNode)
+output relation Redge(_node1:TNode, _node2:TNode)
+Rreachable(_X, _Y) :- Redge(_X, _Y).
+Rreachable(_X, _Y) :- Redge(_X, _Z), Rreachable(_Z, _Y).
+Rsame_clique(_X, _Y) :- Rreachable(_X, _Y), Rreachable(_Y, _X).
+Redge(string_intern("0"), string_intern("1")).
+Redge(string_intern("1"), string_intern("2")).
+Redge(string_intern("2"), string_intern("3")).
+Redge(string_intern("3"), string_intern("4")).
+Redge(string_intern("4"), string_intern("5")).
+Redge(string_intern("5"), string_intern("0")).
+Redge(string_intern("5"), string_intern("6")).
+Redge(string_intern("6"), string_intern("7")).
+Redge(string_intern("7"), string_intern("8")).
+Redge(string_intern("8"), string_intern("9")).
+Redge(string_intern("9"), string_intern("10")).
+Redge(string_intern("10"), string_intern("7")).

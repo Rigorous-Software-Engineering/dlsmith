@@ -1,0 +1,23 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TNode = IString
+output relation Ra(_node1:TNode)
+output relation Rb(_node1:TNode)
+output relation Rc(_node1:TNode, _node2:TNode)
+output relation Rprojection(_node1:TNode)
+output relation Rcartesian(_node1:TNode, _node2:TNode)
+output relation Rinner_join(_node1:TNode)
+Ra(string_intern("a1")).
+Ra(string_intern("a2")).
+Ra(string_intern("a3")).
+Rb(string_intern("b1")).
+Rb(string_intern("b2")).
+Rb(string_intern("a1")).
+Rc(string_intern("a1"), string_intern("b2")).
+Rc(string_intern("a1"), string_intern("a1")).
+Rc(string_intern("a2"), string_intern("b2")).
+Rprojection(_X) :- Rc(_X, _).
+Rcartesian(_X, _Y) :- Ra(_X), Rb(_Y).
+Rinner_join(_X) :- Ra(_X), Rb(_X).

@@ -1,0 +1,23 @@
+.type Pair = P{x: number, y: number} | Q{x: float,  y: float} | R{x: symbol, y: symbol}
+
+
+.decl in(p: Pair)
+
+in($P(1, 2)).
+in($P(1, 3)).
+in($P(5, 1)).
+in($Q(0.0, 0.0)).
+
+
+.decl out(x: number)
+
+out(X) :- in(Z), Z = $P(X,_).
+
+.output out()
+
+
+.decl has(s: symbol)
+
+has("P") :- in(Z), Z = $P(_,_).
+has("Q") :- in(Z), Z = $Q(_,_).
+has("R") :- in(Z), Z = $R(_,_).

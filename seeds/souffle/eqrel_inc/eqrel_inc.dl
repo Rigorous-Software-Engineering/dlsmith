@@ -1,0 +1,5 @@
+.decl e(x: number, y: number) eqrel
+e(0, 0).
+e(x, x + 1) :-
+  x < 100,
+  e(x, x).

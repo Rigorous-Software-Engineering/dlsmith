@@ -1,0 +1,23 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TNode = IString
+relation Rflight(_node1:TNode, _node2:TNode, _node3:TNode)
+output relation RQAflies(_node1:TNode, _node2:TNode)
+output relation RVAflies(_node1:TNode, _node2:TNode)
+output relation RQAonly(_node1:TNode, _node2:TNode)
+RQAflies(_X, _Y) :- Rflight(string_intern("QA"), _X, _Y).
+RQAflies(_X, _Y) :- Rflight(string_intern("QA"), _X, _Z), RQAflies(_Z, _Y).
+RVAflies(_X, _Y) :- Rflight(string_intern("VA"), _X, _Y).
+RVAflies(_X, _Y) :- Rflight(string_intern("VA"), _X, _Z), RVAflies(_Z, _Y).
+RQAonly(_X, _Y) :- RQAflies(_X, _Y), not RVAflies(_X, _Y).
+Rflight(string_intern("QA"), string_intern("AU"), string_intern("CHI")).
+Rflight(string_intern("QA"), string_intern("AU"), string_intern("JPN")).
+Rflight(string_intern("QA"), string_intern("JPN"), string_intern("DEN")).
+Rflight(string_intern("QA"), string_intern("JPN"), string_intern("CHI")).
+Rflight(string_intern("QA"), string_intern("AU"), string_intern("CHI")).
+Rflight(string_intern("VA"), string_intern("AU"), string_intern("CHI")).
+Rflight(string_intern("VA"), string_intern("JPN"), string_intern("ZA")).
+Rflight(string_intern("VA"), string_intern("JPN"), string_intern("DEN")).
+Rflight(string_intern("VA"), string_intern("DEN"), string_intern("ZA")).

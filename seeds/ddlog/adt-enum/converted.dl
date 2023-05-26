@@ -1,0 +1,11 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TDay = Mon{}|Tue{}|Wed{}|Thu{}|Fri{}|Sat{}|San{}
+relation RDayBeforeInTheWeek(_x:TDay, _y:TDay)
+input relation RDayBeforeInTheWeek_shadow(_x:TDay, _y:TDay)
+RDayBeforeInTheWeek(_x, _y) :- RDayBeforeInTheWeek_shadow(_x, _y).
+output relation RBeforeInTheWeek(_x:TDay, _y:TDay)
+RBeforeInTheWeek(_x, _y) :- RDayBeforeInTheWeek(_x, _y).
+RBeforeInTheWeek(_x, _z) :- RDayBeforeInTheWeek(_x, _y), RBeforeInTheWeek(_y, _z).

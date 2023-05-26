@@ -1,0 +1,33 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation RUnsigned(_x:Tunsigned)
+RUnsigned((1: Tunsigned)) :- ((0: Tunsigned) < (1: Tunsigned)).
+RUnsigned((2: Tunsigned)) :- ((0: Tunsigned) <= (1: Tunsigned)).
+RUnsigned((3: Tunsigned)) :- ((42: Tunsigned) > (12: Tunsigned)).
+RUnsigned((4: Tunsigned)) :- ((42: Tunsigned) >= (12: Tunsigned)).
+RUnsigned((5: Tunsigned)) :- ((42: Tunsigned) != (12: Tunsigned)).
+RUnsigned((6: Tunsigned)) :- ((42: Tunsigned) == (42: Tunsigned)).
+RUnsigned((7: Tunsigned)) :- ((0: Tunsigned) < ((2147483647: Tunsigned) + (1: Tunsigned))).
+relation RFloat(_x:Tnumber)
+RFloat((1)) :- ((64'f0.999: Tfloat) < (64'f1.0: Tfloat)).
+RFloat((2)) :- ((64'f0.999: Tfloat) <= (64'f1.0: Tfloat)).
+RFloat((3)) :- ((64'f42.42: Tfloat) > (64'f42.0: Tfloat)).
+RFloat((4)) :- ((64'f42.42: Tfloat) >= (64'f42.0: Tfloat)).
+RFloat((5)) :- ((64'f42.42: Tfloat) != (64'f42.0: Tfloat)).
+RFloat((6)) :- ((64'f42.42: Tfloat) == (64'f42.42: Tfloat)).
+relation REmptyUnsigned(_x:Tunsigned)
+REmptyUnsigned((1: Tunsigned)) :- ((0: Tunsigned) >= (1: Tunsigned)).
+REmptyUnsigned((2: Tunsigned)) :- ((0: Tunsigned) > (1: Tunsigned)).
+REmptyUnsigned((3: Tunsigned)) :- ((42: Tunsigned) <= (12: Tunsigned)).
+REmptyUnsigned((4: Tunsigned)) :- ((42: Tunsigned) < (12: Tunsigned)).
+REmptyUnsigned((5: Tunsigned)) :- ((42: Tunsigned) == (12: Tunsigned)).
+REmptyUnsigned((6: Tunsigned)) :- ((42: Tunsigned) != (42: Tunsigned)).
+relation REmptyFloat(_x:Tnumber)
+REmptyFloat((1)) :- ((64'f0.999: Tfloat) >= (64'f1.0: Tfloat)).
+REmptyFloat((2)) :- ((64'f0.999: Tfloat) > (64'f1.0: Tfloat)).
+REmptyFloat((3)) :- ((64'f42.42: Tfloat) <= (64'f42.0: Tfloat)).
+REmptyFloat((4)) :- ((64'f42.42: Tfloat) < (64'f42.0: Tfloat)).
+REmptyFloat((5)) :- ((64'f42.42: Tfloat) == (64'f42.0: Tfloat)).
+REmptyFloat((6)) :- ((64'f42.42: Tfloat) != (64'f42.42: Tfloat)).

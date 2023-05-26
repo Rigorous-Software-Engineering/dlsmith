@@ -1,0 +1,12 @@
+.decl A(a: symbol, b: symbol)
+.decl B(h1: symbol, h2: symbol) eqrel
+
+A("a","b").
+
+B(a, b) :-
+    A(a, b),
+    B(a, _).
+
+B(a, b) :-
+    B(a, _),
+    A(a, b).

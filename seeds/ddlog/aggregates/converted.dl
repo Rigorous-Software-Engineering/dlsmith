@@ -1,0 +1,117 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation Ra(_n:Tsymbol, _x:Tnumber)
+Ra(string_intern("A"), (3)).
+Ra(string_intern("A"), (4)).
+Ra(string_intern("A"), (5)).
+Ra(string_intern("A"), (6)).
+Ra(string_intern("B"), (2)).
+Ra(string_intern("B"), (3)).
+Ra(string_intern("B"), (4)).
+Ra(string_intern("D"), (4)).
+relation Rfuzz(_a:Tnumber, _b:Tnumber)
+Rfuzz(_p, _q) :- Ra(_sy, _p), Rres(_ss, _q), Rres1(_, _q).
+relation Rfuzz2(_a:Tnumber, _b:Tnumber)
+Rfuzz2(_p, _q) :- Rres3(_sy, _p), Rres2(_ss, _p, _q), Rfuzz(_p, _q).
+relation Rres(_n:Tsymbol, _x:Tnumber)
+Rres(string_intern("min"), _Y) :- Ragg(_Y).
+relation Ragg(_Y:Tnumber)
+Ragg(_Y) :- tpl in Ra(_, _Z), var _Y = ((tpl), _Z).group_by(()).souffle_group_min().
+
+Rres(string_intern("minA"), _Y) :- Ragg_0(_Y).
+relation Ragg_0(_Y:Tnumber)
+Ragg_0(_Y) :- tpl_0 in Ra(string_intern("A"), _Z), var _Y = ((tpl_0), _Z).group_by(()).souffle_group_min().
+
+Rres(string_intern("minB"), _Y) :- Ragg_1(_Y).
+relation Ragg_1(_Y:Tnumber)
+Ragg_1(_Y) :- tpl_1 in Ra(string_intern("B"), _Z), var _Y = ((tpl_1), _Z).group_by(()).souffle_group_min().
+
+Rres(string_intern("minC"), _Y) :- Ragg_2(_Y).
+relation Ragg_2(_Y:Tnumber)
+Ragg_2(_Y) :- tpl_2 in Ra(string_intern("C"), _Z), var _Y = ((tpl_2), _Z).group_by(()).souffle_group_min().
+
+Rres(string_intern("minC2"), _Y) :- Ragg_3(_Y).
+relation Ragg_3(_Y:Tnumber)
+Ragg_3(_Y) :- tpl_3 in Ra(string_intern("C"), _Z), var _Y = ((tpl_3), _Z).group_by(()).souffle_group_min().
+
+Rres(string_intern("minAB"), _Y) :- Ragg_4(_Y).
+relation Ragg_4(_Y:Tnumber)
+Ragg_4(_Y) :- tpl_4 in Ra(_A, _Z), tpl_5 in Ra(_B, _Z), (_A != _B), var _Y = ((tpl_4,tpl_5), _Z).group_by(()).souffle_group_min().
+
+Rres(string_intern("minAB+"), _Y) :- Ragg_5(_Y).
+relation Ragg_5(_Y:Tnumber)
+Ragg_5(_Y) :- tpl_6 in Ra(_A, _Z), tpl_7 in Ra(_B, _Y), (_A != _B), var _Y = ((tpl_6,tpl_7), (_Z + _Y)).group_by(()).souffle_group_min().
+
+Rres(string_intern("max"), _Y) :- Ragg_6(_Y).
+relation Ragg_6(_Y:Tnumber)
+Ragg_6(_Y) :- tpl_8 in Ra(_, _Z), var _Y = ((tpl_8), _Z).group_by(()).souffle_group_max().
+
+Rres(string_intern("maxA"), _Y) :- Ragg_7(_Y).
+relation Ragg_7(_Y:Tnumber)
+Ragg_7(_Y) :- tpl_9 in Ra(string_intern("A"), _Z), var _Y = ((tpl_9), _Z).group_by(()).souffle_group_max().
+
+Rres(string_intern("maxB"), _Y) :- Ragg_8(_Y).
+relation Ragg_8(_Y:Tnumber)
+Ragg_8(_Y) :- tpl_10 in Ra(string_intern("B"), _Z), var _Y = ((tpl_10), _Z).group_by(()).souffle_group_max().
+
+Rres(string_intern("maxC"), _Y) :- Ragg_9(_Y).
+relation Ragg_9(_Y:Tnumber)
+Ragg_9(_Y) :- tpl_11 in Ra(string_intern("C"), _Z), var _Y = ((tpl_11), _Z).group_by(()).souffle_group_max().
+
+Rres(string_intern("maxC2"), _Y) :- Ragg_10(_Y).
+relation Ragg_10(_Y:Tnumber)
+Ragg_10(_Y) :- tpl_12 in Ra(string_intern("C"), _Z), var _Y = ((tpl_12), _Z).group_by(()).souffle_group_max().
+
+Rres(string_intern("maxAB"), _Y) :- Ragg_11(_Y).
+relation Ragg_11(_Y:Tnumber)
+Ragg_11(_Y) :- tpl_13 in Ra(_A, _Z), tpl_14 in Ra(_B, _Z), (_A != _B), var _Y = ((tpl_13,tpl_14), _Z).group_by(()).souffle_group_max().
+
+Rres(string_intern("maxAB+"), _Y) :- Ragg_12(_Y).
+relation Ragg_12(_Y:Tnumber)
+Ragg_12(_Y) :- tpl_15 in Ra(_A, _Z), tpl_16 in Ra(_B, _Y), (_A != _B), var _Y = ((tpl_15,tpl_16), (_Z + _Y)).group_by(()).souffle_group_max().
+
+Rres(string_intern("count"), _Y) :- Ragg_13(_Y).
+relation Ragg_13(_Y:Tnumber)
+Ragg_13(_Y) :- tpl_17 in Ra(_, _), var _Y = ((tpl_17)).group_by(()).souffle_group_count32().
+
+Rres(string_intern("countA"), _Y) :- Ragg_14(_Y).
+relation Ragg_14(_Y:Tnumber)
+Ragg_14(_Y) :- tpl_18 in Ra(string_intern("A"), _), var _Y = ((tpl_18)).group_by(()).souffle_group_count32().
+
+Rres(string_intern("countB"), _Y) :- Ragg_15(_Y).
+relation Ragg_15(_Y:Tnumber)
+Ragg_15(_Y) :- tpl_19 in Ra(string_intern("B"), _), var _Y = ((tpl_19)).group_by(()).souffle_group_count32().
+
+Rres(string_intern("countC"), _Y) :- Ragg_16(_Y).
+relation Ragg_16(_Y:Tnumber)
+Ragg_16(_Y) :- tpl_20 in Ra(string_intern("C"), _), var _Y = ((tpl_20)).group_by(()).souffle_group_count32().
+
+Rres(string_intern("countNotA"), _Y) :- Ragg_17(_Y).
+relation Ragg_17(_Y:Tnumber)
+Ragg_17(_Y) :- tpl_21 in Ra(_X, _), (_X != string_intern("A")), var _Y = ((tpl_21)).group_by(()).souffle_group_count32().
+
+Rres(string_intern("countNotB"), _Y) :- Ragg_18(_Y).
+relation Ragg_18(_Y:Tnumber)
+Ragg_18(_Y) :- tpl_22 in Ra(_X, _), (_X != string_intern("B")), var _Y = ((tpl_22)).group_by(()).souffle_group_count32().
+
+relation Rres1(_n:Tsymbol, _x:Tnumber)
+Rres1(_X, _Y) :- Ra(_X, _), Ragg_19(_X, _Y).
+relation Ragg_19(_X:Tsymbol, _Y:Tnumber)
+Ragg_19(_X, _Y) :- tpl_23 in Ra(_X, _Z), var _Y = ((tpl_23), _Z).group_by((_X)).souffle_group_min().
+
+relation Rres2(_n:Tsymbol, _x:Tnumber, _y:Tnumber)
+Rres2(_X, _Y, _W) :- Ra(_X, _), Ragg_20(_X, _Y), Ragg_21(_X, _W).
+relation Ragg_20(_X:Tsymbol, _Y:Tnumber)
+Ragg_20(_X, _Y) :- tpl_24 in Ra(_X, _Z), var _Y = ((tpl_24), _Z).group_by((_X)).souffle_group_min().
+relation Ragg_21(_X:Tsymbol, _W:Tnumber)
+Ragg_21(_X, _W) :- tpl_25 in Ra(_X, _Z), var _W = ((tpl_25), _Z).group_by((_X)).souffle_group_max().
+
+relation Rres3(_n:Tsymbol, _x:Tnumber)
+Rres3(_X, _Y) :- Ra(_X, _), Ragg_22(_X, _Y), Ragg_23(_X, tmp), tmp == _Y.
+relation Ragg_22(_X:Tsymbol, _Y:Tnumber)
+Ragg_22(_X, _Y) :- tpl_26 in Ra(_X, _Z), var _Y = ((tpl_26), _Z).group_by((_X)).souffle_group_min().
+relation Ragg_23(_X:Tsymbol, tmp:Tnumber)
+Ragg_23(_X, tmp) :- tpl_27 in Ra(_X, _Z), var tmp = ((tpl_27), _Z).group_by((_X)).souffle_group_max().
+

@@ -1,0 +1,29 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TText = IString
+relation RMovie(_id:Tnumber, _title:TText, _rating:TText)
+relation RMovieActors(_movieid:Tnumber, _actorsid:Tnumber)
+relation RActors(_actorid:Tnumber, _name:TText)
+RMovie((1), string_intern("Movie a"), string_intern("2.3/10")).
+RMovie((2), string_intern("Movie b"), string_intern("9.3/10")).
+RMovie((3), string_intern("Movie c"), string_intern("8.6/10")).
+RMovieActors((1), (1)).
+RMovieActors((1), (2)).
+RMovieActors((1), (3)).
+RMovieActors((2), (2)).
+RMovieActors((2), (3)).
+RMovieActors((2), (4)).
+RMovieActors((3), (1)).
+RMovieActors((3), (4)).
+RActors((1), string_intern("John Smith")).
+RActors((2), string_intern("Joe Bloggs")).
+RActors((3), string_intern("Francesca Allsworth")).
+RActors((4), string_intern("Julia Thebest")).
+output relation RMovieActorsText(_title:TText, _actorname:TText)
+RMovieActorsText(_c, _d) :- RMovieActors(_a, _b), RMovie(_a, _c, _), RActors(_b, _d).
+output relation RJoeBloggsMovies(_title:TText)
+RJoeBloggsMovies(_a) :- RMovieActorsText(_a, _b), re_match(string_intern("Joe Bloggs"), _b).
+output relation RActorsRatings(_name:TText, _rating:TText)
+RActorsRatings(_a, _rating) :- RMovieActorsText(_movie, _a), RMovie(_, _movie_b, _rating), re_match(_movie, _movie_b).

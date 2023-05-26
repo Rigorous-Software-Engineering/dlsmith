@@ -1,0 +1,32 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef Tnode = Tnumber
+relation RAoo_edge(_a:Tnode, _b:Tnode)
+relation RAoo_link(_a:Tnode, _b:Tnode)
+RAoo_link(_X, _Y) :- RAoo_edge(_X, _Y).
+RAoo_link(_X, _Z) :- RAoo_link(_X, _Y), RAoo_edge(_Y, _Z).
+relation RBoo_edge(_a:Tnode, _b:Tnode)
+relation RBoo_link(_a:Tnode, _b:Tnode)
+RBoo_link(_X, _Y) :- RBoo_edge(_X, _Y).
+RBoo_link(_X, _Z) :- RBoo_edge(_X, _Y), RBoo_link(_Y, _Z).
+relation RCoo_edge(_a:Tnode, _b:Tnode)
+relation RCoo_link(_a:Tnode, _b:Tnode)
+RCoo_link(_X, _Y) :- RCoo_edge(_X, _Y).
+RCoo_link(_X, _Z) :- RCoo_link(_X, _Y), RCoo_link(_Y, _Z).
+relation Rless(_a:Tnode, _b:Tnode)
+relation Rtest(_a:Tnode)
+relation Rtest2(_a:Tnode)
+relation Rtest3(_a:Tnode)
+Rless((1), (2)).
+Rless((2), (3)).
+Rless((3), (4)).
+Rless((4), (5)).
+Rless((5), (6)).
+RAoo_edge(_X, _Y) :- Rless(_X, _Y).
+RBoo_edge(_X, _Y) :- Rless(_X, _Y).
+RCoo_edge(_X, _Y) :- Rless(_X, _Y).
+Rtest(_a) :- RAoo_edge(_a, _b).
+Rtest2(_a) :- RBoo_edge(_a, _b).
+Rtest3(_a) :- RCoo_edge(_a, _b).

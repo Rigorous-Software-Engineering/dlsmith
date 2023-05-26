@@ -1,0 +1,11 @@
+
+
+.type ROO = [x:number, y:symbol]
+
+.decl A(x:ROO, y:number)
+A([1,"a"], 2).
+
+.decl B(x:symbol) 
+B(x) :- A([_,x], _).
+
+.output B()

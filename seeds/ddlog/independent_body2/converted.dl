@@ -1,0 +1,26 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation Ra(_x:Tnumber)
+Ra(_x) :- Rb(_y, _y), Rb(_z, _x), not Re(_z), Rc(_y), Rb(_, _n), Re(_n).
+Ra(_x) :- Rb(_x, _y), Rc(_y), Rd(_y, _).
+relation Rb(_x:Tnumber, _y:Tnumber)
+input relation Rb_shadow(_x:Tnumber, _y:Tnumber)
+Rb(_x, _y) :- Rb_shadow(_x, _y).
+relation Rc(_x:Tnumber)
+input relation Rc_shadow(_x:Tnumber)
+Rc(_x) :- Rc_shadow(_x).
+relation Rd(_x:Tnumber, _y:Tnumber)
+input relation Rd_shadow(_x:Tnumber, _y:Tnumber)
+Rd(_x, _y) :- Rd_shadow(_x, _y).
+relation Re(_x:Tnumber)
+Re(_x) :- Rb(_x, _x), Ragg(_a), ((_a + (1)) < (10)).
+relation Ragg(_a:Tnumber)
+Ragg(_a) :- tpl in Rb(_, _Z), var _a = ((tpl), _Z).group_by(()).souffle_group_max().
+
+relation Rf(_x:Tnumber)
+Rf(_x) :- Rd(_x, _), Re(_).
+relation Rgood()
+Rgood() :- Ra(_x), Re(_x).
+output relation Rquery(_x:Tnumber)

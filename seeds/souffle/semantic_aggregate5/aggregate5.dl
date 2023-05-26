@@ -1,0 +1,11 @@
+.decl attribute(x: unsigned)
+attribute(1).
+
+.decl d(id: unsigned , valid: unsigned)
+
+d(2, 1).
+
+.decl sel(m: unsigned)
+
+sel(m) :- m = min id : { d(id, v), v != 0, attribute(v) }.
+

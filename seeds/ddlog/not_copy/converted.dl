@@ -1,0 +1,11 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TX = Option<(Tsymbol)>
+relation RA(_a:TX)
+RA(Some{(string_intern("a"))}).
+relation RB(_b:TX)
+RB(_x) :- var _x = Some{(string_intern("foo"))}, RA(_x).
+output relation RC(_c:Tsymbol)
+RC(_x) :- RB(Some{(_x)}).

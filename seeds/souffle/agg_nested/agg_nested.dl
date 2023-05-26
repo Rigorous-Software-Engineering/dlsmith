@@ -1,0 +1,11 @@
+.decl Prime(x:number)
+.decl D(x:number)
+
+Prime(2).
+Prime(3).
+Prime(5).
+Prime(7).
+Prime(11).
+
+// Sums all prime sums that are less than 10. So 2 + 3 is fine, but 2 + 3 + 5 + 7 is not.
+D(s) :- s = sum y : { Prime(n), y = sum z : { Prime(z), z < n }, y < 10 }.

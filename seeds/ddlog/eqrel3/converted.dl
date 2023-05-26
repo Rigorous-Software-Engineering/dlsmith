@@ -1,0 +1,10 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+output relation RnotEqrel(_x:Tnumber, _y:Tnumber)
+output relation RisEqrel(_x:Tnumber, _y:Tnumber)
+RnotEqrel(_x, _y) :- RisEqrel(_x, _y).
+RisEqrel(_x, _y) :- RnotEqrel(_x, _y).
+RisEqrel((0), (1)).
+RnotEqrel((1), (2)).

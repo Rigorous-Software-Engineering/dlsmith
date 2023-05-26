@@ -1,0 +1,10 @@
+.type AOO <: symbol
+
+.decl Y (a:AOO, b:AOO) 
+.decl Z (a:AOO, b:AOO, c:AOO) 
+.output Z ()
+
+Y("a","b").
+Y("c","d").
+
+Z(a,b, cat(cat(a,b), a)) :- Y(a,b).

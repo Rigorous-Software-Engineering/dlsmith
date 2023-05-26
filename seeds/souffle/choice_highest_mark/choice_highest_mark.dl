@@ -1,0 +1,31 @@
+.decl mark(student:symbol, mark:number, grade:number, sex:symbol)
+.input mark
+.decl highest_mark(student:symbol, mark:number, grade:number, sex:symbol) choice-domain (grade, sex)
+.decl solution(student:symbol, mark:number, grade:number, sex:symbol)
+.decl incorrect()
+
+highest_mark(st,hm,g,sex) :- hm = max n : { mark(_,n,g,sex) }, mark(st,hm,g,sex).
+
+solution("Allen",79,1,"m").
+solution("Judith",91,1,"f").
+solution("Chad",93,2,"m").
+solution("Dolores",93,2,"f").
+solution("Timothy",86,3,"m").
+solution("Dolores",100,3,"f").
+solution("John",97,4,"m").
+solution("Michele",94,4,"f").
+solution("Enrique",97,5,"m").
+solution("Hope",100,5,"f").
+solution("Robert",97,6,"m").
+solution("Patricia",94,6,"f").
+solution("Earl",100,7,"m").
+solution("Tawanda",91,7,"f").
+solution("Wayne",83,8,"m").
+solution("Katrina",92,8,"f").
+solution("Wes",96,9,"m").
+solution("Mary",98,9,"f").
+solution("Santos",93,10,"m").
+solution("Norma",97,10,"f").
+
+incorrect() :- solution(a, b, c, d), !highest_mark(a, b, c, d).
+incorrect() :- highest_mark(a, b, c, d), !solution(a, b, c, d).

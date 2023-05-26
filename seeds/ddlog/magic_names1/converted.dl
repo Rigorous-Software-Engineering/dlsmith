@@ -1,0 +1,18 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TNode = IString
+relation Rm0_Reachable_ff()
+Rm0_Reachable_ff().
+Rm0_Reachable_ff() :- Rm0_Reachable_ff(), REdge(_, _).
+relation REdge(_n:TNode, _m:TNode)
+REdge(string_intern("A"), string_intern("B")).
+REdge(string_intern("B"), string_intern("C")).
+REdge(string_intern("C"), string_intern("D")).
+REdge(string_intern("D"), string_intern("B")).
+output relation RReachable(_n:TNode, _m:TNode)
+RReachable(_arg0, _arg1) :- RReachable_ff(_arg0, _arg1).
+relation RReachable_ff(_n:TNode, _m:TNode)
+RReachable_ff(_x, _y) :- Rm0_Reachable_ff(), REdge(_x, _y).
+RReachable_ff(_x, _y) :- Rm0_Reachable_ff(), REdge(_x, _z), RReachable_ff(_z, _y).

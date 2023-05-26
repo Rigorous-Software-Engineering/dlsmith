@@ -1,0 +1,9 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation Rrel(_reallyLongAttributeNameWhichCanBecomeUnreadbleVeryQuicklyButIsNeededForTesting:Tnumber, _n2:Tnumber)
+Rrel((0), (1)).
+Rrel((0), (2)).
+Rrel((1), (2)).
+Rrel(_thisIsAnotherreallyLongAttributeNameWhichCanBecomeUnreadbleVeryQuicklyButIsNeededForTesting, _m) :- Rrel(_thisIsAnotherreallyLongAttributeNameWhichCanBecomeUnreadbleVeryQuicklyButIsNeededForTesting, _), Rrel(_m, _), (_thisIsAnotherreallyLongAttributeNameWhichCanBecomeUnreadbleVeryQuicklyButIsNeededForTesting < _m).

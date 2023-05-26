@@ -1,0 +1,8 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+output relation Rfib(_n:Tnumber, _x:Tnumber)
+Rfib((0), (0)).
+Rfib((1), (1)).
+Rfib((_n + (1)), (_x + _y)) :- Rfib(_n, _x), Rfib((_n - (1)), _y), (_n < (20)).

@@ -1,0 +1,12 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TNOO = Tnumber
+typedef TPOO = Option<(TNOO, TNOO)>
+relation Ra(_x:TPOO)
+output relation Rb(_x:TNOO, _y:TNOO)
+Ra(Some{((1), (2))}).
+Ra(Some{((2), (3))}).
+Rb(_x, _y) :- Ra(Some{(_x, _y)}).
+Rb(_x, _z) :- Ra(Some{(_x, _y)}), Rb(_y, _z).

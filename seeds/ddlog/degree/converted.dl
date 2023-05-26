@@ -1,0 +1,18 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TNode = IString
+relation REdge(_n:TNode, _m:TNode, _w:Tnumber)
+input relation REdge_shadow(_n:TNode, _m:TNode, _w:Tnumber)
+REdge(_n, _m, _w) :- REdge_shadow(_n, _m, _w).
+output relation ROutDegree(_n:TNode, _l:Tnumber)
+ROutDegree(_x, _l) :- REdge(_x, _, _), Ragg(_x, _l).
+relation Ragg(_x:TNode, _l:Tnumber)
+Ragg(_x, _l) :- tpl in REdge(_x, _, _), var _l = ((tpl), (1)).group_by((_x)).souffle_group_sum().
+
+output relation RInDegree(_n:TNode, _l:Tnumber)
+RInDegree(_x, _l) :- REdge(_, _x, _), Ragg_0(_x, _l).
+relation Ragg_0(_x:TNode, _l:Tnumber)
+Ragg_0(_x, _l) :- tpl_0 in REdge(_, _x, _), var _l = ((tpl_0), (1)).group_by((_x)).souffle_group_sum().
+

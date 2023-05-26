@@ -1,0 +1,6 @@
+output ok.
+ok :-
+  X = #x[string],
+  Y = #y[string],
+  F = `str_prefixof(X, Y) ==> exists #i[int]. (str_substr(Y, #i[int], str_len(X)) #= X)`,
+  is_valid(F).

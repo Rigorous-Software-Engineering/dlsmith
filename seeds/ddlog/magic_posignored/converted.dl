@@ -1,0 +1,16 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation RPairs(_A:Tfloat, _B:Tfloat)
+RPairs((0), (0)).
+relation RFirst(_A:Tfloat)
+RFirst(_x) :- RPairs(_x, _).
+relation RDupFirst(_A:Tfloat, _B:Tfloat)
+RDupFirst(_x, _x) :- RFirst(_x), (_x < (100)).
+relation RFirstAgain(_A:Tfloat)
+RFirstAgain(_x) :- RDupFirst(_x, _).
+relation RFail()
+RFail() :- RFirstAgain(_x), not RFirstAgain(_x).
+output relation ROut(_A:Tfloat)
+ROut(_x) :- RFail(), RFirst(_x).

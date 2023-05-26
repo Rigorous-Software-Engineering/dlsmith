@@ -1,0 +1,8 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+output relation RHexadecimal(_n:Tunsigned)
+RHexadecimal((0)).
+RHexadecimal((1)).
+RHexadecimal((4294967295)).

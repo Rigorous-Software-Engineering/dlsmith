@@ -1,0 +1,14 @@
+.decl F2F(f: float)
+F2F(to_float(3.0)).
+
+.decl I2I(i: number)
+I2I(to_number(3)).
+
+.decl S2S(s: symbol)
+S2S(to_string("hi")).
+
+.decl mkUnsigned(u: unsigned)
+mkUnsigned(3).
+
+.decl U2U(u: unsigned)
+U2U(to_unsigned(u)) :- mkUnsigned(u).

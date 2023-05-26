@@ -1,0 +1,40 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TROO = Option<(Tnumber)>
+relation RNumbersA(_x:Tnumber)
+relation RNumbersB(_x:Tnumber)
+relation RSymbolsA(_x:Tsymbol)
+relation RSymbolsB(_x:Tsymbol)
+relation RRecordsA(_x:TROO)
+relation RRecordsB(_x:TROO)
+output relation RCountNumbers(_x:Tnumber)
+output relation RCountSymbols(_x:Tnumber)
+output relation RCountRecords(_x:Tnumber)
+RNumbersA((1)).
+RNumbersB((2)).
+RSymbolsA(string_intern("a")).
+RSymbolsA(string_intern("b")).
+RSymbolsB(string_intern("b")).
+RSymbolsB(string_intern("c")).
+RRecordsA(Some{((1))}).
+RRecordsA(Some{((2))}).
+RRecordsA(Some{((3))}).
+RRecordsB(Some{((2))}).
+RRecordsB(Some{((3))}).
+RRecordsB(Some{((4))}).
+RRecordsB(Some{((5))}).
+RRecordsB(None).
+RCountNumbers(_x) :- Ragg(_x).
+relation Ragg(_x:Tnumber)
+Ragg(_x) :- tpl in RNumbersA(_y), tpl_0 in RNumbersB(_y), var _x = ((tpl,tpl_0)).group_by(()).souffle_group_count32().
+
+RCountSymbols(_x) :- Ragg_0(_x).
+relation Ragg_0(_x:Tnumber)
+Ragg_0(_x) :- tpl_1 in RSymbolsA(_y), tpl_2 in RSymbolsB(_y), var _x = ((tpl_1,tpl_2)).group_by(()).souffle_group_count32().
+
+RCountRecords(_x) :- Ragg_1(_x).
+relation Ragg_1(_x:Tnumber)
+Ragg_1(_x) :- tpl_3 in RRecordsA(_y), tpl_4 in RRecordsB(_y), var _x = ((tpl_3,tpl_4)).group_by(()).souffle_group_count32().
+

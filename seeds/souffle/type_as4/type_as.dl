@@ -1,0 +1,9 @@
+.type subsymbol <: symbol
+.decl A1(x:symbol)
+.decl A2(x:subsymbol)
+.decl A3(x:subsymbol)
+A1("hello").
+A2("ello").
+A3(x) :-
+  A1(as(x,subsymbol)),
+  A2(x).

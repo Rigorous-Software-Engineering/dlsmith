@@ -1,0 +1,13 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation Rloop(_i:Tnumber, _x:Tnumber, _y:Tnumber, _z:Tnumber)
+output relation RR(_a:Tnumber)
+Rloop((0), (0), (0), (0)).
+Rloop((1), (10), _y, _z) :- Rloop((0), _, _y, _z).
+Rloop((2), _x, _y, _z) :- Rloop((1), _x, _, _), Rloop((0), _, _y, _z), ((_x - _z) > (0)).
+Rloop((3), _x, _y, (_z * (- (1)))) :- Rloop((1), _x, _y, _z), ((_x - _z) <= (0)).
+Rloop((4), _x, _y, _z) :- Rloop((2), _x, _y, _z).
+Rloop((4), _x, _y, _z) :- Rloop((3), _x, _y, _z).
+RR(_z) :- Rloop((4), _, _, _z), (_z >= (0)).

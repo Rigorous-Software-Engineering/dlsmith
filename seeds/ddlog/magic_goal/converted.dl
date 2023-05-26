@@ -1,0 +1,19 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation Ra(_x:Tsymbol)
+relation Rg(_x:Tsymbol)
+relation Re(_x:Tsymbol)
+relation Rh(_x:Tsymbol, _y:Tsymbol)
+relation Rc(_x:Tsymbol)
+relation Rb(_x:Tsymbol, _y:Tsymbol)
+output relation Rgoal()
+Rb(string_intern("bbb"), string_intern("ccc")).
+Rh(string_intern("ddd"), string_intern("eee")).
+Rc(string_intern("fff")).
+Rg(string_intern("ggg")).
+Ra(_X) :- Rg(_X).
+Ra(_X) :- Rb(_X, _Y), Ra(_Y).
+Re(_X) :- Rc(_X), Ra(_X), Rh(_X, _Y), Rc(_Y), Ra(_Y).
+Rgoal() :- Re(string_intern("bbb")).

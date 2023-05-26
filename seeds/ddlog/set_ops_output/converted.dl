@@ -1,0 +1,25 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation RA(_X:Tnumber)
+relation RB(_X:Tnumber)
+output relation RAintersectionB(_X:Tnumber)
+output relation RAunionB(_X:Tnumber)
+output relation RAB(_X:Tnumber)
+output relation RBMA(_X:Tnumber)
+output relation RAxB(_X:Tnumber, _Y:Tnumber)
+RA((1)).
+RA((2)).
+RA((3)).
+RA((4)).
+RB((2)).
+RB((3)).
+RB((4)).
+RB((5)).
+RAintersectionB(_X) :- RA(_X), RB(_X).
+RAunionB(_X) :- RA(_X).
+RAunionB(_X) :- RB(_X).
+RAB(_X) :- RA(_X), not RB(_X).
+RBMA(_X) :- RB(_X), not RA(_X).
+RAxB(_X, _Y) :- RA(_X), RB(_Y).

@@ -1,0 +1,20 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TNode = IString
+output relation Rmove(_node1:TNode, _node2:TNode)
+output relation Rodd_move(_node1:TNode, _node2:TNode)
+output relation RcanMove(_node1:TNode)
+output relation Rpossible_winning(_node1:TNode)
+output relation Rwinning(_node1:TNode)
+Rmove(string_intern("1"), string_intern("2")).
+Rmove(string_intern("2"), string_intern("3")).
+Rmove(string_intern("3"), string_intern("4")).
+Rmove(string_intern("1"), string_intern("3")).
+Rmove(string_intern("1"), string_intern("5")).
+RcanMove(_X) :- Rmove(_X, _).
+Rpossible_winning(_X) :- Rodd_move(_X, _Y), not RcanMove(_Y).
+Rwinning(_X) :- Rmove(_X, _Y), not Rpossible_winning(_Y).
+Rodd_move(_X, _Y) :- Rmove(_X, _Y).
+Rodd_move(_X, _Y) :- Rmove(_X, _Z1), Rmove(_Z1, _Z2), Rodd_move(_Z2, _Y).

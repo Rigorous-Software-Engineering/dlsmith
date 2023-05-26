@@ -1,0 +1,16 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation Rgen(_x:Tnumber)
+Rgen((1)).
+Rgen((_x + (1))) :- Rgen(_x), not Rlim(_x).
+relation Rlim(_x:Tnumber)
+Rlim((100)).
+relation Re_factor(_x:Tnumber, _fc:Tnumber)
+Re_factor(_x, _fc) :- Rgen(_fc), Rgen(_x), ((_x % _fc) == (0)), (_x != _fc).
+output relation Rperfect(_x:Tnumber)
+Rperfect(_x) :- Rgen(_x), Ragg(_x, tmp), tmp == _x.
+relation Ragg(_x:Tnumber, tmp:Tnumber)
+Ragg(_x, tmp) :- tpl in Re_factor(_x, _i), var tmp = ((tpl), _i).group_by((_x)).souffle_group_sum().
+

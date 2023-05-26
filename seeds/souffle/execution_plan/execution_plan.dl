@@ -1,0 +1,17 @@
+.type S <: symbol
+
+
+.decl r1(x:S,y:S)
+.decl r2(x:S,y:S)
+.decl r3(x:S,y:S)
+.decl r4(x:S,y:S)
+.output r1
+.output r2
+.output r3
+.output r4
+
+r1(a,d) :- r1(a,b),r1(b,c),r1(c,d).
+
+// this one is ok
+r2(a,d) :- r2(a,b),r2(b,c),r2(c,d).
+        .plan 0: (1,2,3), 1: (3,2,1), 2: (2,3,1)

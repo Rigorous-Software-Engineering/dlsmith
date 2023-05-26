@@ -1,0 +1,9 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation RA(_a:Tsymbol, _b:Tsymbol)
+relation RB(_h1:Tsymbol, _h2:Tsymbol)
+RA(string_intern("a"), string_intern("b")).
+RB(_a, _b) :- RA(_a, _b), RB(_a, _).
+RB(_a, _b) :- RB(_a, _), RA(_a, _b).

@@ -1,0 +1,45 @@
+.type Variable <: symbol
+.type StackIndex <: symbol
+.type VariableOrStackIndex = Variable | StackIndex
+
+.decl Aa(a: VariableOrStackIndex)
+.decl Bb(a: Variable)
+.decl Cc(a: VariableOrStackIndex)
+
+
+Cc(a) :- !Bb(a), Aa(a).
+
+
+.type A <: symbol
+.type B <: symbol
+.type U = A | B
+
+.decl b(x:B)
+.decl u(x:U)
+.decl r(x:U, y:U)
+.decl s(x:B, y:number)
+
+b("a").
+r("a1", "b2").
+s("b2", 1).
+
+u(x) :- b(x).
+u(x) :- s(x, _).
+u(x) :- r(x, y), s(y, _).
+u(x) :- r(x, y), !s(y, _).
+
+
+
+.type even <: number  // even numbers
+.type odd <: number   // odd numbers
+
+.decl e(n:number)
+e(0).
+e(x + 2) :- e(x), x < 100.
+
+.decl o(n:number)
+o(1).
+o(x + 2) :- o(x), x < 100.
+
+.decl my_even(n:number)
+my_even(x) :- e(x), !o(x), x <= 10.

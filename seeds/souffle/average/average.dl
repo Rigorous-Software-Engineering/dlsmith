@@ -1,0 +1,20 @@
+.decl Element(value:number) 
+.decl TotalValue(value:number) 
+.decl Average(value:number) 
+.decl NumberOfelements(value:number) 
+
+
+
+Element(1).
+Element(2).
+Element(7).
+Element(25).
+Element(104).
+
+
+
+TotalValue(value) :- value= sum ElementValue : Element(ElementValue).
+
+NumberOfelements(value) :- value= count : Element(_).
+
+Average(f/d) :- TotalValue(f), NumberOfelements(d).

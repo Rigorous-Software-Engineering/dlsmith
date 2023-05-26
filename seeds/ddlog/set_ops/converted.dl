@@ -1,0 +1,79 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef Tvalue = IString
+relation Ra(_x:Tvalue)
+relation Rb(_x:Tvalue)
+relation Rc(_x:Tvalue)
+relation Rd(_x:Tvalue)
+Ra(string_intern("a")).
+Ra(string_intern("b")).
+Ra(string_intern("c")).
+Rb(string_intern("a")).
+Rb(string_intern("b")).
+Rb(string_intern("c")).
+Rc(string_intern("a")).
+Rc(string_intern("c")).
+Rd(string_intern("a")).
+output relation Rres(_x:Tvalue)
+relation Re_d(_x:Tvalue)
+Re_d(string_intern("yes")) :- Rd(_).
+Rres(string_intern("d is empty")) :- not Re_d(string_intern("yes")).
+relation Ra2b(_x:Tvalue, _y:Tvalue)
+relation Ra2b_a(_x:Tvalue)
+relation Ra2b_b(_x:Tvalue)
+relation Ra2b_unmapped_a(_x:Tvalue)
+relation Ra2b_unmapped_b(_x:Tvalue)
+relation Ra2b_unmapped_a_exist(_x:Tvalue)
+relation Ra2b_unmapped_b_exist(_x:Tvalue)
+Ra2b(_x, _x) :- Ra(_x), Rb(_x).
+Ra2b_a(_x) :- Ra2b(_x, _).
+Ra2b_b(_x) :- Ra2b(_, _x).
+Ra2b_unmapped_a(_x) :- Ra(_x), not Ra2b_a(_x).
+Ra2b_unmapped_b(_x) :- Rb(_x), not Ra2b_b(_x).
+Ra2b_unmapped_a_exist(string_intern("yes")) :- Ra2b_unmapped_a(_).
+Ra2b_unmapped_b_exist(string_intern("yes")) :- Ra2b_unmapped_b(_).
+relation Ra2c(_x:Tvalue, _y:Tvalue)
+relation Ra2c_a(_x:Tvalue)
+relation Ra2c_c(_x:Tvalue)
+relation Ra2c_unmapped_a(_x:Tvalue)
+relation Ra2c_unmapped_c(_x:Tvalue)
+relation Ra2c_unmapped_a_exist(_x:Tvalue)
+relation Ra2c_unmapped_c_exist(_x:Tvalue)
+Ra2c(_x, _x) :- Ra(_x), Rc(_x).
+Ra2c_a(_x) :- Ra2c(_x, _).
+Ra2c_c(_x) :- Ra2c(_, _x).
+Ra2c_unmapped_a(_x) :- Ra(_x), not Ra2c_a(_x).
+Ra2c_unmapped_c(_x) :- Rc(_x), not Ra2c_c(_x).
+Ra2c_unmapped_a_exist(string_intern("yes")) :- Ra2c_unmapped_a(_).
+Ra2c_unmapped_c_exist(string_intern("yes")) :- Ra2c_unmapped_c(_).
+relation Rb2c(_x:Tvalue, _y:Tvalue)
+relation Rb2c_b(_x:Tvalue)
+relation Rb2c_c(_x:Tvalue)
+relation Rb2c_unmapped_b(_x:Tvalue)
+relation Rb2c_unmapped_c(_x:Tvalue)
+relation Rb2c_unmapped_b_exist(_x:Tvalue)
+relation Rb2c_unmapped_c_exist(_x:Tvalue)
+Rb2c(_x, _x) :- Rb(_x), Rc(_x).
+Rb2c_b(_x) :- Rb2c(_x, _).
+Rb2c_c(_x) :- Rb2c(_, _x).
+Rb2c_unmapped_b(_x) :- Rb(_x), not Rb2c_b(_x).
+Rb2c_unmapped_c(_x) :- Rc(_x), not Rb2c_c(_x).
+Rb2c_unmapped_b_exist(string_intern("yes")) :- Rb2c_unmapped_b(_).
+Rb2c_unmapped_c_exist(string_intern("yes")) :- Rb2c_unmapped_c(_).
+Rres(string_intern("a==b")) :- not Ra2b_unmapped_a_exist(string_intern("yes")), not Ra2b_unmapped_b_exist(string_intern("yes")).
+Rres(string_intern("a==c")) :- not Ra2c_unmapped_a_exist(string_intern("yes")), not Ra2c_unmapped_c_exist(string_intern("yes")).
+Rres(string_intern("b==c")) :- not Rb2c_unmapped_b_exist(string_intern("yes")), not Rb2c_unmapped_c_exist(string_intern("yes")).
+Rres(string_intern("a!=b")) :- Ra2b_unmapped_a_exist(string_intern("yes")).
+Rres(string_intern("a!=b")) :- Ra2b_unmapped_b_exist(string_intern("yes")).
+Rres(string_intern("a!=c")) :- Ra2c_unmapped_a_exist(string_intern("yes")).
+Rres(string_intern("a!=c")) :- Ra2c_unmapped_c_exist(string_intern("yes")).
+Rres(string_intern("b!=c")) :- Rb2c_unmapped_b_exist(string_intern("yes")).
+Rres(string_intern("b!=c")) :- Rb2c_unmapped_c_exist(string_intern("yes")).
+Rres(string_intern("a subset b")) :- not Ra2b_unmapped_a_exist(string_intern("yes")), Ra2b_unmapped_b_exist(string_intern("yes")).
+Rres(string_intern("b subset a")) :- Ra2b_unmapped_a_exist(string_intern("yes")), not Ra2b_unmapped_b_exist(string_intern("yes")).
+Rres(string_intern("a subset c")) :- not Ra2c_unmapped_a_exist(string_intern("yes")), Ra2c_unmapped_c_exist(string_intern("yes")).
+Rres(string_intern("c subset a")) :- Ra2c_unmapped_a_exist(string_intern("yes")), not Ra2c_unmapped_c_exist(string_intern("yes")).
+Rres(string_intern("b subset c")) :- not Rb2c_unmapped_b_exist(string_intern("yes")), Rb2c_unmapped_c_exist(string_intern("yes")).
+Rres(string_intern("c subset b")) :- Rb2c_unmapped_b_exist(string_intern("yes")), not Rb2c_unmapped_c_exist(string_intern("yes")).

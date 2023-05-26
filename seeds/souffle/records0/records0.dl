@@ -1,0 +1,8 @@
+.type empty = [ ]
+
+.decl A(x:empty)
+.decl B(x:empty)
+
+A([]).
+A([]).
+

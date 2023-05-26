@@ -1,0 +1,15 @@
+.type DOO <: symbol
+.type COO = DOO
+.type BOO = COO
+.type AOO = BOO
+
+.decl R1(x:AOO,y:BOO)
+.decl R2(x:COO,y:DOO)
+.decl R4(x:AOO) 
+.output R4()
+
+R4(x) :- R2(x,x),R1(x,x).
+
+R1("0","0").
+R2("0","0").
+

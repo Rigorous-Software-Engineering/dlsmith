@@ -1,0 +1,10 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation RA(_x:Tsymbol)
+RA(string_intern("hello")).
+RA(string_intern("yell")).
+RA(string_intern("me")).
+output relation RB(_x:Tnumber, _y:Tsymbol)
+RB(strlen(_x), _x) :- RA(_x).

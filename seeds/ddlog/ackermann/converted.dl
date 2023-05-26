@@ -1,0 +1,52 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TInteger = IString
+relation Rsucc(_a:TInteger, _b:TInteger)
+relation RgreaterThanZ(_a:TInteger)
+output relation Rack(_a:TInteger, _b:TInteger, _c:TInteger)
+Rack(string_intern("0"), _N, _Ans) :- Rsucc(_N, _Ans).
+Rack(_M, string_intern("0"), _Ans) :- RgreaterThanZ(_M), Rsucc(_X, _M), Rack(_X, string_intern("1"), _Ans).
+Rack(_M, _N, _Ans) :- RgreaterThanZ(_M), RgreaterThanZ(_N), Rsucc(_X, _M), Rsucc(_Y, _N), Rack(_M, _Y, _Ans2), Rack(_X, _Ans2, _Ans).
+Rsucc(string_intern("0"), string_intern("1")).
+Rsucc(string_intern("1"), string_intern("2")).
+Rsucc(string_intern("2"), string_intern("3")).
+Rsucc(string_intern("3"), string_intern("4")).
+Rsucc(string_intern("4"), string_intern("5")).
+Rsucc(string_intern("5"), string_intern("6")).
+Rsucc(string_intern("6"), string_intern("7")).
+Rsucc(string_intern("7"), string_intern("8")).
+Rsucc(string_intern("8"), string_intern("9")).
+Rsucc(string_intern("9"), string_intern("10")).
+Rsucc(string_intern("10"), string_intern("11")).
+Rsucc(string_intern("11"), string_intern("12")).
+Rsucc(string_intern("12"), string_intern("13")).
+Rsucc(string_intern("13"), string_intern("14")).
+Rsucc(string_intern("14"), string_intern("15")).
+Rsucc(string_intern("15"), string_intern("16")).
+Rsucc(string_intern("16"), string_intern("17")).
+Rsucc(string_intern("17"), string_intern("18")).
+Rsucc(string_intern("18"), string_intern("19")).
+Rsucc(string_intern("19"), string_intern("20")).
+Rsucc(string_intern("20"), string_intern("21")).
+RgreaterThanZ(string_intern("1")).
+RgreaterThanZ(string_intern("2")).
+RgreaterThanZ(string_intern("3")).
+RgreaterThanZ(string_intern("4")).
+RgreaterThanZ(string_intern("5")).
+RgreaterThanZ(string_intern("6")).
+RgreaterThanZ(string_intern("7")).
+RgreaterThanZ(string_intern("8")).
+RgreaterThanZ(string_intern("9")).
+RgreaterThanZ(string_intern("10")).
+RgreaterThanZ(string_intern("11")).
+RgreaterThanZ(string_intern("12")).
+RgreaterThanZ(string_intern("13")).
+RgreaterThanZ(string_intern("14")).
+RgreaterThanZ(string_intern("15")).
+RgreaterThanZ(string_intern("16")).
+RgreaterThanZ(string_intern("17")).
+RgreaterThanZ(string_intern("18")).
+RgreaterThanZ(string_intern("19")).
+RgreaterThanZ(string_intern("20")).

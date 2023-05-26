@@ -1,0 +1,13 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation Rtest_pair(_x:Tnumber, _y:Tnumber)
+input relation Rtest_pair_shadow(_x:Tnumber, _y:Tnumber)
+Rtest_pair(_x, _y) :- Rtest_pair_shadow(_x, _y).
+output relation Rbounded_difference(_x:Tnumber, _y:Tnumber, _result:Tnumber)
+Rbounded_difference(_x, _y, max((_x - _y), (0))) :- Rtest_pair(_x, _y).
+output relation Rbounded(_x:Tnumber, _y:Tnumber, _result:Tnumber)
+Rbounded(_x, _y, min((_x + _y), (50))) :- Rtest_pair(_x, _y).
+output relation Rabsolute_difference(_x:Tnumber, _y:Tnumber, _result:Tnumber)
+Rabsolute_difference(_x, _y, max((_x - _y), (_y - _x))) :- Rtest_pair(_x, _y).

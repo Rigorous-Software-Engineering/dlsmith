@@ -1,0 +1,16 @@
+.decl a(x:number)
+.input a()
+
+.decl b(x:number, y:number) inline
+b(1, 2).
+b(2, 3).
+b(1, -1).
+b(10, 4).
+b(100, 12).
+b(32, 32).
+b(4, 2).
+b(2, 1).
+
+.decl c(x:number)
+c(x) :- a(x), b(x + x + x + x, x+1).
+c(x) :- a(y), b(x, (y-1)/3).

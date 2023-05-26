@@ -1,0 +1,10 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TWord = IString
+relation Rwords(_i:Tnumber, _w:TWord)
+input relation Rwords_shadow(_i:Tnumber, _w:TWord)
+Rwords(_i, _w) :- Rwords_shadow(_i, _w).
+output relation Rbigram(_w:TWord, _w1:TWord)
+Rbigram(_w, _w1) :- Rwords(_i, _w), Rwords((_i + (1)), _w1).

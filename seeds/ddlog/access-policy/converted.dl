@@ -1,0 +1,34 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TString = IString
+output relation Rview_employee(_x:TString, _p:TString, _ssn:TString, _s:Tnumber, _e:TString, _d:TString, _pos:TString, _bday:Tnumber)
+relation Rview_cwPriv(_n:TString, _person:TString, _bank1Priv:Tnumber, _bank2Priv:Tnumber)
+relation Rview_bank1(_n:TString, _Data1:Tnumber, _Data2:Tnumber)
+relation Rview_bank2(_n:TString, _Data1:Tnumber, _Data2:Tnumber)
+relation Remployee(_person:TString, _ssn:TString, _salary:Tnumber, _email:TString, _dept:TString, _pos:TString, _bday:Tnumber)
+input relation Remployee_shadow(_person:TString, _ssn:TString, _salary:Tnumber, _email:TString, _dept:TString, _pos:TString, _bday:Tnumber)
+Remployee(_person, _ssn, _salary, _email, _dept, _pos, _bday) :- Remployee_shadow(_person, _ssn, _salary, _email, _dept, _pos, _bday).
+relation Rinslogtable(_user:TString, _person:TString, _day:Tnumber)
+input relation Rinslogtable_shadow(_user:TString, _person:TString, _day:Tnumber)
+Rinslogtable(_user, _person, _day) :- Rinslogtable_shadow(_user, _person, _day).
+relation Rinsurance(_user:TString)
+input relation Rinsurance_shadow(_user:TString)
+Rinsurance(_user) :- Rinsurance_shadow(_user).
+relation Rbank1(_d:Tnumber, _d2:Tnumber)
+input relation Rbank1_shadow(_d:Tnumber, _d2:Tnumber)
+Rbank1(_d, _d2) :- Rbank1_shadow(_d, _d2).
+relation Rbank2(_d:Tnumber, _d2:Tnumber)
+input relation Rbank2_shadow(_d:Tnumber, _d2:Tnumber)
+Rbank2(_d, _d2) :- Rbank2_shadow(_d, _d2).
+relation RinscwPriv(_user:TString, _x:Tnumber, _y:Tnumber)
+relation RdelcwPriv(_user:TString, _x:Tnumber, _y:Tnumber)
+relation RcwPriv(_person:TString, _bank1Priv:Tnumber, _Bank2Privi:Tnumber)
+input relation RcwPriv_shadow(_person:TString, _bank1Priv:Tnumber, _Bank2Privi:Tnumber)
+RcwPriv(_person, _bank1Priv, _Bank2Privi) :- RcwPriv_shadow(_person, _bank1Priv, _Bank2Privi).
+relation Rinject(_a:TString, _b:TString)
+Rinject(_a, _b) :- Rview_bank1(_a, _, _), Rview_bank2(_b, _, _).
+relation Rinject2(_a:TString, _b:TString)
+Rinject2(_a, _b) :- Rinject(_a, _), Rview_employee(_b, _, _, _, _, _, _, _).
+Rview_employee(string_intern("Alice"), _Person, _SSN, _Salary, _Email, _Dept, _Position, _Bday) :- Remployee(_Person, _SSN, _Salary, _Email, _Dept, _Position, _Bday).

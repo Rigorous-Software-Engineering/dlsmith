@@ -1,0 +1,15 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation Rseed(_X:Tnumber)
+input relation Rseed_shadow(_X:Tnumber)
+Rseed(_X) :- Rseed_shadow(_X).
+relation Rvalid(_X:Tnumber)
+input relation Rvalid_shadow(_X:Tnumber)
+Rvalid(_X) :- Rvalid_shadow(_X).
+relation Rgen(_X:Tnumber)
+Rgen(_X) :- Rseed(_X).
+Rgen(_X) :- Rgen((_X + (1))), Rvalid(_X).
+output relation Rquery()
+Rquery() :- Rgen((0)).

@@ -1,0 +1,9 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation Rinput_triple(_x:Tnumber, _y:Tnumber, _z:Tnumber)
+input relation Rinput_triple_shadow(_x:Tnumber, _y:Tnumber, _z:Tnumber)
+Rinput_triple(_x, _y, _z) :- Rinput_triple_shadow(_x, _y, _z).
+output relation Rresult(_result:Tsymbol)
+Rresult(_result) :- Rinput_triple(_x, _y, _z), var _triple = cat(cat(cat(cat(cat(cat(string_intern("("), to_istring(_x)), string_intern(",")), to_istring(_y)), string_intern(",")), to_istring(_z)), string_intern(")")), var _mm = cat(cat(cat(cat(string_intern("MAX = ["), to_istring(max(max(_x, _y), _z))), string_intern("], MIN = [")), to_istring(min(min(_x, _y), _z))), string_intern("]")), var _result = cat(cat(_triple, string_intern(": ")), _mm).

@@ -1,0 +1,16 @@
+
+type pair(i32, i32)
+type path(i32, i32)
+
+rel pair = {
+  0.1::(0, 0), // 0
+  0.5::(0, 1), // 1
+  0.5::(1, 0), // 2
+  0.9::(1, 2), // 3
+  0.9::(2, 1), // 4
+}
+
+rel path(x, y) = pair(x, y)
+rel path(x, z) = path(x, y), pair(y, z)
+
+query path

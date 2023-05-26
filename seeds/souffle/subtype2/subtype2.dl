@@ -1,0 +1,152 @@
+
+.type AOO = BOO | BA | BBOO
+.type BOO = COO
+.type COO = DOO
+.type DOO = EOO
+.type EOO <: symbol
+
+.type BA = CA
+.type BBOO = CB
+
+.type CA <: symbol
+.type CB <: symbol
+
+.decl R_A(a:AOO) 
+.output R_A()
+R_A("A").
+
+.decl R_B(b:BOO) 
+R_A(x) :- R_B(x).
+
+.decl R_C(c:COO)
+R_B(x) :- R_C(x).
+
+.decl R_D(d:DOO)
+R_C(x) :- R_D(x).
+
+.decl R_E(e:EOO)
+R_D(x) :- R_E(x).
+
+R_B("B").
+R_C("C").
+R_D("D").
+R_E("E").
+
+
+// they should all work
+R_A(x) :- R_A(x), R_A(x).
+R_A(x) :- R_A(x), R_B(x).
+R_A(x) :- R_A(x), R_C(x).
+R_A(x) :- R_A(x), R_D(x).
+R_A(x) :- R_A(x), R_E(x).
+
+R_A(x) :- R_B(x), R_B(x).
+R_A(x) :- R_B(x), R_C(x).
+R_A(x) :- R_B(x), R_D(x).
+R_A(x) :- R_B(x), R_E(x).
+
+R_A(x) :- R_C(x), R_C(x).
+R_A(x) :- R_C(x), R_D(x).
+R_A(x) :- R_C(x), R_E(x).
+
+R_A(x) :- R_D(x), R_D(x).
+R_A(x) :- R_D(x), R_E(x).
+
+R_A(x) :- R_E(x), R_E(x).
+
+
+// some of those should not
+//R_B(x) :- R_A(x), R_A(x).
+R_B(x) :- R_A(x), R_B(x).
+R_B(x) :- R_A(x), R_C(x).
+R_B(x) :- R_A(x), R_D(x).
+R_B(x) :- R_A(x), R_E(x).
+
+R_B(x) :- R_B(x), R_B(x).
+R_B(x) :- R_B(x), R_C(x).
+R_B(x) :- R_B(x), R_D(x).
+R_B(x) :- R_B(x), R_E(x).
+
+R_B(x) :- R_C(x), R_C(x).
+R_B(x) :- R_C(x), R_D(x).
+R_B(x) :- R_C(x), R_E(x).
+
+R_B(x) :- R_D(x), R_D(x).
+R_B(x) :- R_D(x), R_E(x).
+
+R_B(x) :- R_E(x), R_E(x).
+
+// also some of those are wrong
+//R_C(x) :- R_A(x), R_A(x).
+//R_C(x) :- R_A(x), R_B(x).
+R_C(x) :- R_A(x), R_C(x).
+R_C(x) :- R_A(x), R_D(x).
+R_C(x) :- R_A(x), R_E(x).
+
+//R_C(x) :- R_B(x), R_B(x).
+R_C(x) :- R_B(x), R_C(x).
+R_C(x) :- R_B(x), R_D(x).
+R_C(x) :- R_B(x), R_E(x).
+
+R_C(x) :- R_C(x), R_C(x).
+R_C(x) :- R_C(x), R_D(x).
+R_C(x) :- R_C(x), R_E(x).
+
+R_C(x) :- R_D(x), R_D(x).
+R_C(x) :- R_D(x), R_E(x).
+
+R_C(x) :- R_E(x), R_E(x).
+
+
+////////////////////////////////////////////////////////////
+
+.decl R_BA(b:BA)
+R_BA("BA").
+R_A(x) :- R_BA(x).
+
+.decl R_BB(b:BBOO)
+R_BB("BB").
+R_A(x) :- R_BB(x).
+
+.decl R_CA(b:CA)
+R_CA("CA").
+R_BA(x) :- R_CA(x).
+
+.decl R_CB(b:CB)
+R_CB("CB").
+R_BB(x) :- R_CB(x).
+
+.decl R_A_A(x:AOO,y:AOO)
+R_A_A(x,y) :- R_BA(x), R_BB(y).
+
+
+////////////////////////////////////////////////////////////
+
+
+.decl R_B_B(x:BOO,y:BOO) 
+
+//R_B_B(x,x) :- R_A(x).
+R_B_B(x,x) :- R_B(x).
+R_B_B(x,x) :- R_C(x).
+R_B_B(x,x) :- R_D(x).
+
+
+
+.decl R_BA_BB(a:BA,b:BBOO)
+
+//R_BA_BB(x,y) :- R_A(x), R_A(y).
+//R_BA_BB(x,y) :- R_A(x), R_BB(y).
+//R_BA_BB(x,y) :- R_BA(x), R_A(y).
+
+R_BA_BB(x,y) :- R_BA(x), R_BB(y).
+R_BA_BB(x,y) :- R_BA(x), R_BB(y).
+
+R_BA_BB(x,y) :- R_CA(x), R_CB(y).
+
+
+// this should not be possible -- and it is not any more
+//R_BA_BB(x,x) :- R_BA(x).
+//R_BA_BB(x,x) :- R_BB(x).
+//R_BA_BB(x,x) :- R_CA(x).
+//R_BA_BB(x,x) :- R_CB(x).
+

@@ -1,0 +1,19 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TNOO = Tnumber
+relation Rn(_a:TNOO)
+Rn((1)).
+Rn((2)).
+Rn((3)).
+Rn((4)).
+Rn((5)).
+output relation Rp(_a:TNOO, _b:TNOO)
+Rp(_x, _y) :- Rn(_x), var _y = _x.
+relation Ra(_a:TNOO, _b:TNOO)
+Ra((1), (2)).
+Ra((2), (2)).
+Ra((3), (2)).
+output relation Rr(_a:TNOO)
+Rr(_z) :- Ra(_x, _y), var _r = Some{(_x, _y)}, var _s = _r, (_s == Some{(_v, _w)}), var _z = _w, (_z == _v).

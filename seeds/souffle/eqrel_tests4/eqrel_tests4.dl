@@ -1,0 +1,18 @@
+.pragma "magic-transform" "*"
+
+.decl notEqrel(x:number,y:number)
+.decl isEqrel(x:number, y:number) eqrel
+.decl a___(a:number)
+.decl b___(a:number)
+
+notEqrel(x, y) :- isEqrel(x, y).
+isEqrel(x, y) :- notEqrel(x, y).
+isEqrel(0,1).
+notEqrel(1,2).
+
+.output a___
+.output b___ // Output node
+
+a___(a) :- notEqrel(a, a).
+b___(c) :- !a___(b), a___(c), a___(b).
+b___(a) :- a___(a).

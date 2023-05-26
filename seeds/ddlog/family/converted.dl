@@ -1,0 +1,30 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TNode = IString
+relation Rfather(_node1:TNode, _node2:TNode)
+relation Rmother(_node1:TNode, _node2:TNode)
+output relation Rparent(_node1:TNode, _node2:TNode)
+output relation Rancestor(_node1:TNode, _node2:TNode)
+output relation Rgrandmother(_node1:TNode, _node2:TNode)
+output relation Rsibling(_node1:TNode, _node2:TNode)
+output relation Rcousin(_node1:TNode, _node2:TNode)
+output relation Rrelative(_node1:TNode, _node2:TNode)
+Rparent(_X, _Y) :- Rfather(_X, _Y).
+Rparent(_X, _Y) :- Rmother(_X, _Y).
+Rancestor(_X, _Y) :- Rparent(_X, _Y).
+Rancestor(_X, _Y) :- Rparent(_X, _Z), Rancestor(_Z, _Y).
+Rgrandmother(_X, _Y) :- Rmother(_X, _Z), Rancestor(_Z, _Y).
+Rsibling(_X, _Y) :- Rparent(_Z, _X), Rparent(_Z, _Y), (_X != _Y).
+Rcousin(_X, _Y) :- Rancestor(_Z, _X), Rancestor(_Z, _Y), (_X != _Y), not Rsibling(_X, _Y), not Rparent(_X, _Y).
+Rrelative(_X, _Y) :- Rsibling(_X, _Z), Rparent(_Z, _Y).
+Rfather(string_intern("tom"), string_intern("amy")).
+Rfather(string_intern("tom"), string_intern("adam")).
+Rfather(string_intern("jack"), string_intern("fred")).
+Rfather(string_intern("tony"), string_intern("carolII")).
+Rfather(string_intern("fred"), string_intern("carolIII")).
+Rmother(string_intern("graceI"), string_intern("amy")).
+Rmother(string_intern("amy"), string_intern("fred")).
+Rmother(string_intern("carolI"), string_intern("carolII")).
+Rmother(string_intern("carolII"), string_intern("carolIII")).

@@ -1,0 +1,6 @@
+.decl Binary (n:unsigned)
+.output Binary
+
+Binary(0b0).
+Binary(0b1).
+Binary(0b11111111111111111111111111111111).

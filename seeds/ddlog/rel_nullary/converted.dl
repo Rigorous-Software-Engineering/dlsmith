@@ -1,0 +1,54 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+output relation RB(_x:Tnumber)
+RB((1)).
+output relation RA()
+RA() :- RB(_).
+output relation RC()
+RC() :- RB((2)).
+relation RDef()
+input relation RDef_shadow()
+RDef() :- RDef_shadow().
+relation RUndef()
+input relation RUndef_shadow()
+RUndef() :- RUndef_shadow().
+relation RE()
+RE().
+relation RF()
+RF().
+relation RG()
+output relation RH(_x:Tnumber)
+RH((1)) :- RF().
+RH((2)) :- RG().
+RH((3)) :- RG(), RF().
+RH((4)) :- not RG().
+RH((5)) :- not RG(), RF().
+relation RI(_x:Tnumber)
+RI((1)).
+RI((2)).
+relation RI2(_x:Tnumber)
+relation RJ(_x:Tnumber)
+RJ((10)).
+RJ((20)).
+RJ((30)) :- not RI2(_).
+relation RK()
+RK().
+output relation RL(_x:Tnumber)
+RL((_x + _y)) :- RI(_x), RK(), RJ(_y).
+relation RM()
+RM() :- RM().
+output relation RN()
+RN().
+RN() :- RN().
+relation RP()
+RP().
+RP() :- RQ().
+output relation RQ()
+RQ() :- RP().
+output relation RR(_x:Tnumber)
+RR((10)).
+RR(_x) :- RS(), RR(_x).
+relation RS()
+RS() :- RR(_).

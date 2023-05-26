@@ -1,0 +1,16 @@
+
+.decl A (n:number) 
+.decl B (a:number, b:number) 
+.decl C (a:number, b:number) 
+.output C ()
+
+
+A(0).
+A(i+1) :- A(i), i<100.
+
+
+B($,i) :- A(i).
+
+
+C(i,j) :- B(c,i), B(c,j), i!=j.
+

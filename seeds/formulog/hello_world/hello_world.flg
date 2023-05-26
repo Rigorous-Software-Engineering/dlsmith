@@ -1,0 +1,12 @@
+input entity(string)
+entity("Alice").
+entity("Bob").
+entity("World").
+
+output greeting(string)
+greeting("Numair").
+
+
+output test(string, string)
+test("Numair", "Mansur").
+test(A, B) :- test(A, B), greeting(B).

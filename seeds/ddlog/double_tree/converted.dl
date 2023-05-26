@@ -1,0 +1,617 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+output relation Rxy(_z:Tnumber)
+relation Rx1(_z:Tnumber)
+relation Rx2(_z:Tnumber)
+relation Rx11(_z:Tnumber)
+relation Rx12(_z:Tnumber)
+relation Rx13(_z:Tnumber)
+relation Rx21(_z:Tnumber)
+relation Rx22(_z:Tnumber)
+relation Rx23(_z:Tnumber)
+relation Rx111(_z:Tnumber)
+relation Rx112(_z:Tnumber)
+relation Rx113(_z:Tnumber)
+relation Rx114(_z:Tnumber)
+relation Rx121(_z:Tnumber)
+relation Rx122(_z:Tnumber)
+relation Rx123(_z:Tnumber)
+relation Rx124(_z:Tnumber)
+relation Rx131(_z:Tnumber)
+relation Rx132(_z:Tnumber)
+relation Rx133(_z:Tnumber)
+relation Rx134(_z:Tnumber)
+relation Rx211(_z:Tnumber)
+relation Rx212(_z:Tnumber)
+relation Rx213(_z:Tnumber)
+relation Rx214(_z:Tnumber)
+relation Rx221(_z:Tnumber)
+relation Rx222(_z:Tnumber)
+relation Rx223(_z:Tnumber)
+relation Rx224(_z:Tnumber)
+relation Rx231(_z:Tnumber)
+relation Rx232(_z:Tnumber)
+relation Rx233(_z:Tnumber)
+relation Rx234(_z:Tnumber)
+relation Rx1111(_z:Tnumber)
+relation Rx1112(_z:Tnumber)
+relation Rx1113(_z:Tnumber)
+relation Rx1114(_z:Tnumber)
+relation Rx1115(_z:Tnumber)
+relation Rx1121(_z:Tnumber)
+relation Rx1122(_z:Tnumber)
+relation Rx1123(_z:Tnumber)
+relation Rx1124(_z:Tnumber)
+relation Rx1125(_z:Tnumber)
+relation Rx1131(_z:Tnumber)
+relation Rx1132(_z:Tnumber)
+relation Rx1133(_z:Tnumber)
+relation Rx1134(_z:Tnumber)
+relation Rx1135(_z:Tnumber)
+relation Rx1141(_z:Tnumber)
+relation Rx1142(_z:Tnumber)
+relation Rx1143(_z:Tnumber)
+relation Rx1144(_z:Tnumber)
+relation Rx1145(_z:Tnumber)
+relation Rx1211(_z:Tnumber)
+relation Rx1212(_z:Tnumber)
+relation Rx1213(_z:Tnumber)
+relation Rx1214(_z:Tnumber)
+relation Rx1215(_z:Tnumber)
+relation Rx1221(_z:Tnumber)
+relation Rx1222(_z:Tnumber)
+relation Rx1223(_z:Tnumber)
+relation Rx1224(_z:Tnumber)
+relation Rx1225(_z:Tnumber)
+relation Rx1231(_z:Tnumber)
+relation Rx1232(_z:Tnumber)
+relation Rx1233(_z:Tnumber)
+relation Rx1234(_z:Tnumber)
+relation Rx1235(_z:Tnumber)
+relation Rx1241(_z:Tnumber)
+relation Rx1242(_z:Tnumber)
+relation Rx1243(_z:Tnumber)
+relation Rx1244(_z:Tnumber)
+relation Rx1245(_z:Tnumber)
+relation Rx1311(_z:Tnumber)
+relation Rx1312(_z:Tnumber)
+relation Rx1313(_z:Tnumber)
+relation Rx1314(_z:Tnumber)
+relation Rx1315(_z:Tnumber)
+relation Rx1321(_z:Tnumber)
+relation Rx1322(_z:Tnumber)
+relation Rx1323(_z:Tnumber)
+relation Rx1324(_z:Tnumber)
+relation Rx1325(_z:Tnumber)
+relation Rx1331(_z:Tnumber)
+relation Rx1332(_z:Tnumber)
+relation Rx1333(_z:Tnumber)
+relation Rx1334(_z:Tnumber)
+relation Rx1335(_z:Tnumber)
+relation Rx1341(_z:Tnumber)
+relation Rx1342(_z:Tnumber)
+relation Rx1343(_z:Tnumber)
+relation Rx1344(_z:Tnumber)
+relation Rx1345(_z:Tnumber)
+relation Rx2111(_z:Tnumber)
+relation Rx2112(_z:Tnumber)
+relation Rx2113(_z:Tnumber)
+relation Rx2114(_z:Tnumber)
+relation Rx2115(_z:Tnumber)
+relation Rx2121(_z:Tnumber)
+relation Rx2122(_z:Tnumber)
+relation Rx2123(_z:Tnumber)
+relation Rx2124(_z:Tnumber)
+relation Rx2125(_z:Tnumber)
+relation Rx2131(_z:Tnumber)
+relation Rx2132(_z:Tnumber)
+relation Rx2133(_z:Tnumber)
+relation Rx2134(_z:Tnumber)
+relation Rx2135(_z:Tnumber)
+relation Rx2141(_z:Tnumber)
+relation Rx2142(_z:Tnumber)
+relation Rx2143(_z:Tnumber)
+relation Rx2144(_z:Tnumber)
+relation Rx2145(_z:Tnumber)
+relation Rx2211(_z:Tnumber)
+relation Rx2212(_z:Tnumber)
+relation Rx2213(_z:Tnumber)
+relation Rx2214(_z:Tnumber)
+relation Rx2215(_z:Tnumber)
+relation Rx2221(_z:Tnumber)
+relation Rx2222(_z:Tnumber)
+relation Rx2223(_z:Tnumber)
+relation Rx2224(_z:Tnumber)
+relation Rx2225(_z:Tnumber)
+relation Rx2231(_z:Tnumber)
+relation Rx2232(_z:Tnumber)
+relation Rx2233(_z:Tnumber)
+relation Rx2234(_z:Tnumber)
+relation Rx2235(_z:Tnumber)
+relation Rx2241(_z:Tnumber)
+relation Rx2242(_z:Tnumber)
+relation Rx2243(_z:Tnumber)
+relation Rx2244(_z:Tnumber)
+relation Rx2245(_z:Tnumber)
+relation Rx2311(_z:Tnumber)
+relation Rx2312(_z:Tnumber)
+relation Rx2313(_z:Tnumber)
+relation Rx2314(_z:Tnumber)
+relation Rx2315(_z:Tnumber)
+relation Rx2321(_z:Tnumber)
+relation Rx2322(_z:Tnumber)
+relation Rx2323(_z:Tnumber)
+relation Rx2324(_z:Tnumber)
+relation Rx2325(_z:Tnumber)
+relation Rx2331(_z:Tnumber)
+relation Rx2332(_z:Tnumber)
+relation Rx2333(_z:Tnumber)
+relation Rx2334(_z:Tnumber)
+relation Rx2335(_z:Tnumber)
+relation Rx2341(_z:Tnumber)
+relation Rx2342(_z:Tnumber)
+relation Rx2343(_z:Tnumber)
+relation Rx2344(_z:Tnumber)
+relation Rx2345(_z:Tnumber)
+input relation Rx2345_shadow(_z:Tnumber)
+Rx2345(_z) :- Rx2345_shadow(_z).
+Rxy(_z) :- Rx1(_z), Rx2(_z).
+Rx1(_z) :- Rx11(_z), Rx12(_z), Rx13(_z).
+Rx2(_z) :- Rx21(_z), Rx22(_z), Rx23(_z).
+Rx11(_z) :- Rx111(_z), Rx112(_z), Rx113(_z), Rx114(_z).
+Rx12(_z) :- Rx121(_z), Rx122(_z), Rx123(_z), Rx124(_z).
+Rx13(_z) :- Rx131(_z), Rx132(_z), Rx133(_z), Rx134(_z).
+Rx21(_z) :- Rx211(_z), Rx212(_z), Rx213(_z), Rx214(_z).
+Rx22(_z) :- Rx221(_z), Rx222(_z), Rx223(_z), Rx224(_z).
+Rx23(_z) :- Rx231(_z), Rx232(_z), Rx233(_z), Rx234(_z).
+Rx111(_z) :- Rx1111(_z), Rx1112(_z), Rx1113(_z), Rx1114(_z), Rx1115(_z).
+Rx112(_z) :- Rx1121(_z), Rx1122(_z), Rx1123(_z), Rx1124(_z), Rx1125(_z).
+Rx113(_z) :- Rx1131(_z), Rx1132(_z), Rx1133(_z), Rx1134(_z), Rx1135(_z).
+Rx114(_z) :- Rx1141(_z), Rx1142(_z), Rx1143(_z), Rx1144(_z), Rx1145(_z).
+Rx121(_z) :- Rx1211(_z), Rx1212(_z), Rx1213(_z), Rx1214(_z), Rx1215(_z).
+Rx122(_z) :- Rx1221(_z), Rx1222(_z), Rx1223(_z), Rx1224(_z), Rx1225(_z).
+Rx123(_z) :- Rx1231(_z), Rx1232(_z), Rx1233(_z), Rx1234(_z), Rx1235(_z).
+Rx124(_z) :- Rx1241(_z), Rx1242(_z), Rx1243(_z), Rx1244(_z), Rx1245(_z).
+Rx131(_z) :- Rx1311(_z), Rx1312(_z), Rx1313(_z), Rx1314(_z), Rx1315(_z).
+Rx132(_z) :- Rx1321(_z), Rx1322(_z), Rx1323(_z), Rx1324(_z), Rx1325(_z).
+Rx133(_z) :- Rx1331(_z), Rx1332(_z), Rx1333(_z), Rx1334(_z), Rx1335(_z).
+Rx134(_z) :- Rx1341(_z), Rx1342(_z), Rx1343(_z), Rx1344(_z), Rx1345(_z).
+Rx211(_z) :- Rx2111(_z), Rx2112(_z), Rx2113(_z), Rx2114(_z), Rx2115(_z).
+Rx212(_z) :- Rx2121(_z), Rx2122(_z), Rx2123(_z), Rx2124(_z), Rx2125(_z).
+Rx213(_z) :- Rx2131(_z), Rx2132(_z), Rx2133(_z), Rx2134(_z), Rx2135(_z).
+Rx214(_z) :- Rx2141(_z), Rx2142(_z), Rx2143(_z), Rx2144(_z), Rx2145(_z).
+Rx221(_z) :- Rx2211(_z), Rx2212(_z), Rx2213(_z), Rx2214(_z), Rx2215(_z).
+Rx222(_z) :- Rx2221(_z), Rx2222(_z), Rx2223(_z), Rx2224(_z), Rx2225(_z).
+Rx223(_z) :- Rx2231(_z), Rx2232(_z), Rx2233(_z), Rx2234(_z), Rx2235(_z).
+Rx224(_z) :- Rx2241(_z), Rx2242(_z), Rx2243(_z), Rx2244(_z), Rx2245(_z).
+Rx231(_z) :- Rx2311(_z), Rx2312(_z), Rx2313(_z), Rx2314(_z), Rx2315(_z).
+Rx232(_z) :- Rx2321(_z), Rx2322(_z), Rx2323(_z), Rx2324(_z), Rx2325(_z).
+Rx233(_z) :- Rx2331(_z), Rx2332(_z), Rx2333(_z), Rx2334(_z), Rx2335(_z).
+Rx234(_z) :- Rx2341(_z), Rx2342(_z), Rx2343(_z), Rx2344(_z), Rx2345(_z).
+Rx1111((1)).
+Rx1112((1)).
+Rx1113((1)).
+Rx1114((1)).
+Rx1115((1)).
+Rx1121((1)).
+Rx1122((1)).
+Rx1123((1)).
+Rx1124((1)).
+Rx1125((1)).
+Rx1131((1)).
+Rx1132((1)).
+Rx1133((1)).
+Rx1134((1)).
+Rx1135((1)).
+Rx1141((1)).
+Rx1142((1)).
+Rx1143((1)).
+Rx1144((1)).
+Rx1145((1)).
+Rx1211((1)).
+Rx1212((1)).
+Rx1213((1)).
+Rx1214((1)).
+Rx1215((1)).
+Rx1221((1)).
+Rx1222((1)).
+Rx1223((1)).
+Rx1224((1)).
+Rx1225((1)).
+Rx1231((1)).
+Rx1232((1)).
+Rx1233((1)).
+Rx1234((1)).
+Rx1235((1)).
+Rx1241((1)).
+Rx1242((1)).
+Rx1243((1)).
+Rx1244((1)).
+Rx1245((1)).
+Rx1311((1)).
+Rx1312((1)).
+Rx1313((1)).
+Rx1314((1)).
+Rx1315((1)).
+Rx1321((1)).
+Rx1322((1)).
+Rx1323((1)).
+Rx1324((1)).
+Rx1325((1)).
+Rx1331((1)).
+Rx1332((1)).
+Rx1333((1)).
+Rx1334((1)).
+Rx1335((1)).
+Rx1341((1)).
+Rx1342((1)).
+Rx1343((1)).
+Rx1344((1)).
+Rx1345((1)).
+Rx2111((1)).
+Rx2112((1)).
+Rx2113((1)).
+Rx2114((1)).
+Rx2115((1)).
+Rx2121((1)).
+Rx2122((1)).
+Rx2123((1)).
+Rx2124((1)).
+Rx2125((1)).
+Rx2131((1)).
+Rx2132((1)).
+Rx2133((1)).
+Rx2134((1)).
+Rx2135((1)).
+Rx2141((1)).
+Rx2142((1)).
+Rx2143((1)).
+Rx2144((1)).
+Rx2145((1)).
+Rx2211((1)).
+Rx2212((1)).
+Rx2213((1)).
+Rx2214((1)).
+Rx2215((1)).
+Rx2221((1)).
+Rx2222((1)).
+Rx2223((1)).
+Rx2224((1)).
+Rx2225((1)).
+Rx2231((1)).
+Rx2232((1)).
+Rx2233((1)).
+Rx2234((1)).
+Rx2235((1)).
+Rx2241((1)).
+Rx2242((1)).
+Rx2243((1)).
+Rx2244((1)).
+Rx2245((1)).
+Rx2311((1)).
+Rx2312((1)).
+Rx2313((1)).
+Rx2314((1)).
+Rx2315((1)).
+Rx2321((1)).
+Rx2322((1)).
+Rx2323((1)).
+Rx2324((1)).
+Rx2325((1)).
+Rx2331((1)).
+Rx2332((1)).
+Rx2333((1)).
+Rx2334((1)).
+Rx2335((1)).
+Rx2341((1)).
+Rx2342((1)).
+Rx2343((1)).
+Rx2344((1)).
+relation Ry1(_z:Tnumber)
+relation Ry2(_z:Tnumber)
+relation Ry11(_z:Tnumber)
+relation Ry12(_z:Tnumber)
+relation Ry13(_z:Tnumber)
+relation Ry21(_z:Tnumber)
+relation Ry22(_z:Tnumber)
+relation Ry23(_z:Tnumber)
+relation Ry111(_z:Tnumber)
+relation Ry112(_z:Tnumber)
+relation Ry113(_z:Tnumber)
+relation Ry114(_z:Tnumber)
+relation Ry121(_z:Tnumber)
+relation Ry122(_z:Tnumber)
+relation Ry123(_z:Tnumber)
+relation Ry124(_z:Tnumber)
+relation Ry131(_z:Tnumber)
+relation Ry132(_z:Tnumber)
+relation Ry133(_z:Tnumber)
+relation Ry134(_z:Tnumber)
+relation Ry211(_z:Tnumber)
+relation Ry212(_z:Tnumber)
+relation Ry213(_z:Tnumber)
+relation Ry214(_z:Tnumber)
+relation Ry221(_z:Tnumber)
+relation Ry222(_z:Tnumber)
+relation Ry223(_z:Tnumber)
+relation Ry224(_z:Tnumber)
+relation Ry231(_z:Tnumber)
+relation Ry232(_z:Tnumber)
+relation Ry233(_z:Tnumber)
+relation Ry234(_z:Tnumber)
+relation Ry1111(_z:Tnumber)
+relation Ry1112(_z:Tnumber)
+relation Ry1113(_z:Tnumber)
+relation Ry1114(_z:Tnumber)
+relation Ry1115(_z:Tnumber)
+relation Ry1121(_z:Tnumber)
+relation Ry1122(_z:Tnumber)
+relation Ry1123(_z:Tnumber)
+relation Ry1124(_z:Tnumber)
+relation Ry1125(_z:Tnumber)
+relation Ry1131(_z:Tnumber)
+relation Ry1132(_z:Tnumber)
+relation Ry1133(_z:Tnumber)
+relation Ry1134(_z:Tnumber)
+relation Ry1135(_z:Tnumber)
+relation Ry1141(_z:Tnumber)
+relation Ry1142(_z:Tnumber)
+relation Ry1143(_z:Tnumber)
+relation Ry1144(_z:Tnumber)
+relation Ry1145(_z:Tnumber)
+relation Ry1211(_z:Tnumber)
+relation Ry1212(_z:Tnumber)
+relation Ry1213(_z:Tnumber)
+relation Ry1214(_z:Tnumber)
+relation Ry1215(_z:Tnumber)
+relation Ry1221(_z:Tnumber)
+relation Ry1222(_z:Tnumber)
+relation Ry1223(_z:Tnumber)
+relation Ry1224(_z:Tnumber)
+relation Ry1225(_z:Tnumber)
+relation Ry1231(_z:Tnumber)
+relation Ry1232(_z:Tnumber)
+relation Ry1233(_z:Tnumber)
+relation Ry1234(_z:Tnumber)
+relation Ry1235(_z:Tnumber)
+relation Ry1241(_z:Tnumber)
+relation Ry1242(_z:Tnumber)
+relation Ry1243(_z:Tnumber)
+relation Ry1244(_z:Tnumber)
+relation Ry1245(_z:Tnumber)
+relation Ry1311(_z:Tnumber)
+relation Ry1312(_z:Tnumber)
+relation Ry1313(_z:Tnumber)
+relation Ry1314(_z:Tnumber)
+relation Ry1315(_z:Tnumber)
+relation Ry1321(_z:Tnumber)
+relation Ry1322(_z:Tnumber)
+relation Ry1323(_z:Tnumber)
+relation Ry1324(_z:Tnumber)
+relation Ry1325(_z:Tnumber)
+relation Ry1331(_z:Tnumber)
+relation Ry1332(_z:Tnumber)
+relation Ry1333(_z:Tnumber)
+relation Ry1334(_z:Tnumber)
+relation Ry1335(_z:Tnumber)
+relation Ry1341(_z:Tnumber)
+relation Ry1342(_z:Tnumber)
+relation Ry1343(_z:Tnumber)
+relation Ry1344(_z:Tnumber)
+relation Ry1345(_z:Tnumber)
+relation Ry2111(_z:Tnumber)
+relation Ry2112(_z:Tnumber)
+relation Ry2113(_z:Tnumber)
+relation Ry2114(_z:Tnumber)
+relation Ry2115(_z:Tnumber)
+relation Ry2121(_z:Tnumber)
+relation Ry2122(_z:Tnumber)
+relation Ry2123(_z:Tnumber)
+relation Ry2124(_z:Tnumber)
+relation Ry2125(_z:Tnumber)
+relation Ry2131(_z:Tnumber)
+relation Ry2132(_z:Tnumber)
+relation Ry2133(_z:Tnumber)
+relation Ry2134(_z:Tnumber)
+relation Ry2135(_z:Tnumber)
+relation Ry2141(_z:Tnumber)
+relation Ry2142(_z:Tnumber)
+relation Ry2143(_z:Tnumber)
+relation Ry2144(_z:Tnumber)
+relation Ry2145(_z:Tnumber)
+relation Ry2211(_z:Tnumber)
+relation Ry2212(_z:Tnumber)
+relation Ry2213(_z:Tnumber)
+relation Ry2214(_z:Tnumber)
+relation Ry2215(_z:Tnumber)
+relation Ry2221(_z:Tnumber)
+relation Ry2222(_z:Tnumber)
+relation Ry2223(_z:Tnumber)
+relation Ry2224(_z:Tnumber)
+relation Ry2225(_z:Tnumber)
+relation Ry2231(_z:Tnumber)
+relation Ry2232(_z:Tnumber)
+relation Ry2233(_z:Tnumber)
+relation Ry2234(_z:Tnumber)
+relation Ry2235(_z:Tnumber)
+relation Ry2241(_z:Tnumber)
+relation Ry2242(_z:Tnumber)
+relation Ry2243(_z:Tnumber)
+relation Ry2244(_z:Tnumber)
+relation Ry2245(_z:Tnumber)
+relation Ry2311(_z:Tnumber)
+relation Ry2312(_z:Tnumber)
+relation Ry2313(_z:Tnumber)
+relation Ry2314(_z:Tnumber)
+relation Ry2315(_z:Tnumber)
+relation Ry2321(_z:Tnumber)
+relation Ry2322(_z:Tnumber)
+relation Ry2323(_z:Tnumber)
+relation Ry2324(_z:Tnumber)
+relation Ry2325(_z:Tnumber)
+relation Ry2331(_z:Tnumber)
+relation Ry2332(_z:Tnumber)
+relation Ry2333(_z:Tnumber)
+relation Ry2334(_z:Tnumber)
+relation Ry2335(_z:Tnumber)
+relation Ry2341(_z:Tnumber)
+relation Ry2342(_z:Tnumber)
+relation Ry2343(_z:Tnumber)
+relation Ry2344(_z:Tnumber)
+relation Ry2345(_z:Tnumber)
+input relation Ry2345_shadow(_z:Tnumber)
+Ry2345(_z) :- Ry2345_shadow(_z).
+Ry1(_z) :- Rxy(_z).
+Ry2(_z) :- Rxy(_z).
+Ry11(_z) :- Ry1(_z).
+Ry12(_z) :- Ry1(_z).
+Ry13(_z) :- Ry1(_z).
+Ry21(_z) :- Ry2(_z).
+Ry22(_z) :- Ry2(_z).
+Ry23(_z) :- Ry2(_z).
+Ry111(_z) :- Ry11(_z).
+Ry112(_z) :- Ry11(_z).
+Ry113(_z) :- Ry11(_z).
+Ry114(_z) :- Ry11(_z).
+Ry121(_z) :- Ry12(_z).
+Ry122(_z) :- Ry12(_z).
+Ry123(_z) :- Ry12(_z).
+Ry124(_z) :- Ry12(_z).
+Ry131(_z) :- Ry13(_z).
+Ry132(_z) :- Ry13(_z).
+Ry133(_z) :- Ry13(_z).
+Ry134(_z) :- Ry13(_z).
+Ry211(_z) :- Ry21(_z).
+Ry212(_z) :- Ry21(_z).
+Ry213(_z) :- Ry21(_z).
+Ry214(_z) :- Ry21(_z).
+Ry221(_z) :- Ry22(_z).
+Ry222(_z) :- Ry22(_z).
+Ry223(_z) :- Ry22(_z).
+Ry224(_z) :- Ry22(_z).
+Ry231(_z) :- Ry23(_z).
+Ry232(_z) :- Ry23(_z).
+Ry233(_z) :- Ry23(_z).
+Ry234(_z) :- Ry23(_z).
+Ry1111(_z) :- Ry111(_z).
+Ry1112(_z) :- Ry111(_z).
+Ry1113(_z) :- Ry111(_z).
+Ry1114(_z) :- Ry111(_z).
+Ry1115(_z) :- Ry111(_z).
+Ry1121(_z) :- Ry112(_z).
+Ry1122(_z) :- Ry112(_z).
+Ry1123(_z) :- Ry112(_z).
+Ry1124(_z) :- Ry112(_z).
+Ry1125(_z) :- Ry112(_z).
+Ry1131(_z) :- Ry113(_z).
+Ry1132(_z) :- Ry113(_z).
+Ry1133(_z) :- Ry113(_z).
+Ry1134(_z) :- Ry113(_z).
+Ry1135(_z) :- Ry113(_z).
+Ry1141(_z) :- Ry114(_z).
+Ry1142(_z) :- Ry114(_z).
+Ry1143(_z) :- Ry114(_z).
+Ry1144(_z) :- Ry114(_z).
+Ry1145(_z) :- Ry114(_z).
+Ry1211(_z) :- Ry121(_z).
+Ry1212(_z) :- Ry121(_z).
+Ry1213(_z) :- Ry121(_z).
+Ry1214(_z) :- Ry121(_z).
+Ry1215(_z) :- Ry121(_z).
+Ry1221(_z) :- Ry122(_z).
+Ry1222(_z) :- Ry122(_z).
+Ry1223(_z) :- Ry122(_z).
+Ry1224(_z) :- Ry122(_z).
+Ry1225(_z) :- Ry122(_z).
+Ry1231(_z) :- Ry123(_z).
+Ry1232(_z) :- Ry123(_z).
+Ry1233(_z) :- Ry123(_z).
+Ry1234(_z) :- Ry123(_z).
+Ry1235(_z) :- Ry123(_z).
+Ry1241(_z) :- Ry124(_z).
+Ry1242(_z) :- Ry124(_z).
+Ry1243(_z) :- Ry124(_z).
+Ry1244(_z) :- Ry124(_z).
+Ry1245(_z) :- Ry124(_z).
+Ry1311(_z) :- Ry131(_z).
+Ry1312(_z) :- Ry131(_z).
+Ry1313(_z) :- Ry131(_z).
+Ry1314(_z) :- Ry131(_z).
+Ry1315(_z) :- Ry131(_z).
+Ry1321(_z) :- Ry132(_z).
+Ry1322(_z) :- Ry132(_z).
+Ry1323(_z) :- Ry132(_z).
+Ry1324(_z) :- Ry132(_z).
+Ry1325(_z) :- Ry132(_z).
+Ry1331(_z) :- Ry133(_z).
+Ry1332(_z) :- Ry133(_z).
+Ry1333(_z) :- Ry133(_z).
+Ry1334(_z) :- Ry133(_z).
+Ry1335(_z) :- Ry133(_z).
+Ry1341(_z) :- Ry134(_z).
+Ry1342(_z) :- Ry134(_z).
+Ry1343(_z) :- Ry134(_z).
+Ry1344(_z) :- Ry134(_z).
+Ry1345(_z) :- Ry134(_z).
+Ry2111(_z) :- Ry211(_z).
+Ry2112(_z) :- Ry211(_z).
+Ry2113(_z) :- Ry211(_z).
+Ry2114(_z) :- Ry211(_z).
+Ry2115(_z) :- Ry211(_z).
+Ry2121(_z) :- Ry212(_z).
+Ry2122(_z) :- Ry212(_z).
+Ry2123(_z) :- Ry212(_z).
+Ry2124(_z) :- Ry212(_z).
+Ry2125(_z) :- Ry212(_z).
+Ry2131(_z) :- Ry213(_z).
+Ry2132(_z) :- Ry213(_z).
+Ry2133(_z) :- Ry213(_z).
+Ry2134(_z) :- Ry213(_z).
+Ry2135(_z) :- Ry213(_z).
+Ry2141(_z) :- Ry214(_z).
+Ry2142(_z) :- Ry214(_z).
+Ry2143(_z) :- Ry214(_z).
+Ry2144(_z) :- Ry214(_z).
+Ry2145(_z) :- Ry214(_z).
+Ry2211(_z) :- Ry221(_z).
+Ry2212(_z) :- Ry221(_z).
+Ry2213(_z) :- Ry221(_z).
+Ry2214(_z) :- Ry221(_z).
+Ry2215(_z) :- Ry221(_z).
+Ry2221(_z) :- Ry222(_z).
+Ry2222(_z) :- Ry222(_z).
+Ry2223(_z) :- Ry222(_z).
+Ry2224(_z) :- Ry222(_z).
+Ry2225(_z) :- Ry222(_z).
+Ry2231(_z) :- Ry223(_z).
+Ry2232(_z) :- Ry223(_z).
+Ry2233(_z) :- Ry223(_z).
+Ry2234(_z) :- Ry223(_z).
+Ry2235(_z) :- Ry223(_z).
+Ry2241(_z) :- Ry224(_z).
+Ry2242(_z) :- Ry224(_z).
+Ry2243(_z) :- Ry224(_z).
+Ry2244(_z) :- Ry224(_z).
+Ry2245(_z) :- Ry224(_z).
+Ry2311(_z) :- Ry231(_z).
+Ry2312(_z) :- Ry231(_z).
+Ry2313(_z) :- Ry231(_z).
+Ry2314(_z) :- Ry231(_z).
+Ry2315(_z) :- Ry231(_z).
+Ry2321(_z) :- Ry232(_z).
+Ry2322(_z) :- Ry232(_z).
+Ry2323(_z) :- Ry232(_z).
+Ry2324(_z) :- Ry232(_z).
+Ry2325(_z) :- Ry232(_z).
+Ry2331(_z) :- Ry233(_z).
+Ry2332(_z) :- Ry233(_z).
+Ry2333(_z) :- Ry233(_z).
+Ry2334(_z) :- Ry233(_z).
+Ry2335(_z) :- Ry233(_z).
+Ry2341(_z) :- Ry234(_z).
+Ry2342(_z) :- Ry234(_z).
+Ry2343(_z) :- Ry234(_z).
+Ry2344(_z) :- Ry234(_z).
+Ry2345(_z) :- Ry234(_z).

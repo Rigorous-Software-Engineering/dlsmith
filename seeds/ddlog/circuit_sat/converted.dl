@@ -1,0 +1,39 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TVar = IString
+relation Rconf(_num:Tnumber)
+Rconf((_x + (1))) :- Rconf(_x), not Rlim(_x).
+Rconf((0)).
+relation Rlim(_x:Tnumber)
+input relation Rlim_shadow(_x:Tnumber)
+Rlim(_x) :- Rlim_shadow(_x).
+relation Rvar_index(_var:TVar, _index:Tnumber)
+Rvar_index(string_intern("a"), (0)).
+Rvar_index(string_intern("b"), (1)).
+Rvar_index(string_intern("c"), (2)).
+relation Rtranslation(_conf:Tnumber, _var:TVar, _truthy:Tnumber)
+Rtranslation(_n, _var, (1)) :- Rvar_index(_var, _k), Rconf(_n), ((((pow32((2), (_k as bit<32>))) & _n)) != (0)).
+Rtranslation(_n, _var, (0)) :- Rvar_index(_var, _k), Rconf(_n), ((((pow32((2), (_k as bit<32>))) & _n)) == (0)).
+relation Rcircuit_and(_result:TVar, _op1:TVar, _op2:TVar)
+input relation Rcircuit_and_shadow(_result:TVar, _op1:TVar, _op2:TVar)
+Rcircuit_and(_result, _op1, _op2) :- Rcircuit_and_shadow(_result, _op1, _op2).
+relation Rcircuit_or(_result:TVar, _op1:TVar, _op2:TVar)
+input relation Rcircuit_or_shadow(_result:TVar, _op1:TVar, _op2:TVar)
+Rcircuit_or(_result, _op1, _op2) :- Rcircuit_or_shadow(_result, _op1, _op2).
+relation Rcircuit_not(_result:TVar, _op1:TVar)
+input relation Rcircuit_not_shadow(_result:TVar, _op1:TVar)
+Rcircuit_not(_result, _op1) :- Rcircuit_not_shadow(_result, _op1).
+relation Rcircuit_result(_result:TVar)
+input relation Rcircuit_result_shadow(_result:TVar)
+Rcircuit_result(_result) :- Rcircuit_result_shadow(_result).
+relation Revaluate(_conf:Tnumber, _var:TVar, _truthy:Tnumber)
+Revaluate(_conf, _var, _value) :- Rtranslation(_conf, _var, _value).
+Revaluate(_conf, _var, (_v1 & _v2)) :- Rcircuit_and(_var, _op1, _op2), Revaluate(_conf, _op1, _v1), Revaluate(_conf, _op2, _v2).
+Revaluate(_conf, _var, (_v1 | _v2)) :- Rcircuit_or(_var, _op1, _op2), Revaluate(_conf, _op1, _v1), Revaluate(_conf, _op2, _v2).
+Revaluate(_conf, _var, lnot(_v1)) :- Rcircuit_not(_var, _op1), Revaluate(_conf, _op1, _v1).
+output relation Rsatisfy(_conf:Tnumber, _var:TVar)
+Rsatisfy(_conf, _inputvar) :- Rcircuit_result(_var), Revaluate(_conf, _var, (1)), Rvar_index(_inputvar, _), Rtranslation(_conf, _inputvar, (1)).
+relation Rinject(_a:TVar)
+Rinject(_a) :- Rsatisfy(_, _a), Revaluate(_, _b, _).

@@ -1,0 +1,24 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TString = IString
+relation Rf(_v:TString, _f:TString)
+relation Rsucc(_v:TString, _f:TString)
+relation Rarg(_v:TString, _i:TString, _a:TString)
+relation Rargs(_a:TString, _b:TString, _c:TString)
+output relation Req(_a:TString, _b:TString)
+Rsucc(string_intern("1"), string_intern("2")).
+Rsucc(string_intern("2"), string_intern("3")).
+Rsucc(string_intern("3"), string_intern("4")).
+Rf(string_intern("x"), string_intern("g")).
+Rf(string_intern("y"), string_intern("f")).
+Rarg(string_intern("x"), string_intern("1"), string_intern("A")).
+Rarg(string_intern("x"), string_intern("2"), string_intern("B")).
+Rarg(string_intern("x"), string_intern("3"), string_intern("Z")).
+Rarg(string_intern("y"), string_intern("1"), string_intern("C")).
+Rarg(string_intern("y"), string_intern("2"), string_intern("D")).
+Rarg(string_intern("y"), string_intern("3"), string_intern("W")).
+Req(_a, _b) :- Rf(_v, _a), Rf(_w, _b), Rargs(_v, _w, string_intern("3")).
+Rargs(_v, _w, _i) :- Rsucc(_p, _i), Rarg(_v, _i, _k), Rarg(_w, _i, _k), Rargs(_v, _w, _p).
+Rargs(_v, _w, string_intern("1")) :- Rarg(_v, string_intern("1"), _), Rarg(_w, string_intern("1"), _).

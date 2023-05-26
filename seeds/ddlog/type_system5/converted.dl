@@ -1,0 +1,14 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation RPoly(_x:Tfloat)
+RPoly(((1) + (64'f1.0: Tfloat))) :- true.
+RPoly(((1) + (2))) :- true.
+RPoly((- (1))).
+relation RNU(_x:Tunsigned)
+RNU((1)).
+RNU((((1) + (1)) + (1))).
+RNU((_x + (1))) :- (_x < (3)), RNU(_x).
+relation RImplicitType(_x:Tnumber)
+RImplicitType((1)) :- (((1) - (1)) == (0)).

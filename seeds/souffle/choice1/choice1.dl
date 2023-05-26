@@ -1,0 +1,14 @@
+.decl b(x: number, y: number)
+.decl c(x: number, y: number)
+b(x, y) :- c(x, y).
+c(2, 0).
+c(2, 5).
+
+.comp Comp {
+  .decl b(x: number, y: number)
+  .decl c(x: number, y: number)
+  b(x, y) :- c(x, y).
+}
+.init comp = Comp
+comp.c(2, 0).
+comp.c(2, 5).

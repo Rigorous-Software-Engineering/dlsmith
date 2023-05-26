@@ -1,0 +1,11 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation RA(_n:Tnumber)
+relation RB(_a:Tnumber, _b:Tnumber)
+output relation RC(_a:Tnumber, _b:Tnumber)
+RA((0)).
+RA((_i + (1))) :- RA(_i), (_i < (100)).
+RB(random(), _i) :- RA(_i).
+RC(_i, _j) :- RB(_c, _i), RB(_c, _j), (_i != _j).

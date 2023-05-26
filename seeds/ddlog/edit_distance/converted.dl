@@ -1,0 +1,32 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TLetter = IString
+typedef TPos = Tnumber
+typedef TCost = Tnumber
+relation RString1(_p:TPos, _a:TLetter)
+input relation RString1_shadow(_p:TPos, _a:TLetter)
+RString1(_p, _a) :- RString1_shadow(_p, _a).
+relation RString2(_p:TPos, _a:TLetter)
+input relation RString2_shadow(_p:TPos, _a:TLetter)
+RString2(_p, _a) :- RString2_shadow(_p, _a).
+relation REnd1(_p:TPos)
+relation REnd2(_p:TPos)
+relation RNotEnd1(_p:TPos)
+relation RNotEnd2(_p:TPos)
+RNotEnd1(_p) :- RString1(_p, _), RString1(_q, _), (_p < _q).
+REnd1(_p) :- RString1(_p, _), not RNotEnd1(_p).
+RNotEnd2(_p) :- RString2(_p, _), RString2(_q, _), (_p < _q).
+REnd2(_p) :- RString2(_p, _), not RNotEnd2(_p).
+relation RMatch(_i:TPos, _j:TPos, _c:TCost)
+RMatch((0), (0), (0)).
+RMatch((_i + (1)), (_j + (1)), _s) :- REnd1(_e), (_i < _e), REnd2(_f), (_j < _f), RMatch(_i, _j, _s), RString1((_i + (1)), _a), RString2((_j + (1)), _a).
+RMatch((_i + (1)), _j, (_s + (1))) :- REnd1(_e), (_i < _e), REnd2(_f), (_j <= _f), RMatch(_i, _j, _s).
+RMatch(_i, (_j + (1)), (_s + (1))) :- REnd1(_e), (_i <= _e), REnd2(_f), (_j < _f), RMatch(_i, _j, _s).
+relation RMinMatch(_i:TPos, _j:TPos, _c:TCost)
+relation RNotMinMatch(_i:TPos, _j:TPos, _c:TCost)
+RNotMinMatch(_i, _j, _s) :- RMatch(_i, _j, _s), RMatch(_i, _j, _t), (_t < _s).
+RMinMatch(_i, _j, _s) :- RMatch(_i, _j, _s), not RNotMinMatch(_i, _j, _s).
+relation RResult(_c:TCost)
+RResult(_c) :- REnd1(_e), REnd2(_f), RMinMatch(_e, _f, _c).

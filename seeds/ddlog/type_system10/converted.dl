@@ -1,0 +1,28 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TFloat1 = double
+typedef TFloat2 = double
+typedef TUnsigned1 = Tnumber
+typedef TUnsigned2 = Tnumber
+typedef TFloatUnion = TFloat1
+typedef TUnsignedUnion = TUnsigned1
+relation RrelFloat1(_a:TFloat1)
+RrelFloat1((1)).
+RrelFloat1((64'f0.5: Tfloat)).
+relation RrelFloat2(_b:TFloat2)
+RrelFloat2((- (1))).
+RrelFloat2((- (64'f0.5: Tfloat))).
+output relation RrelFloatUnion(_ab:TFloatUnion)
+RrelFloatUnion(_x) :- RrelFloat1(_x).
+RrelFloatUnion(_x) :- RrelFloat2(_x).
+relation RrelUnsigned1(_x:TUnsigned1)
+RrelUnsigned1((0)).
+RrelUnsigned1((1)).
+relation RrelUnsigned2(_y:TUnsigned2)
+RrelUnsigned2((4294967295)).
+RrelUnsigned2((4294967294)).
+output relation RrelUnsignedUnion(_xy:TUnsignedUnion)
+RrelUnsignedUnion(_x) :- RrelUnsigned1(_x).
+RrelUnsignedUnion(_x) :- RrelUnsigned2(_x).

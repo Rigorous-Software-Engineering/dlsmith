@@ -1,0 +1,20 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation Redge(_a:Tnumber, _b:Tnumber)
+input relation Redge_shadow(_a:Tnumber, _b:Tnumber)
+Redge(_a, _b) :- Redge_shadow(_a, _b).
+relation Rmark(_a:Tnumber)
+input relation Rmark_shadow(_a:Tnumber)
+Rmark(_a) :- Rmark_shadow(_a).
+output relation Ri1(_a:Tnumber)
+Ri1(_X) :- Rmark(_X), Redge(_, _X).
+output relation Ri01(_a:Tnumber)
+Ri01(_X) :- Rmark(_X), Redge(_X, _X).
+output relation RMarkedNoInA(_a:Tnumber)
+RMarkedNoInA(_X) :- Rmark(_X), not Redge(_X, _).
+output relation RMarkedNoInB(_a:Tnumber)
+RMarkedNoInB(_X) :- Rmark(_X), not Rin(_X).
+relation Rin(_a:Tnumber)
+Rin(_X) :- Redge(_X, _).

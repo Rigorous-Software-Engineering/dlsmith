@@ -1,0 +1,12 @@
+.decl A(x:number)
+
+A(x) :- x=to_number("10").
+A(x) :- x=to_number("-10").
+
+.output A
+
+.decl B(x:symbol)
+
+B(x) :- x=to_string(10).
+B(x) :- x=to_string(-10).
+B(x) :- x=to_string(4711).

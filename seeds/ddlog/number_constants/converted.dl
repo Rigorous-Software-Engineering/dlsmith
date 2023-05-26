@@ -1,0 +1,10 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+output relation RR(_n:Tnumber)
+RR((0)).
+RR((1)).
+RR((- (1))).
+RR((2147483647)).
+RR((- (2147483648))).

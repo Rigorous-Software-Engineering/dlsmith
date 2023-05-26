@@ -1,0 +1,61 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+output relation RStudent(_name:Tsymbol, _height:Tnumber)
+output relation RTallest(_student:Tsymbol, _height:Tnumber)
+relation Rinject(_a:Tnumber, _b:Tnumber)
+Rinject(_a, _b) :- RStudent(_, _a), RTallest(_, _b).
+RStudent(string_intern("Anna"), (170)).
+RStudent(string_intern("Rachel"), (177)).
+RStudent(string_intern("Quarantina"), (180)).
+RTallest(_student, _n) :- Ragg(_n).
+relation Ragg(_n:Tnumber)
+Ragg(_n) :- tpl in RStudent(_student, _height), var _n = ((tpl), _height).group_by(()).souffle_group_max().
+
+output relation RA(_x:Tnumber, _y:Tnumber)
+output relation RMinSumNotReduced(_x:Tnumber, _y:Tnumber, _s:Tnumber)
+output relation RMinSum(_x:Tnumber, _y:Tnumber, _s:Tnumber)
+RA((1), (2)).
+RA((5), (6)).
+RA((- (50)), (3)).
+RA((54), (5)).
+RMinSum(_x, _y, _s) :- Ragg_0(_s).
+relation Ragg_0(_s:Tnumber)
+Ragg_0(_s) :- tpl_0 in RA(_x, _y), var _w = (_x + _y), var _s = ((tpl_0), _w).group_by(()).souffle_group_min().
+
+RMinSumNotReduced(_x, _y, _s) :- Ragg_1(_s).
+relation Ragg_1(_s:Tnumber)
+Ragg_1(_s) :- tpl_1 in RA(_x, _y), var _s = ((tpl_1), (_x + _y)).group_by(()).souffle_group_min().
+
+output relation RD(_x:Tnumber, _y:Tnumber)
+output relation RB(_x:Tnumber, _y:Tnumber)
+output relation RH(_x:Tnumber, _y:Tnumber, _z:Tnumber)
+output relation RF(_s:Tsymbol, _x:Tnumber, _y:Tnumber)
+output relation RG(_s:Tsymbol, _groupby:Tnumber, _x:Tnumber, _y:Tnumber)
+relation Rfuzz(_a:Tnumber, _b:Tnumber)
+Rfuzz(_a, _b) :- RF(_, _a, _b), RG(_, _, _a, _).
+RD((1), (1)).
+RD((1), (2)).
+RD((1), (3)).
+RD((1), (4)).
+RB((2), (1)).
+RB((2), (2)).
+RB((2), (3)).
+RB((2), (4)).
+RH((1), (2), (3)).
+RH((24), (5), (6)).
+RH((7), (8), (9)).
+RH((10), (11), (12)).
+RF(string_intern("Two witnesses"), _x, _y) :- Ragg_2(tmp).
+relation Ragg_2(tmp:Tnumber)
+Ragg_2(tmp) :- tpl_2 in RD(_x, _y), var tmp = ((tpl_2), (_x + _y)).group_by(()).souffle_group_min().
+
+RF(string_intern("One witness"), _result, _witness) :- Ragg_3(_result).
+relation Ragg_3(_result:Tnumber)
+Ragg_3(_result) :- tpl_3 in RD(_witness, _), var _result = ((tpl_3), ((2) * _witness)).group_by(()).souffle_group_min().
+
+RG(string_intern("Two side witnesses"), _result, _w1, _w2) :- Ragg_4(_result).
+relation Ragg_4(_result:Tnumber)
+Ragg_4(_result) :- tpl_4 in RH(_x, _w1, _w2), var _result = ((tpl_4), _x).group_by(()).souffle_group_max().
+

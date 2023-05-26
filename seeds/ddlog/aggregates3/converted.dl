@@ -1,0 +1,14 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation RB(_x:Tnumber, _y:Tnumber)
+relation RA(_x:Tnumber)
+relation RC(_x:Tnumber)
+RC((3)).
+RB((2), (3)).
+RB((1), (3)).
+RA(_y) :- RC(_z), Ragg(_z, _y).
+relation Ragg(_z:Tnumber, _y:Tnumber)
+Ragg(_z, _y) :- tpl in RB(_x, _z), var _y = ((tpl), _x).group_by((_z)).souffle_group_min().
+

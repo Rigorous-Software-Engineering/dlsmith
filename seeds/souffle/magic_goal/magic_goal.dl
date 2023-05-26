@@ -1,0 +1,21 @@
+
+
+.decl a(x:symbol) 
+.decl g(x:symbol) 
+.decl e(x:symbol) 
+.decl h(x:symbol, y:symbol) 
+.decl c(x:symbol) 
+.decl b(x:symbol, y:symbol) 
+.decl goal()
+
+.output goal()
+
+b("bbb", "ccc").
+h("ddd", "eee").
+c("fff").
+g("ggg").
+
+a(X) :- g(X).
+a(X) :- b(X, Y), a(Y).
+e(X) :- c(X), a(X), h(X, Y), c(Y), a(Y).
+goal() :- e("bbb").

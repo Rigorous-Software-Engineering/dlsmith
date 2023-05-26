@@ -1,0 +1,18 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation RNumbers(_x:Tnumber)
+RNumbers((- (10))).
+RNumbers((_x + (1))) :- RNumbers(_x), (_x < (10)).
+relation RNumberToFloatToNumber(_x:Tnumber)
+RNumberToFloatToNumber(ftoi(itof(_x))) :- RNumbers(_x).
+relation RNumbersToUnsignedToNumbers(_x:Tunsigned, _y:Tnumber)
+RNumbersToUnsignedToNumbers(itou(_x), utoi(itou(_x))) :- RNumbers(_x), (_x >= (0)).
+relation RUnsignedToFloatToUnsigned(_x:Tunsigned)
+RUnsignedToFloatToUnsigned(ftou(utof(_x))) :- RNumbersToUnsignedToNumbers(_x, _).
+relation RFloatToInt(_x:Tnumber)
+RFloatToInt(_x) :- var _x = ftoi((64'f0.2: Tfloat)).
+RFloatToInt(_x) :- var _x = ftoi((- (64'f3.3: Tfloat))).
+RFloatToInt(_x) :- var _x = ftoi((- (64'f333.27: Tfloat))).
+RFloatToInt(_x) :- var _x = ftoi((- (64'f333.36: Tfloat))).

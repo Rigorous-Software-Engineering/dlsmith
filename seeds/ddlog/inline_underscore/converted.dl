@@ -1,0 +1,11 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+output relation Ra(_x:Tnumber)
+relation Rb(_x:Tnumber, _y:Tnumber)
+input relation Rb_shadow(_x:Tnumber, _y:Tnumber)
+Rb(_x, _y) :- Rb_shadow(_x, _y).
+relation Rc(_x:Tnumber, _y:Tnumber)
+Rc(_x, _y) :- Rb(_x, _y).
+Ra(_x) :- Rc(_, _x), (_x != (2)).

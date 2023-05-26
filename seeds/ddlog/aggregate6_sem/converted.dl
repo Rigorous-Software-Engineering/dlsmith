@@ -1,0 +1,12 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation RWsuW(_A:Tfloat, _B:Tfloat)
+relation RFGAf(_A:Tfloat, _B:Tfloat)
+relation Rqlca(_A:Tfloat)
+relation RXcMa(_A:Tfloat)
+Rqlca(_FPY) :- RFGAf(_D, _D), RWsuW(_FPY, _BOb), Ragg(tmp), tmp == _D.
+relation Ragg(tmp:Tnumber)
+Ragg(tmp) :- tpl in RXcMa(_a), var tmp = ((tpl), (_a + (64'f7.585: Tfloat))).group_by(()).souffle_group_min().
+

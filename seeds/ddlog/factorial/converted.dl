@@ -1,0 +1,10 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+output relation Rfact(_i:Tnumber, _n:Tnumber)
+relation Rlim(_n:Tnumber)
+input relation Rlim_shadow(_n:Tnumber)
+Rlim(_n) :- Rlim_shadow(_n).
+Rfact((_I + (1)), (_N * ((_I + (1))))) :- Rfact(_I, _N), not Rlim(_I).
+Rfact((0), (1)).

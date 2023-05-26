@@ -1,0 +1,53 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation RImmDom_start(_s:Tnumber)
+relation RImmDom_edge(_s:Tnumber, _d:Tnumber)
+relation RImmDom_node(_n:Tnumber)
+RImmDom_node(_x) :- RImmDom_edge(_x, _).
+RImmDom_node(_x) :- RImmDom_edge(_, _x).
+relation RImmDom_non_dom(_s:Tnumber, _d:Tnumber)
+RImmDom_non_dom(_x, _y) :- RImmDom_start(_x), RImmDom_node(_y), (_x != _y).
+RImmDom_non_dom(_x, _y) :- RImmDom_non_dom(_z, _y), RImmDom_edge(_z, _x), not RImmDom_start(_x), (_x != _y).
+relation RImmDom_dom(_s:Tnumber, _d:Tnumber)
+RImmDom_dom(_x, _y) :- RImmDom_node(_x), RImmDom_node(_y), not RImmDom_non_dom(_x, _y).
+relation RImmDom_s_dom(_n:Tnumber, _d:Tnumber)
+RImmDom_s_dom(_n, _d) :- RImmDom_dom(_n, _d), (_n != _d).
+relation RImmDom_s_domsize(_n:Tnumber, _s:Tnumber)
+RImmDom_s_domsize(_n, (0)) :- RImmDom_start(_n).
+RImmDom_s_domsize(_n, _s) :- RImmDom_s_dom(_n, _), Ragg(_n, _s).
+relation Ragg(_n:Tnumber, _s:Tnumber)
+Ragg(_n, _s) :- tpl in RImmDom_s_dom(_n, _), var _s = ((tpl)).group_by((_n)).souffle_group_count32().
+
+relation RImmDom_s_domsizes(_n:Tnumber, _d:Tnumber, _m:Tnumber)
+RImmDom_s_domsizes(_n, _d, _s) :- RImmDom_s_dom(_n, _d), RImmDom_s_domsize(_d, _s).
+relation RImmDom_s_max_domsize(_n:Tnumber, _s:Tnumber)
+RImmDom_s_max_domsize(_n, (0)) :- RImmDom_start(_n).
+RImmDom_s_max_domsize(_n, _y) :- RImmDom_s_domsizes(_n, _, _), Ragg_0(_n, _y).
+relation Ragg_0(_n:Tnumber, _y:Tnumber)
+Ragg_0(_n, _y) :- tpl_0 in RImmDom_s_domsizes(_n, _, _s), var _y = ((tpl_0), _s).group_by((_n)).souffle_group_max().
+
+relation RImmDom_imdom(_n:Tnumber, _i:Tnumber)
+RImmDom_imdom(_n, _x) :- RImmDom_s_dom(_n, _x), RImmDom_s_domsize(_x, _s), RImmDom_s_max_domsize(_n, _s).
+RImmDom_edge((1), (2)).
+RImmDom_edge((1), (3)).
+RImmDom_edge((2), (3)).
+RImmDom_edge((4), (3)).
+RImmDom_edge((8), (3)).
+RImmDom_edge((3), (4)).
+RImmDom_edge((8), (4)).
+RImmDom_edge((4), (5)).
+RImmDom_edge((4), (6)).
+RImmDom_edge((5), (7)).
+RImmDom_edge((6), (7)).
+RImmDom_edge((10), (7)).
+RImmDom_edge((7), (8)).
+RImmDom_edge((8), (9)).
+RImmDom_edge((8), (10)).
+RImmDom_edge((9), (1)).
+RImmDom_start((1)).
+relation Rdominators(_n:Tnumber, _s:Tnumber)
+relation Rimmediate_dom(_n:Tnumber, _s:Tnumber)
+Rdominators(_n, _s) :- RImmDom_dom(_n, _s).
+Rimmediate_dom(_n, _s) :- RImmDom_imdom(_n, _s).

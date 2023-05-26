@@ -1,0 +1,8 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+output relation RBinary(_n:Tunsigned)
+RBinary((0)).
+RBinary((1)).
+RBinary((4294967295)).

@@ -1,0 +1,9 @@
+.type R = [w: float, x: unsigned, y: number, z: symbol]
+
+
+
+.decl Rel(r: R)
+.output Rel
+
+Rel([-1.5, 0xffffffff, -5, "meow"]).
+Rel([1, 1, 1, "1"]).

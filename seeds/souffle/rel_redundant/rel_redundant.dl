@@ -1,0 +1,62 @@
+.decl A(x: number, y: number)
+A(0, 0).
+A(1, 0).
+
+.decl B(x: number, y: number)
+B(z, z) :- A(z, z).
+
+.decl C(a: number, b: number)
+.output C
+C(a, b) :- B(a, b).
+
+// same idea, but now verify that we handle records correctly
+.type R0 = [x:number, y:number]
+.decl d(x:number, y:R0)
+.decl e(x:number, y:R0)
+.decl record0(x:number, y:number)
+.output record0
+
+d(0,[0,1]).
+d(0,[1,0]).
+d(1,[1,1]).
+e(x0, [x,x]) :- d(x0, [x,x]).
+record0(x, y) :- e(x, [y,_]).
+
+
+.type R1 = [x:number]
+.decl f(x:number, y:R1)
+.decl g(x:number, y:R1)
+.decl record1(x:number, y:number)
+.output record1
+
+f(0,[0]).
+f(0,[1]).
+f(1,[1]).
+g(x, [x]) :- f(x, [x]).
+record1(x, y) :- g(x, [y]).
+
+// small test case for issue #1770
+.decl hnwC(A:float)
+.decl anHG(A:float)
+.decl fydL(A:float) inline
+.decl HhJv(A:float)
+.decl wvhB(A:float)
+.decl lItv(A:float)
+
+fydL(a) :- hnwC(a).
+HhJv(r) :- hnwC(r).
+lItv(e), anHG(dXn) :- wvhB(dXn), hnwC(e), !HhJv(_).
+
+// Another test case (see Issue #1774)
+.decl aX(x:number)
+.decl bX(x:number, y:number)
+.decl cX(x:number)
+.decl dX(A:number, B:number, C:number)
+.decl eX(A:number, B:number)
+.decl fX(A:number)
+.decl outX(A:number)
+
+cX(x) :- aX(x), y=0.
+dX(q,V,O) :- bX(O,V), aX(q).
+fX(x) :- cX(x).
+outX(Y) :- dX(f,Y,f), fX(c), eX(a,b).

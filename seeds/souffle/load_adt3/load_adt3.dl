@@ -1,0 +1,23 @@
+.type Expression = Number { x : number } | Add {e_1 : Expression, e_2 :Expression} | Minus {e_1 : Expression, e_2 : Expression} | Mult {e_1 : Expression, e_2 : Expression} | Divide {e_1 : Expression, e_2 : Expression}
+
+
+.type Tree = Empty {} | Node {t1: Tree, val: unsigned, t2: Tree}
+
+
+
+.decl R(e : Expression) 
+.decl RO(e : Expression)
+
+.input R
+
+RO(e) :- R(e).
+
+
+
+.decl TreeHeight(t : Tree, height: unsigned)
+.decl TO(t : Tree, height: unsigned)
+
+.input TreeHeight
+
+TO(t, h) :- TreeHeight(t, h).
+

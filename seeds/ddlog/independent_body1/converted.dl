@@ -1,0 +1,15 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+output relation Rworried(_x:Tsymbol)
+Rworried(_x) :- Rperson(_x), not Rjailed(_x), Rthief(_y), not Rjailed(_y).
+relation Rperson(_x:Tsymbol)
+input relation Rperson_shadow(_x:Tsymbol)
+Rperson(_x) :- Rperson_shadow(_x).
+relation Rthief(_x:Tsymbol)
+input relation Rthief_shadow(_x:Tsymbol)
+Rthief(_x) :- Rthief_shadow(_x).
+relation Rjailed(_x:Tsymbol)
+input relation Rjailed_shadow(_x:Tsymbol)
+Rjailed(_x) :- Rjailed_shadow(_x).

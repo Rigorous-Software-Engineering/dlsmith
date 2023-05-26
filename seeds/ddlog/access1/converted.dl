@@ -1,0 +1,19 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+output relation RLow(_src:Tnumber, _dest:Tnumber, _port:Tnumber)
+output relation RMedium(_src:Tnumber, _dest:Tnumber, _port:Tnumber)
+output relation RHigh(_src:Tnumber, _dest:Tnumber, _port:Tnumber)
+relation RIn(_src:Tnumber, _dest:Tnumber, _port:Tnumber)
+input relation RIn_shadow(_src:Tnumber, _dest:Tnumber, _port:Tnumber)
+RIn(_src, _dest, _port) :- RIn_shadow(_src, _dest, _port).
+relation RBL(_src:Tnumber, _dest:Tnumber, _port:Tnumber)
+input relation RBL_shadow(_src:Tnumber, _dest:Tnumber, _port:Tnumber)
+RBL(_src, _dest, _port) :- RBL_shadow(_src, _dest, _port).
+relation RTrusted(_src:Tnumber, _dest:Tnumber, _port:Tnumber)
+input relation RTrusted_shadow(_src:Tnumber, _dest:Tnumber, _port:Tnumber)
+RTrusted(_src, _dest, _port) :- RTrusted_shadow(_src, _dest, _port).
+RLow(_src, _dest, _port) :- RIn(_src, _dest, _port), RTrusted(_src, _dest, _port).
+RMedium(_src, _dest, _port) :- RIn(_src, _dest, _port), not RLow(_src, _dest, _port), RTrusted(_src, _, _port), RTrusted(_, _dest, _port), not RBL(_src, _dest, _port).
+RHigh(_src, _dest, _port) :- RIn(_src, _dest, _port), not RLow(_src, _dest, _port), not RMedium(_src, _dest, _port), RTrusted(_, _, _port), not RBL(_src, _dest, _).

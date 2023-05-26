@@ -1,0 +1,17 @@
+
+
+.decl samegen(x:number, y:number) 
+
+.decl node(x:number) 
+.input node()
+
+.decl parent(x:number, y:number) 
+.input parent()
+
+.decl query()
+.output query()
+
+samegen(x, x) :- node(x).
+samegen(x, y) :- parent(x, a), samegen(a, b), parent(y, b).
+
+query() :- samegen(16384,32767).

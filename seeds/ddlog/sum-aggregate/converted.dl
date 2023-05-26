@@ -1,0 +1,18 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TString = IString
+relation RBenchmark(_n:TString, _query:TString, _backend:TString, _trans:TString, _time:Tnumber, _mem:Tnumber)
+input relation RBenchmark_shadow(_n:TString, _query:TString, _backend:TString, _trans:TString, _time:Tnumber, _mem:Tnumber)
+RBenchmark(_n, _query, _backend, _trans, _time, _mem) :- RBenchmark_shadow(_n, _query, _backend, _trans, _time, _mem).
+relation RMetrics(_snapshot:TString, _numIS:Tnumber, _numEni:Tnumber)
+input relation RMetrics_shadow(_snapshot:TString, _numIS:Tnumber, _numEni:Tnumber)
+RMetrics(_snapshot, _numIS, _numEni) :- RMetrics_shadow(_snapshot, _numIS, _numEni).
+output relation RDOM(_n:Tnumber)
+output relation RSUM(_n:Tnumber)
+RDOM(_IS) :- RBenchmark(_s, _, string_intern("z3"), _, _, _), RMetrics(_s, _IS, _).
+RSUM(_V) :- Ragg(_V).
+relation Ragg(_V:Tnumber)
+Ragg(_V) :- tpl in RDOM(_IS), var _V = ((tpl), _IS).group_by(()).souffle_group_sum().
+

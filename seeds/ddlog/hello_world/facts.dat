@@ -1,0 +1,16 @@
+start;
+
+insert Word1("Hello,"      , CategoryOther),
+insert Word1("Goodbye,"    , CategoryOther),
+insert Word2("World"       , CategoryOther),
+insert Word2("Ruby Tuesday", CategoryOther);
+
+insert Word1("Help me,"      , CategoryStarWars),
+insert Word1("I am your"     , CategoryStarWars),
+insert Word2("Obi-Wan Kenobi", CategoryStarWars),
+insert Word2("father"        , CategoryStarWars);
+
+commit;
+
+echo Phrases:;
+dump Phrases;

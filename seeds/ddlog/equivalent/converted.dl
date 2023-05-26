@@ -1,0 +1,16 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation RA(_i:Tnumber)
+relation RB(_i:Tnumber)
+relation RX(_i:Tnumber)
+relation RY(_i:Tnumber)
+output relation RP(_j:Tnumber, _k:Tnumber)
+output relation RQ(_j:Tnumber, _k:Tnumber)
+RA((0)).
+RB((1)).
+RX((0)).
+RY((1)).
+RP(_x, _y) :- RB(_y), RA(_x).
+RQ(_a, _b) :- RX(_a), RY(_b), RA(_a).

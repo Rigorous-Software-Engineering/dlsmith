@@ -1,0 +1,7 @@
+type S(i32, i32)
+type Q(i32)
+
+
+
+rel S = {(0, 1), (1, 2)}
+rel Q(a) = S(a, b)

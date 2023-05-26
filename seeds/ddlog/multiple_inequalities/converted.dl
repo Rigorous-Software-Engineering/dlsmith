@@ -1,0 +1,8 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation RA(_x:Tnumber, _y:Tnumber)
+RA(_x, _y) :- var _x = FlatMap(range_vec((1), (5), 1)), var _y = FlatMap(range_vec((1), (10), 1)).
+output relation RB(_x:Tnumber, _y:Tnumber)
+RB(_x, _y) :- RA(_x, _y), ((1) <= _x), (_x <= (3)), ((1) <= _y), (_y <= (3)).

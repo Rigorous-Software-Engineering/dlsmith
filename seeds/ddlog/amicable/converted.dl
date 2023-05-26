@@ -1,0 +1,14 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation Rnum(_x:Tnumber)
+Rnum((1)).
+Rnum((_x + (1))) :- Rnum(_x), (_x < _l), Rlim(_l).
+relation Rlim(_n:Tnumber)
+input relation Rlim_shadow(_n:Tnumber)
+Rlim(_n) :- Rlim_shadow(_n).
+relation Rfactor(_x:Tnumber, _f:Tnumber)
+Rfactor(_x, _f) :- Rnum(_x), Rnum(_f), (_f <= (_x / (2))), ((_x % _f) == (0)).
+output relation Ramicable(_a:Tnumber, _b:Tnumber)
+Ramicable(_a, _b) :- Rfactor(_a, _b), Rfactor(_b, _a), (_a < _b).

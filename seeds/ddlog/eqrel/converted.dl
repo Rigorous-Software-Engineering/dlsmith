@@ -1,0 +1,56 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+output relation Rtwo_set(_x:Tnumber, _y:Tnumber)
+Rtwo_set((1), (2)).
+Rtwo_set((3), (1)).
+Rtwo_set((6), (10)).
+Rtwo_set((8), (10)).
+Rtwo_set((10), (8)).
+output relation Roverload_trans(_x:Tnumber, _y:Tnumber)
+Roverload_trans(_x, _z) :- Rtwo_set(_x, _z).
+Roverload_trans(_x, _z) :- Rtwo_set(_x, _y), Roverload_trans(_y, _z).
+output relation Runion_two_set(_x:Tnumber, _y:Tnumber)
+Runion_two_set(_x, _y) :- Rtwo_set(_x, _x), Rtwo_set(_y, _y).
+relation Runique1(_x:Tnumber)
+Runique1((2)).
+Runique1((3)).
+relation Runique2(_x:Tnumber)
+Runique2((1)).
+output relation Rmerge_unique(_x:Tnumber, _y:Tnumber)
+Rmerge_unique(_x, _y) :- Runique2(_x), Runique1(_y).
+output relation Rempty(_x:Tnumber, _y:Tnumber)
+output relation Rvacuum(_x:Tnumber, _y:Tnumber)
+Rvacuum(_x, _y) :- Rempty(_x, _y).
+typedef TPerson = IString
+relation Rhousemates(_x:TPerson, _y:TPerson)
+Rhousemates(string_intern("Michael"), string_intern("Pete")).
+typedef TString = IString
+output relation Rhouse_statement(_x:TPerson, _r:TString, _y:TPerson)
+Rhouse_statement(_x, _r, _y) :- Rhousemates(_x, _y), var _r = string_intern("lives with").
+relation Rt(_x:Tnumber)
+Rt((1)).
+Rt((2)).
+Rt((99)).
+output relation Rmono(_x:Tnumber, _y:Tnumber)
+Rmono(_x, _x) :- Rt(_x).
+relation Rgen(_x:Tnumber)
+Rgen((1)).
+Rgen((_x + (1))) :- Rgen(_x), not Rlim(_x).
+relation Rgen2(_x:Tnumber)
+Rgen2((1)).
+Rgen2((_x + (1))) :- Rgen2(_x), not Rlim(_x).
+relation Rlim(_x:Tnumber)
+Rlim((10)).
+output relation Rtransform_eqrel(_x:Tnumber, _y:Tnumber)
+Rtransform_eqrel(_x, _y) :- Rgen(_x), Rgen2(_y).
+output relation Rtransform_explicit_binrel(_x:Tnumber, _y:Tnumber)
+Rtransform_explicit_binrel(_x, _y) :- Rtransform_explicit_binrel(_y, _x).
+Rtransform_explicit_binrel(_x, _z) :- Rtransform_explicit_binrel(_x, _y), Rtransform_explicit_binrel(_y, _z).
+Rtransform_explicit_binrel(_x, _y) :- Rgen(_x), Rgen2(_y).
+relation Requivalent(_a:Tnumber, _b:Tnumber)
+Requivalent((1), (2)).
+Requivalent((1), (3)).
+output relation Rout(_a:Tnumber)
+Rout(_x) :- Requivalent(_x, (1)).

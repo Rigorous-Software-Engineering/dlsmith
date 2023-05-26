@@ -1,0 +1,8 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TM = Tnumber
+typedef TVar = Tnumber
+relation Rnumeric(_m:TM, _v:TVar)
+Rnumeric(_m, _v) :- var _m = (_v - (1)), (_v == (2)).

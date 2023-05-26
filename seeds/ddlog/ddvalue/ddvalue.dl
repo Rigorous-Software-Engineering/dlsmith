@@ -1,0 +1,9 @@
+
+input relation DDValTest1(x: string, y: usize, z: Vec<istring>)
+input relation DDValTest2(a: Map<usize, string>, b: (bool, Set<u128>))
+
+output relation DDValTestOutput(relname: string, ddval: Any)
+
+DDValTestOutput("DDValTest1", x.to_any()) :- DDValTest1[x].
+DDValTestOutput("DDValTest2", x.to_any()) :- DDValTest2[x].
+

@@ -1,0 +1,12 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TString = IString
+relation RinputData(_t:TString)
+output relation RoutputData(_t:TString)
+RoutputData(_x) :- RinputData(_x), re_match(string_intern("a.*"), _x).
+RinputData(string_intern("aaaa")).
+RinputData(string_intern("abba")).
+RinputData(string_intern("bcab")).
+RinputData(string_intern("bdab")).

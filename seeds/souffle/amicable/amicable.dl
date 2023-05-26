@@ -1,0 +1,17 @@
+ 
+.decl num(x : number) 
+num(1).
+num(x+1) :- num(x), x < l, lim(l).
+
+// Search limit
+.decl lim(n : number) 
+.input lim
+
+// Find factors of x excluding itself
+.decl factor(x : number, f : number) 
+factor(x, f) :- num(x), num(f), f <= x / 2, x % f = 0.
+
+// Find pairs of numbers whose factors add up to each other
+.decl amicable(a : number, b : number) 
+.output amicable()
+amicable(a, b) :- factor(a, b), factor(b, a), a < b.

@@ -1,0 +1,27 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+output relation Rexpr(_x:Tnumber)
+Rexpr((- pow32((2), ((31) as bit<32>)))).
+Rexpr((- pow32((2), ((31) as bit<32>)))).
+Rexpr((- pow32((2), ((31) as bit<32>)))).
+Rexpr((- pow32((2), ((31) as bit<32>)))).
+Rexpr((- pow32((2), ((31) as bit<32>)))).
+Rexpr((- pow32((2), ((31) as bit<32>)))).
+Rexpr((- pow32((2), ((31) as bit<32>)))).
+Rexpr((- pow32((2), ((31) as bit<32>)))).
+Rexpr((- (pow32((2), ((31) as bit<32>))))).
+Rexpr((- (pow32((2), ((31) as bit<32>))))).
+Rexpr((- (pow32((2), ((31) as bit<32>))))).
+Rexpr((- (pow32((2), ((31) as bit<32>))))).
+Rexpr((- (pow32((2), ((31) as bit<32>))))).
+Rexpr((- (pow32((2), ((31) as bit<32>))))).
+Rexpr((- (pow32((2), ((31) as bit<32>))))).
+Rexpr((- (pow32((2), ((31) as bit<32>))))).
+Rexpr((- (2147483648))).
+Rexpr((- (2147483648))).
+output relation Rneg_float(_x:Tfloat)
+Rneg_float((64'f3.0: Tfloat)).
+Rneg_float((- (64'f3.5: Tfloat))).
+Rneg_float((- _x)) :- Rneg_float(_x).

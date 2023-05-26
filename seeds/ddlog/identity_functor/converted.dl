@@ -1,0 +1,14 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation RF2F(_f:Tfloat)
+RF2F(itof((64'f3.0: Tfloat))).
+relation RI2I(_i:Tnumber)
+RI2I(to_number((3))).
+relation RS2S(_s:Tsymbol)
+RS2S(to_istring(string_intern("hi"))).
+relation RmkUnsigned(_u:Tunsigned)
+RmkUnsigned((3)).
+relation RU2U(_u:Tunsigned)
+RU2U(itou(_u)) :- RmkUnsigned(_u).

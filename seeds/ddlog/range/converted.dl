@@ -1,0 +1,19 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation Rrange_(_minimum:Tnumber, _maximum:Tnumber)
+input relation Rrange__shadow(_minimum:Tnumber, _maximum:Tnumber)
+Rrange_(_minimum, _maximum) :- Rrange__shadow(_minimum, _maximum).
+output relation Rinclusive_inclusive(_x:Tnumber)
+Rinclusive_inclusive(_x) :- Rrange_(_x, _).
+Rinclusive_inclusive((_x + (1))) :- Rinclusive_inclusive(_x), ((_x + (1)) <= _y), Rrange_(_, _y).
+output relation Rinclusive_exclusive(_x:Tnumber)
+Rinclusive_exclusive(_x) :- Rrange_(_x, _).
+Rinclusive_exclusive((_x + (1))) :- Rinclusive_exclusive(_x), ((_x + (1)) < _y), Rrange_(_, _y).
+output relation Rexclusive_inclusive(_x:Tnumber)
+Rexclusive_inclusive((_x + (1))) :- Rrange_(_x, _).
+Rexclusive_inclusive((_x + (1))) :- Rexclusive_inclusive(_x), ((_x + (1)) <= _y), Rrange_(_, _y).
+output relation Rexclusive_exclusive(_x:Tnumber)
+Rexclusive_exclusive((_x + (1))) :- Rrange_(_x, _).
+Rexclusive_exclusive((_x + (1))) :- Rexclusive_exclusive(_x), ((_x + (1)) < _y), Rrange_(_, _y).

@@ -1,0 +1,9 @@
+
+.type MOON <: symbol
+
+.decl N (n:MOON) 
+.output N ()
+
+N("0").
+N("0").
+N("1").

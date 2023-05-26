@@ -1,0 +1,5 @@
+.decl A(x:number)
+A(1).
+A(x+1) :- A(x), x< 1000.
+.printsize A
+.limitsize A(n=47)

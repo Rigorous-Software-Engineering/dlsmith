@@ -1,0 +1,11 @@
+.decl notEqrel(x:number,y:number)
+.decl isEqrel(x:number, y:number) eqrel
+
+notEqrel(x, y) :- isEqrel(x, y).
+isEqrel(x, y) :- notEqrel(x, y).
+
+isEqrel(0,1).
+
+notEqrel(1,2).
+
+.output isEqrel, notEqrel

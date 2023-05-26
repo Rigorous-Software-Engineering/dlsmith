@@ -1,0 +1,39 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TInteger = IString
+relation Rplus_mod(_x:TInteger, _y:TInteger, _r:TInteger)
+relation Rsucc(_a:TInteger, _b:TInteger)
+output relation Rmul(_x:TInteger, _y:TInteger, _r:TInteger)
+Rmul(string_intern("0"), string_intern("0"), string_intern("0")).
+Rmul(_n, _sm, _r) :- Rsucc(_m, _sm), Rmul(_m, _n, _mr), Rplus_mod(_n, _mr, _r).
+Rplus_mod(string_intern("0"), string_intern("0"), string_intern("0")).
+Rplus_mod(string_intern("0"), string_intern("1"), string_intern("1")).
+Rplus_mod(string_intern("1"), string_intern("0"), string_intern("1")).
+Rplus_mod(string_intern("1"), string_intern("1"), string_intern("2")).
+Rplus_mod(string_intern("0"), string_intern("2"), string_intern("2")).
+Rplus_mod(string_intern("2"), string_intern("0"), string_intern("2")).
+Rplus_mod(string_intern("2"), string_intern("1"), string_intern("0")).
+Rplus_mod(string_intern("1"), string_intern("2"), string_intern("0")).
+Rplus_mod(string_intern("2"), string_intern("2"), string_intern("1")).
+Rsucc(string_intern("0"), string_intern("1")).
+Rsucc(string_intern("1"), string_intern("2")).
+Rsucc(string_intern("2"), string_intern("3")).
+Rsucc(string_intern("3"), string_intern("4")).
+Rsucc(string_intern("4"), string_intern("5")).
+Rsucc(string_intern("5"), string_intern("6")).
+Rsucc(string_intern("6"), string_intern("7")).
+Rsucc(string_intern("7"), string_intern("8")).
+Rsucc(string_intern("8"), string_intern("9")).
+Rsucc(string_intern("9"), string_intern("10")).
+Rsucc(string_intern("10"), string_intern("11")).
+Rsucc(string_intern("11"), string_intern("12")).
+Rsucc(string_intern("12"), string_intern("13")).
+Rsucc(string_intern("13"), string_intern("14")).
+Rsucc(string_intern("14"), string_intern("15")).
+Rsucc(string_intern("15"), string_intern("16")).
+Rsucc(string_intern("16"), string_intern("17")).
+Rsucc(string_intern("17"), string_intern("18")).
+Rsucc(string_intern("18"), string_intern("19")).
+Rsucc(string_intern("19"), string_intern("20")).

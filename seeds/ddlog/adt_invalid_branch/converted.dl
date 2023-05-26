@@ -1,0 +1,10 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TAOO = Int{x: Tnumber}|Float{x_0: Tfloat}
+output relation RR(_x:TAOO)
+RR(Int{(0)}) :- (Int{(1)} != Int{(2)}).
+RR(Int{(1)}) :- (Int{(1)} != Int{(1)}).
+RR(Int{(2)}) :- (Int{(1)} == Int{(1)}).
+RR(Int{(3)}) :- (Int{(1)} != Float{(1)}).

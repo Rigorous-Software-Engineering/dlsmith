@@ -1,0 +1,28 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TNode = IString
+output relation Rp(_node1:TNode, _node2:TNode)
+output relation Rq(_node1:TNode, _node2:TNode)
+output relation Rpqs(_node1:TNode, _node2:TNode)
+output relation Rp1(_node1:TNode, _node2:TNode)
+output relation Rq1(_node1:TNode, _node2:TNode)
+output relation Rpqs1(_node1:TNode, _node2:TNode)
+Rp(string_intern("a"), string_intern("b")).
+Rp(string_intern("c"), string_intern("d")).
+Rq(string_intern("b"), string_intern("c")).
+Rq(string_intern("d"), string_intern("e")).
+Rpqs(_X, _Y) :- Rp(_X, _Y).
+Rpqs(_X, _Y) :- Rq(_X, _Y).
+Rpqs(_X, _Y) :- Rpqs(_X, _Z), Rp(_Z, _Y).
+Rpqs(_X, _Y) :- Rpqs(_X, _Z), Rq(_Z, _Y).
+Rpqs(_X, _Y) :- Rpqs1(_X, _Y).
+Rp1(string_intern("a1"), string_intern("b1")).
+Rp1(string_intern("c1"), string_intern("d1")).
+Rq1(string_intern("b1"), string_intern("c1")).
+Rq1(string_intern("d1"), string_intern("e1")).
+Rpqs1(_X, _Y) :- Rp1(_X, _Y).
+Rpqs1(_X, _Y) :- Rq1(_X, _Y).
+Rpqs1(_X, _Y) :- Rpqs1(_X, _Z), Rp1(_Z, _Y).
+Rpqs1(_X, _Y) :- Rpqs1(_X, _Z), Rq1(_Z, _Y).

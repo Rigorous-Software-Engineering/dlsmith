@@ -1,0 +1,10 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation RA(_x:Tnumber)
+RA((1)).
+relation RB(_x:Tnumber)
+RB((1)).
+relation RC(_x:Tnumber, _y:Tnumber)
+RC(_s, _i) :- RA(_s), RB(_i), ((_s & _i) == _i).

@@ -1,0 +1,22 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation RElement(_value:Tnumber)
+relation RTotalValue(_value:Tnumber)
+relation RAverage(_value:Tnumber)
+relation RNumberOfelements(_value:Tnumber)
+RElement((1)).
+RElement((2)).
+RElement((7)).
+RElement((25)).
+RElement((104)).
+RTotalValue(_value) :- Ragg(_value).
+relation Ragg(_value:Tnumber)
+Ragg(_value) :- tpl in RElement(_ElementValue), var _value = ((tpl), _ElementValue).group_by(()).souffle_group_sum().
+
+RNumberOfelements(_value) :- Ragg_0(_value).
+relation Ragg_0(_value:Tnumber)
+Ragg_0(_value) :- tpl_0 in RElement(_), var _value = ((tpl_0)).group_by(()).souffle_group_count32().
+
+RAverage((_f / _d)) :- RTotalValue(_f), RNumberOfelements(_d).

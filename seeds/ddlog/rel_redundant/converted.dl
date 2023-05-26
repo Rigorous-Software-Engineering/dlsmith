@@ -1,0 +1,50 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation RA(_x:Tnumber, _y:Tnumber)
+RA((0), (0)).
+RA((1), (0)).
+relation RB(_x:Tnumber, _y:Tnumber)
+RB(_z, _z) :- RA(_z, _z).
+output relation RC(_a:Tnumber, _b:Tnumber)
+RC(_a, _b) :- RB(_a, _b).
+typedef TR0 = Option<(Tnumber, Tnumber)>
+relation Rd(_x:Tnumber, _y:TR0)
+relation Re(_x:Tnumber, _y:TR0)
+output relation Rrecord0(_x:Tnumber, _y:Tnumber)
+Rd((0), Some{((0), (1))}).
+Rd((0), Some{((1), (0))}).
+Rd((1), Some{((1), (1))}).
+Re(_x0, Some{(_x, _x)}) :- Rd(_x0, Some{(_x, _x)}).
+Rrecord0(_x, _y) :- Re(_x, Some{(_y, _)}).
+typedef TR1 = Option<(Tnumber)>
+relation Rf(_x:Tnumber, _y:TR1)
+relation Rg(_x:Tnumber, _y:TR1)
+output relation Rrecord1(_x:Tnumber, _y:Tnumber)
+Rf((0), Some{((0))}).
+Rf((0), Some{((1))}).
+Rf((1), Some{((1))}).
+Rg(_x, Some{(_x)}) :- Rf(_x, Some{(_x)}).
+Rrecord1(_x, _y) :- Rg(_x, Some{(_y)}).
+relation RhnwC(_A:Tfloat)
+relation RanHG(_A:Tfloat)
+relation RfydL(_A:Tfloat)
+relation RHhJv(_A:Tfloat)
+relation RwvhB(_A:Tfloat)
+relation RlItv(_A:Tfloat)
+RfydL(_a) :- RhnwC(_a).
+RHhJv(_r) :- RhnwC(_r).
+RanHG(_dXn),
+	RlItv(_e) :- RwvhB(_dXn), RhnwC(_e), not RHhJv(_).
+relation RaX(_x:Tnumber)
+relation RbX(_x:Tnumber, _y:Tnumber)
+relation RcX(_x:Tnumber)
+relation RdX(_A:Tnumber, _B:Tnumber, _C:Tnumber)
+relation ReX(_A:Tnumber, _B:Tnumber)
+relation RfX(_A:Tnumber)
+relation RoutX(_A:Tnumber)
+RcX(_x) :- RaX(_x), var _y = (0).
+RdX(_q, _V, _O) :- RbX(_O, _V), RaX(_q).
+RfX(_x) :- RcX(_x).
+RoutX(_Y) :- RdX(_f, _Y, _f), RfX(_c), ReX(_a, _b).

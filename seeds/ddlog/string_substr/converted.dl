@@ -1,0 +1,17 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation RA(_x:Tsymbol)
+RA(string_intern("abc123")).
+RA(string_intern("bc123a")).
+RA(string_intern("c123ab")).
+RA(string_intern("123abc")).
+RA(string_intern("23abc1")).
+RA(string_intern("3abc12")).
+output relation RB(_x:Tsymbol)
+RB(substr(_x, (2), (2))) :- RA(_x).
+relation RNullary()
+RNullary().
+relation RC(_x:Tsymbol)
+RC(substr(string_intern("12"), (22), (12))) :- RNullary().

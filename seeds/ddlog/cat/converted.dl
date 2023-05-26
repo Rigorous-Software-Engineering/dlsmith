@@ -1,0 +1,10 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TAOO = IString
+relation RY(_a:TAOO, _b:TAOO)
+output relation RZ(_a:TAOO, _b:TAOO, _c:TAOO)
+RY(string_intern("a"), string_intern("b")).
+RY(string_intern("c"), string_intern("d")).
+RZ(_a, _b, cat(cat(_a, _b), _a)) :- RY(_a, _b).

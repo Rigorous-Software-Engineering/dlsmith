@@ -1,0 +1,60 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+output relation RIndexAggregateCount(_m:Tnumber, _n:Tnumber)
+relation RS(_m:Tnumber, _n:Tnumber)
+RS((1), (1)).
+RS((1), ((_n + (1)))) :- RS((1), _n), (_n < (1000)).
+RIndexAggregateCount((1), _x) :- Ragg(_x).
+relation Ragg(_x:Tnumber)
+Ragg(_x) :- tpl in RS((1), _), var _x = ((tpl)).group_by(()).souffle_group_count32().
+
+output relation RIndexAggregateMax(_m:Tnumber, _n:Tnumber)
+relation RA(_m:Tnumber, _n:Tnumber)
+RA((1), (1)).
+RA((1), ((_n + (1)))) :- RA((1), _n), (_n < (100)).
+RIndexAggregateMax((1), _x) :- Ragg_0(_x).
+relation Ragg_0(_x:Tnumber)
+Ragg_0(_x) :- tpl_0 in RA((1), _y), var _x = ((tpl_0), _y).group_by(()).souffle_group_max().
+
+relation RC(_a:Tfloat, _b:Tfloat)
+output relation RIndexAggregateMean(_m:Tfloat, _n:Tfloat)
+RC((1), (1)).
+RC((1), ((_n + (1)))) :- RC((1), _n), (_n < (100)).
+RIndexAggregateMean((1), _x) :- Ragg_1(_x).
+relation Ragg_1(_x:Tfloat)
+Ragg_1(_x) :- tpl_1 in RC((1), _y), var _x = ((tpl_1), _y).group_by(()).souffle_group_mean_d().
+
+relation RD(_m:Tnumber, _n:Tnumber)
+output relation RIndexAggregateMin(_m:Tnumber, _n:Tnumber)
+RD((1), (1)).
+RD((1), ((_n + (1)))) :- RD((1), _n), (_n < (100)).
+RIndexAggregateMin((1), _x) :- Ragg_2(_x).
+relation Ragg_2(_x:Tnumber)
+Ragg_2(_x) :- tpl_2 in RD((1), _y), var _x = ((tpl_2), _y).group_by(()).souffle_group_min().
+
+output relation RIndexAggregateSum(_m:Tnumber, _n:Tnumber)
+relation RF(_m:Tnumber, _n:Tnumber)
+RF((1), (1)).
+RF((1), ((_n + (1)))) :- RF((1), _n), (_n < (100)).
+RIndexAggregateSum((1), _x) :- Ragg_3(_x).
+relation Ragg_3(_x:Tnumber)
+Ragg_3(_x) :- tpl_3 in RF((1), _y), var _x = ((tpl_3), _y).group_by(()).souffle_group_sum().
+
+relation RG(_x:Tfloat)
+output relation RAggregateOverflow(_x:Tfloat)
+relation RH(_x:Tfloat, _y:Tfloat)
+output relation RIndexAggregateOverflow(_x:Tfloat, _y:Tfloat)
+RG((4)).
+RG((6)).
+RAggregateOverflow(_x) :- Ragg_4(_x).
+relation Ragg_4(_x:Tfloat)
+Ragg_4(_x) :- tpl_4 in RG(_y), var _x = ((tpl_4), _y).group_by(()).souffle_group_mean_d().
+
+RH((1), (4)).
+RH((1), (6)).
+RIndexAggregateOverflow((1), _x) :- Ragg_5(_x).
+relation Ragg_5(_x:Tfloat)
+Ragg_5(_x) :- tpl_5 in RH((1), _y), var _x = ((tpl_5), _y).group_by(()).souffle_group_mean_d().
+

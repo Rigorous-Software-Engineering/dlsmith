@@ -1,0 +1,19 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation RR1(_a:Tsymbol)
+RR1(string_intern("a")).
+RR1(string_intern("b")).
+relation RR2(_a:Tsymbol)
+RR2(string_intern("a")).
+RR2(string_intern("b")).
+output relation RR3(_a:Tsymbol, _b:Tnumber)
+output relation RR4(_a:Tsymbol, _b:Tnumber)
+RR3(_A1, _A2) :- RR1(_A1), Ragg(_A1, _CVAL1), (_CVAL1 > (1)), Ragg_0(_A2).
+relation Ragg(_A1:Tsymbol, _CVAL1:Tnumber)
+Ragg(_A1, _CVAL1) :- tpl in RR1(_A1), var _CVAL1 = ((tpl)).group_by((_A1)).souffle_group_count32().
+relation Ragg_0(_A2:Tnumber)
+Ragg_0(_A2) :- var _S = (1), var _A2 = ((), _S).group_by(()).souffle_group_sum().
+
+RR4(_A1, _A2) :- RR3(_A1, _A2).

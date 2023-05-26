@@ -1,0 +1,14 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TName = IString
+relation Rn(_x:TName)
+Rn(string_intern("Homer")).
+Rn(string_intern("Marge")).
+Rn(string_intern("Bart")).
+Rn(string_intern("Lisa")).
+Rn(string_intern("Maggie")).
+output relation Rr(_x:Tnumber)
+Rr((1)) :- Rn(_x), Rn(_y), (ord(_x) < ord(_y)).
+Rr((2)) :- Rn(_x), Rn(_y), (ord(_x) > ord(_y)).

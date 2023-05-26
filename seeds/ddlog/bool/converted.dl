@@ -1,0 +1,24 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation Ra(_x:Tnumber)
+Ra((0)).
+Ra((_x + (1))) :- Ra(_x), (_x < (999)).
+output relation Rb(_x:Tnumber)
+Rb((1)).
+Rb(_x) :- Rb(_x), (_x < (1000)), false.
+output relation Rc(_x:Tnumber)
+Rc((0)) :- true.
+Rc((1)) :- false.
+Rc((2)) :- true.
+Rc((3)) :- false.
+Rc((4)) :- true, false.
+Rc((5)) :- true, true, true, true, true, ((1) == (1)), true, true.
+Rc((6)) :- ((1) == (1)), ((2) == (2)), ((3) == (3)), false, ((4) == (4)).
+Rc((7)) :- ((1) == (1)), false, false, false, false, false, ((2) == (2)).
+output relation Rd(_x:Tnumber)
+Rd(_x) :- Ra(_x), false.
+Rd(_x) :- Rb(_x), true.
+Rd(_x) :- Rc(_x), true.
+output relation Re(_x:Tnumber, _y:Tsymbol, _z:Tnumber)

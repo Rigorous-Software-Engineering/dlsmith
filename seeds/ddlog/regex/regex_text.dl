@@ -1,0 +1,45 @@
+import regex
+
+relation RegexTestInput( re: string, text: string)
+
+
+RegexTestInput([|\d+|], "a111b222c").
+RegexTestInput([|\b\w{13}\b|], "I categorically deny having triskaidekaphobia.").
+RegexTestInput([|'([^']+)'\s+\((\d{4})\)|], "Not my favorite movie: 'Citizen Kane' (1941).").
+RegexTestInput("[", "foo").
+
+output relation RegexTestOutput( re: string, text: string, match_found: bool, match_found_checked: bool, first_match: Option<string>, all_matches: Vec<string>)
+
+RegexTestOutput(re,
+                text,
+                regex_match(regex(re), text),
+                regex_match(unwrap_or(try_regex(re), regex("")), text),
+                regex_first_match(regex(re), text),
+                regex_all_matches(regex(re), text.intern().ival())) :-
+    RegexTestInput(re, text).
+
+relation RegexSetTestInput( re: Vec<string>, text: string)
+
+RegexSetTestInput(
+    [ [|\w+|], [|\d+|], [|\pL+|], [|foo|], [|bar|], [|barfoo|], [|foobar|] ],
+    "foobar").
+
+RegexSetTestInput(
+    [ [|\w+|], [|\d+|], [|\pL+|], [|foo|], [|bar|], [|[|] /*invalid regex*/, [|foobar|] ],
+    "foobar").
+
+RegexSetTestInput(
+    [ [|\d+|], [|barfoo|] ],
+    "foobar").
+
+output relation RegexSetTestOutput( re: Vec<string>, text: string, match_found: bool)
+
+RegexSetTestOutput(re,
+                   text,
+                   regex_set_match(regex_set(re), text)) :-
+    RegexSetTestInput(re, text).
+
+RegexSetTestOutput(re,
+                   text,
+                   regex_set_match(try_regex_set(re).unwrap_or_default(), text)) :-
+    RegexSetTestInput(re, text).

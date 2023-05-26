@@ -1,0 +1,26 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef Tstate = IString
+typedef Tindex = Tnumber
+relation Rtransition(_from:Tstate, _on:Tsymbol, _to:Tstate)
+input relation Rtransition_shadow(_from:Tstate, _on:Tsymbol, _to:Tstate)
+Rtransition(_from, _on, _to) :- Rtransition_shadow(_from, _on, _to).
+relation Raccepting(_x:Tstate)
+input relation Raccepting_shadow(_x:Tstate)
+Raccepting(_x) :- Raccepting_shadow(_x).
+relation Rstart(_x:Tstate)
+input relation Rstart_shadow(_x:Tstate)
+Rstart(_x) :- Rstart_shadow(_x).
+relation Rtoparse(_x:Tsymbol)
+input relation Rtoparse_shadow(_x:Tsymbol)
+Rtoparse(_x) :- Rtoparse_shadow(_x).
+relation Rparse(_in:Tsymbol, _cur:Tstate, _i:Tindex)
+Rparse(_in, _cur, (0)) :- Rtoparse(_in), Rstart(_cur).
+Rparse(_in, _new, (_i + _j)) :- Rparse(_in, _old, _i), Rtransition(_old, _diff, _new), var _j = strlen(_diff), (_diff == substr(_in, _i, _j)).
+relation Raccept(_in:Tsymbol)
+Raccept(_in) :- Rparse(_in, _cur, strlen(_in)), Raccepting(_cur).
+relation Rout(_s:Tsymbol, _result:Tsymbol)
+Rout(_s, string_intern("Accept")) :- Raccept(_s).
+Rout(_s, string_intern("Reject")) :- Rtoparse(_s), not Raccept(_s).

@@ -1,0 +1,16 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TString = IString
+relation RstringTable(_t:TString)
+relation RsubstringTable(_t:TString)
+output relation RoutputData(_sub_str:TString, _str:TString)
+RoutputData(_x, _y) :- RsubstringTable(_x), RstringTable(_y), contains(_x, _y).
+RstringTable(string_intern("aaaa")).
+RstringTable(string_intern("abba")).
+RstringTable(string_intern("bcab")).
+RstringTable(string_intern("bdab")).
+RsubstringTable(string_intern("a")).
+RsubstringTable(string_intern("ab")).
+RsubstringTable(string_intern("cab")).

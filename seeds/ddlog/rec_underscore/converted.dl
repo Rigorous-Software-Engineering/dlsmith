@@ -1,0 +1,9 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TROO = Option<(Tnumber, Tsymbol)>
+relation RA(_x:TROO, _y:Tnumber)
+RA(Some{((1), string_intern("a"))}, (2)).
+output relation RB(_x:Tsymbol)
+RB(_x) :- RA(Some{(_, _x)}, _).

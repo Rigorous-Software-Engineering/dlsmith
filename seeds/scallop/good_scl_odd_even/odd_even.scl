@@ -1,0 +1,7 @@
+
+type even(i32)
+type odd(i32)
+
+rel even(0)
+rel odd(x + 1) = even(x)
+rel even(x + 1) = odd(x), x < 10

@@ -1,0 +1,24 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation RA(_x:Tnumber, _y:Tnumber)
+RA(_x, _y) :- RB(_x, _z), RC(_z, _y).
+RA(_a, _b) :- RB(_a, _c), RC(_c, _b).
+RA(_x, _y) :- RB(_x, _z), RC(_z, _y).
+RA(_x, _y) :- RC(_z, _y), RB(_x, _z).
+RA(_x, _y) :- RB(_x, _z), RC(_z, _y).
+RA(_x, _y) :- RB(_x, _z), RC(_z, _y).
+relation RB(_x:Tnumber, _y:Tnumber)
+RB((0), (0)).
+RB((0), (0)).
+RB((0), (0)).
+RB((1), (1)).
+RB((1), (2)).
+RB((2), (1)).
+RB((1), (0)) :- RB((0), _x), RC(_x, _y), RD(_y, _x).
+RB((1), (0)) :- RB(_z, _x), (_z == (0)), RC(_x, _y), RD(_y, _x).
+relation RC(_x:Tnumber, _y:Tnumber)
+RC((0), (0)).
+relation RD(_x:Tnumber, _y:Tnumber)
+RD((0), (0)).

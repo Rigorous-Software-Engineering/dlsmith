@@ -1,0 +1,40 @@
+
+.decl a(x:number) 
+
+
+a(x) :- b(y,y), b(z,x), !e(z), c(y), b(_,n), e(n).
+
+
+a(x) :- b(x,y), c(y), d(y,_).
+
+.decl b(x:number, y:number) 
+.input b()
+
+.decl c(x:number) 
+.input c()
+
+.decl d(x:number, y:number) 
+.input d()
+
+.decl e(x:number) 
+
+
+
+
+e(x) :- b(x,x), a = max Z : b(_,Z), a + 1 < 10.
+
+.decl f(x:number) 
+
+
+f(x) :- d(x,_), e(_).
+
+.decl good()
+
+
+good() :- a(x), e(x).
+
+.decl query(x:number) 
+.output query()
+
+
+query(x) :- (a(x) ; e(x) ; f(x)), good(), (a(y) ; f(y)).

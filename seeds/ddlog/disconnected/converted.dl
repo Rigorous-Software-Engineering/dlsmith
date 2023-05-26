@@ -1,0 +1,16 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TNode = IString
+relation REdge(_n:TNode, _m:TNode, _w:Tnumber)
+input relation REdge_shadow(_n:TNode, _m:TNode, _w:Tnumber)
+REdge(_n, _m, _w) :- REdge_shadow(_n, _m, _w).
+relation RConnected(_n:TNode, _m:TNode)
+RConnected(_n, _n) :- REdge(_n, _, _).
+RConnected(_n, _n) :- REdge(_, _n, _).
+RConnected(_n, _m) :- REdge(_n, _m, _).
+RConnected(_n, _m) :- REdge(_n, _z, _), RConnected(_z, _m).
+output relation RDisConnected(_n:TNode, _m:TNode)
+RDisConnected(_n, _m) :- REdge(_n, _, _), REdge(_, _m, _), not RConnected(_n, _m).
+RDisConnected(_n, _m) :- REdge(_n, _, _), REdge(_m, _, _), not RConnected(_n, _m).

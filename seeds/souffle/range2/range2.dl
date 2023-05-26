@@ -1,0 +1,55 @@
+.decl a_f(x: float) 
+.decl b_f(x: float)
+.decl c_f(x: float) 
+.decl d_f(x: float) 
+.decl e_f(x: float) 
+.decl f_f(x: float)
+
+
+a_f(x) :- x = range(5.0, 3.75, -0.5).
+b_f(x) :- x = range(5.0, 3.75).
+c_f(x) :- x = range(3.75, 5.0).
+d_f(x) :- x = range(5.0, 3.75, 0.0).
+e_f(x) :- x = range(3.75, 5.0, 0.0).
+f_f(x) :- x = range(5.0, 5.0).
+f_f(x) :- x = range(5.0, 5.0, -0.5).
+f_f(x) :- x = range(5.0, 5.0, 0.0).
+f_f(x) :- x = range(5.0, 5.0, 0.5).
+
+.decl a_i(x: number) 
+.decl b_i(x: number) 
+.decl c_i(x: number) 
+.decl d_i(x: number) 
+.decl e_i(x: number) 
+.decl f_i(x: number)
+
+a_i(x) :- x = range(5, 1, -1).
+b_i(x) :- x = range(5, 1).
+c_i(x) :- x = range(1, 5).
+d_i(x) :- x = range(5, 1, 0).
+e_i(x) :- x = range(1, 5, 0).
+f_i(x) :- x = range(1, 1, 0).
+f_i(x) :- x = range(5, 5).
+f_i(x) :- x = range(5, 5, -1).
+f_i(x) :- x = range(5, 5, 0).
+f_i(x) :- x = range(5, 5, 1).
+
+.decl a_u(x: unsigned)
+.decl b_u(x: unsigned) 
+.decl c_u(x: unsigned)
+.decl d_u(x: unsigned) 
+.decl e_u(x: unsigned) 
+.decl f_u(x: unsigned)
+
+a_u(x) :- x = range(1, 5, 2).
+b_u(x) :- x = range(5, 1).
+c_u(x) :- x = range(1, 5).
+d_u(x) :- x = range(5, 1, 0).
+e_u(x) :- x = range(1, 5, 0).
+f_u(x) :- x = range(5, 5).
+f_u(x) :- x = range(5, 5, 0).
+f_u(x) :- x = range(5, 5, 1).
+
+.decl a(x:number, y:number)
+
+a(x,y) :- x = range(1,3), y = range(1,3).

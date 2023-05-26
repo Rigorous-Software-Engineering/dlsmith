@@ -1,0 +1,15 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation Rgen(_x:Tnumber)
+Rgen((1)).
+Rgen((_x + (1))) :- Rgen(_x), not Rlim(_x).
+relation Rlim(_x:Tnumber)
+Rlim((100)).
+relation Rfactor(_num:Tnumber, _fc:Tnumber)
+Rfactor(_x, _fc) :- Rgen(_x), Rgen(_fc), ((_x % _fc) == (0)), (_fc != (1)).
+relation Rprod(_num:Tnumber)
+Rprod(_x) :- Rgen(_x), Rgen(_a), Rgen(_b), (_b != _x), (_a != _x), (_x == (_a * _b)).
+output relation Rp_factor(_x:Tnumber, _fc:Tnumber)
+Rp_factor(_x, _fc) :- Rfactor(_x, _fc), not Rprod(_fc).

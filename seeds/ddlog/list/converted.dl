@@ -1,0 +1,20 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TInteger = IString
+relation Rcheck(_x:TInteger, _y:TInteger)
+relation Rlist(_x:TInteger, _y:TInteger)
+relation Rsucc(_x:TInteger, _y:TInteger)
+output relation Rchecker(_x:TInteger)
+Rlist(string_intern("x"), string_intern("0")).
+Rlist(string_intern("y"), string_intern("0")).
+Rlist(string_intern("z"), string_intern("0")).
+Rlist(string_intern("a"), string_intern("1")).
+Rsucc(string_intern("x"), string_intern("y")).
+Rsucc(string_intern("y"), string_intern("z")).
+Rsucc(string_intern("z"), string_intern("a")).
+Rcheck(_a, string_intern("0")) :- Rlist(_a, string_intern("0")), Rsucc(_a, _s), Rcheck(_s, string_intern("0")).
+Rcheck(_a, string_intern("0")) :- Rlist(_a, string_intern("0")), Rsucc(_a, _s), Rcheck(_s, string_intern("1")).
+Rcheck(_a, string_intern("1")) :- Rlist(_a, string_intern("1")).
+Rchecker(_a) :- Rcheck(_a, string_intern("0")).

@@ -1,0 +1,7 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+output relation RA(_x:Tfloat)
+RA((64'f0.0: Tfloat)).
+RA((_x + (1))) :- RA(_x), (_x == (- (64'f0.0: Tfloat))).

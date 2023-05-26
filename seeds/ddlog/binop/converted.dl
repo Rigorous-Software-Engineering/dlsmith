@@ -1,0 +1,26 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef Tn = Tnumber
+output relation RA(_x:Tn, _y:Tn)
+output relation RB(_x:Tn, _y:Tn)
+output relation RC(_x:Tn, _y:Tn)
+output relation RD(_x:Tn, _y:Tn)
+output relation RE(_x:Tn, _y:Tn)
+output relation RF(_x:Tn, _y:Tn)
+output relation RS(_x:Tn, _y:Tn)
+output relation RN(_x:Tn)
+RN((0)).
+RN((1)).
+RN((2)).
+RN((3)).
+RN((4)).
+RN((5)).
+RS(_x, _y) :- RN(_x), RN(_y).
+RA(_a, _c) :- RS(_a, _c), (_a > _c).
+RB(_a, _c) :- RS(_a, _c), (_a < _c).
+RC(_a, _c) :- RS(_a, _c), (_a == _c).
+RD(_a, _c) :- RS(_a, _c), (_a != _c).
+RE(_a, _c) :- RS(_a, _c), (_a <= _c).
+RF(_a, _c) :- RS(_a, _c), (_a >= _c).

@@ -1,0 +1,14 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+output relation RW(_x:Tnumber, _y:Tnumber)
+relation RX(_n:Tnumber)
+RX((1)).
+RX((2)).
+RX((10)).
+RX((11)).
+RW(_c, _n) :- RX(_n), Ragg(_n, _c).
+relation Ragg(_n:Tnumber, _c:Tnumber)
+Ragg(_n, _c) :- tpl in RX(_m), (_m < _n), var _c = ((tpl)).group_by((_n)).souffle_group_count32().
+

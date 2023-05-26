@@ -1,0 +1,51 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+relation Ra_f(_x:Tfloat)
+relation Rb_f(_x:Tfloat)
+relation Rc_f(_x:Tfloat)
+relation Rd_f(_x:Tfloat)
+relation Re_f(_x:Tfloat)
+relation Rf_f(_x:Tfloat)
+Ra_f(_x) :- var _x = FlatMap(range_vec((64'f5.0: Tfloat), (64'f3.75: Tfloat), (- (64'f0.5: Tfloat)))).
+Rb_f(_x) :- var _x = FlatMap(range_vec((64'f5.0: Tfloat), (64'f3.75: Tfloat), 1)).
+Rc_f(_x) :- var _x = FlatMap(range_vec((64'f3.75: Tfloat), (64'f5.0: Tfloat), 1)).
+Rd_f(_x) :- var _x = FlatMap(range_vec((64'f5.0: Tfloat), (64'f3.75: Tfloat), (64'f0.0: Tfloat))).
+Re_f(_x) :- var _x = FlatMap(range_vec((64'f3.75: Tfloat), (64'f5.0: Tfloat), (64'f0.0: Tfloat))).
+Rf_f(_x) :- var _x = FlatMap(range_vec((64'f5.0: Tfloat), (64'f5.0: Tfloat), 1)).
+Rf_f(_x) :- var _x = FlatMap(range_vec((64'f5.0: Tfloat), (64'f5.0: Tfloat), (- (64'f0.5: Tfloat)))).
+Rf_f(_x) :- var _x = FlatMap(range_vec((64'f5.0: Tfloat), (64'f5.0: Tfloat), (64'f0.0: Tfloat))).
+Rf_f(_x) :- var _x = FlatMap(range_vec((64'f5.0: Tfloat), (64'f5.0: Tfloat), (64'f0.5: Tfloat))).
+relation Ra_i(_x:Tnumber)
+relation Rb_i(_x:Tnumber)
+relation Rc_i(_x:Tnumber)
+relation Rd_i(_x:Tnumber)
+relation Re_i(_x:Tnumber)
+relation Rf_i(_x:Tnumber)
+Ra_i(_x) :- var _x = FlatMap(range_vec((5), (1), (- (1)))).
+Rb_i(_x) :- var _x = FlatMap(range_vec((5), (1), 1)).
+Rc_i(_x) :- var _x = FlatMap(range_vec((1), (5), 1)).
+Rd_i(_x) :- var _x = FlatMap(range_vec((5), (1), (0))).
+Re_i(_x) :- var _x = FlatMap(range_vec((1), (5), (0))).
+Rf_i(_x) :- var _x = FlatMap(range_vec((1), (1), (0))).
+Rf_i(_x) :- var _x = FlatMap(range_vec((5), (5), 1)).
+Rf_i(_x) :- var _x = FlatMap(range_vec((5), (5), (- (1)))).
+Rf_i(_x) :- var _x = FlatMap(range_vec((5), (5), (0))).
+Rf_i(_x) :- var _x = FlatMap(range_vec((5), (5), (1))).
+relation Ra_u(_x:Tunsigned)
+relation Rb_u(_x:Tunsigned)
+relation Rc_u(_x:Tunsigned)
+relation Rd_u(_x:Tunsigned)
+relation Re_u(_x:Tunsigned)
+relation Rf_u(_x:Tunsigned)
+Ra_u(_x) :- var _x = FlatMap(range_vec((1), (5), (2))).
+Rb_u(_x) :- var _x = FlatMap(range_vec((5), (1), 1)).
+Rc_u(_x) :- var _x = FlatMap(range_vec((1), (5), 1)).
+Rd_u(_x) :- var _x = FlatMap(range_vec((5), (1), (0))).
+Re_u(_x) :- var _x = FlatMap(range_vec((1), (5), (0))).
+Rf_u(_x) :- var _x = FlatMap(range_vec((5), (5), 1)).
+Rf_u(_x) :- var _x = FlatMap(range_vec((5), (5), (0))).
+Rf_u(_x) :- var _x = FlatMap(range_vec((5), (5), (1))).
+relation Ra(_x:Tnumber, _y:Tnumber)
+Ra(_x, _y) :- var _x = FlatMap(range_vec((1), (3), 1)), var _y = FlatMap(range_vec((1), (3), 1)).

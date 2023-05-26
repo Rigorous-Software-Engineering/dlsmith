@@ -1,0 +1,22 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef Tvar = IString
+relation RAddressOf(_y:Tvar, _x:Tvar)
+input relation RAddressOf_shadow(_y:Tvar, _x:Tvar)
+RAddressOf(_y, _x) :- RAddressOf_shadow(_y, _x).
+relation RAssign(_y:Tvar, _x:Tvar)
+input relation RAssign_shadow(_y:Tvar, _x:Tvar)
+RAssign(_y, _x) :- RAssign_shadow(_y, _x).
+relation RLoad(_y:Tvar, _x:Tvar)
+input relation RLoad_shadow(_y:Tvar, _x:Tvar)
+RLoad(_y, _x) :- RLoad_shadow(_y, _x).
+relation RStore(_y:Tvar, _x:Tvar)
+input relation RStore_shadow(_y:Tvar, _x:Tvar)
+RStore(_y, _x) :- RStore_shadow(_y, _x).
+output relation RPointsTo(_y:Tvar, _x:Tvar)
+RPointsTo(_y, _x) :- RAddressOf(_y, _x).
+RPointsTo(_y, _x) :- RAssign(_y, _z), RPointsTo(_z, _x).
+RPointsTo(_y, _w) :- RLoad(_y, _x), RPointsTo(_x, _z), RPointsTo(_z, _w).
+RPointsTo(_z, _w) :- RStore(_y, _x), RPointsTo(_y, _z), RPointsTo(_x, _w).

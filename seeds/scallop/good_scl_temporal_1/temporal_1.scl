@@ -1,0 +1,42 @@
+
+
+
+type event(i32, String)
+type start_end(i32, i32)
+type target()
+type eventually(i32, i32, String)
+type ensure(i32, i32, String)
+type avoid(i32, i32, String)
+
+
+rel eventually(end, end, goal) = event(end, goal)
+rel eventually(start, end, goal) =
+  event(start, g) and
+  ~event(start, goal) and
+  event(next, _) and
+  eventually(next, end, goal) and
+  next == start + 1
+
+
+
+
+rel ensure(start, end, goal) = event(i, goal), event(start, goal), event(end, goal), start <= i, i <= end
+
+rel avoid(start, end, goal) = event(start, goal), event(end, goal), ~ensure(start, end, goal)
+
+
+rel event = {
+  (0, "V1"),
+  (1, "V1"),
+  (2, "V2"),
+  (3, "O"),
+  (4, "V3"),
+}
+
+rel start_end(0, 4)
+
+rel target() =
+  start_end(s, e),
+  avoid(s, e, "O"),
+  eventually(s, i, "V2"),
+  eventually(i, e, "V3")

@@ -1,0 +1,20 @@
+
+
+.decl Base(X:number) 
+.input Base()
+
+
+.decl A(X:number) 
+.decl B(X:number) 
+A(X) :- Base(X).
+A(X) :- B(X), Base(X).
+B(X) :- A(X), X != 0.
+
+
+.decl C(X:number) 
+C(X) :- Base(X), !B(X).
+
+
+.decl Query(X:number) 
+.output Query()
+Query(X) :- C(X), A(X).

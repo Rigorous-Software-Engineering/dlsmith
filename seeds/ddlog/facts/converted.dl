@@ -1,0 +1,9 @@
+import fp
+import intern
+import souffle_lib
+import souffle_types
+typedef TMOON = IString
+output relation RN(_n:TMOON)
+RN(string_intern("0")).
+RN(string_intern("0")).
+RN(string_intern("1")).
